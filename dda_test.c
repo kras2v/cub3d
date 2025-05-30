@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda_test.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/05/20 18:34:34 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/05/30 19:47:32 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,34 +47,25 @@ void	draw_player(t_data *data)
 {	
 	int	x;
 	int	y;
-	int	mid;
 
 	y = 0;
 	x = 0;
 	while (x < PLAYER_SIZE)
 	{
 		y = 0;
-		my_mlx_pixel_put(&(data->img), data->player.position.x + x, data->player.position.y + y, RED);
+		my_mlx_pixel_put(&(data->img), data->player.position.x + x, data->player.position.y + y, GREEN);
 		while (y < PLAYER_SIZE)
 		{
-			my_mlx_pixel_put(&(data->img), data->player.position.x + x, data->player.position.y + y, RED);
+			my_mlx_pixel_put(&(data->img), data->player.position.x + x, data->player.position.y + y, GREEN);
 			y++;
 		}
 		x++;
 	}
-	y = 0;
-	mid = data->player.position.x + PLAYER_SIZE / 3 + data->player.delta_position.x;
-	while (y < POINTER_SIZE)
-	{
-		x = 0;
-		my_mlx_pixel_put(&(data->img), mid, data->player.position.y + data->player.delta_position.y + y, BLUE);
-		while (x < PLAYER_SIZE / 3)
-		{
-			my_mlx_pixel_put(&(data->img), mid + x, data->player.position.y + data->player.delta_position.y + y, BLUE);
-			x++;
-		}
-		y++;
-	}
+	t_point new_point;
+	new_point.x = data->player.position.x + data->player.direction.x * 50;
+	new_point.y = data->player.position.y + data->player.direction.y * 50;
+	printf("player: (%d, %d) |  a: (%d, %d) |  dir: (%f, %f)\n", data->player.position.x, data->player.position.y, new_point.x, new_point.y, data->player.direction.x, data->player.direction.y);
+	draw_line(data, data->player.position, new_point);
 }
 
 
@@ -89,7 +80,7 @@ void	fill_square(t_data *data, int px, int py)
 		x = 0;
 		while (x < CELL_SIZE)
 		{
-			my_mlx_pixel_put(&(data->img), x + px, y + py, BLUE);
+			my_mlx_pixel_put(&(data->img), x + px, y + py, WHITE);
 			x++;
 		}
 		y++;
@@ -100,7 +91,6 @@ void	border_square(t_data *data, int px, int py)
 {
 	int	x;
 	int	y;
-	int	k;
 
 	y = 0;
 	while (y < CELL_SIZE)
@@ -111,17 +101,41 @@ void	border_square(t_data *data, int px, int py)
 			if ((y == 0 || y == CELL_SIZE - 1)
 			|| (x == 0 || x == CELL_SIZE - 1))
 			{
-				k = 0;
-				while (k < 1)
-				{
-					my_mlx_pixel_put(&(data->img), x + px, y + py + k, GRAY);
-					k++;
-				}
+				my_mlx_pixel_put(&(data->img), x + px, y + py, PURPLE);
 			}
 			x++;
 		}
 		y++;
 	}
+}
+
+float	degrees_to_radian(int degrees)
+{
+	return ((PI / 180.0) * (float)degrees);
+}
+
+void	ccw_rotate(t_fvector *point, int degrees)
+{
+	t_fvector	temp;
+	float	radian;
+
+	temp.x = point->x;
+	temp.y = point->y;
+	radian = degrees_to_radian(degrees);
+	point->x = (temp.x * cos(radian) - temp.y * sin(radian));
+	point->y = (temp.x * sin(radian) + temp.y * cos(radian));
+}
+
+void	cw_rotate(t_fvector *point, int degrees)
+{
+	t_fvector	temp;
+	float	radian;
+
+	temp.x = point->x;
+	temp.y = point->y;
+	radian = degrees_to_radian(degrees);
+	point->x = (temp.x * cos(radian) + temp.y * sin(radian));
+	point->y = (temp.x * -sin(radian) + temp.y * cos(radian));
 }
 
 void	draw_map(t_data *data)
@@ -174,19 +188,27 @@ int	move_player(int keycode, t_data *data)
 {
 	if (keycode == XK_W || keycode == XK_w)
 	{
-		data->player.position.y -= 25.0;
+		data->player.position.y -= PLAYER_SIZE;
 	}
 	else if (keycode == XK_S || keycode == XK_s)
 	{
-		data->player.position.y += 25.0;
+		data->player.position.y += PLAYER_SIZE;
 	}
 	else if (keycode == XK_D || keycode == XK_d)
 	{
-		data->player.position.x += 25.0;
+		data->player.position.x += PLAYER_SIZE;
 	}
 	else if (keycode == XK_A || keycode == XK_a )
 	{
-		data->player.position.x -= 25.0;
+		data->player.position.x -= PLAYER_SIZE;
+	}
+	else if (keycode == XK_Left)
+	{
+		ccw_rotate(&(data->player.direction), 1);
+	}
+	else if (keycode == XK_Right)
+	{
+		cw_rotate(&(data->player.direction), 1);
 	}
 	return (0);
 }
@@ -200,7 +222,8 @@ int	key_press_event(int keycode, t_data *data)
 	if ((keycode == XK_W || keycode == XK_w)
 		|| (keycode == XK_S || keycode == XK_s)
 		|| (keycode == XK_D || keycode == XK_d)
-		|| (keycode == XK_A || keycode == XK_a ))
+		|| (keycode == XK_A || keycode == XK_a )
+		|| (keycode == XK_Right || keycode == XK_Left))
 	{
 		move_player(keycode, data);
 		display(data);
@@ -216,12 +239,12 @@ void	init_hooks(t_data *data)
 
 void	init_player(t_data *data)
 {
-	data->player.position.x = WIDTH / 2;
-	data->player.position.y = HEIGHT / 2;
+	data->player.position.x = WIDTH / 2 + PLAYER_SIZE / 2;
+	data->player.position.y = HEIGHT / 2 + PLAYER_SIZE / 2;
 	data->player.rotation_angle = 0;
 	data->player.delta_position.x = 0;
 	data->player.delta_position.y = 0;
-	data->player.direction.x = -1;
+	data->player.direction.x = 1;
 	data->player.direction.y = 0;
 	data->player.plane.x = 0;
 	data->player.plane.y = 0.66;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/05/20 18:28:29 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/05/30 19:08:26 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 #include "colors.h"
 #include "events.h"
 
-#define PI 3.14159
-#define PLAYER_SIZE 30
-#define POINTER_SIZE 60
+#define PI 3.14159265358979323846
+#define PLAYER_SIZE 15
+#define POINTER_SIZE 20
 #define CELL_SIZE 30
 #define CELLS_COUNT 20
 
@@ -41,15 +41,21 @@ typedef struct	s_image {
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}				t_image;
+}			t_image;
 
 typedef struct	s_fvector {
 	float	x;
 	float	y;
 }	t_fvector;
 
+typedef struct s_point
+{
+	int	x;
+	int	y;
+} t_point;
+
 typedef struct	s_player {
-	t_fvector	position;
+	t_point		position;
 	t_fvector	direction;
 	t_fvector	plane;
 	t_fvector	center;
@@ -65,5 +71,9 @@ typedef struct s_data
 	t_image		img;
 	int			**map;
 } t_data;
+
+
+void	draw_line(t_data *data, t_point a, t_point b);
+void	my_mlx_pixel_put(t_image *data, int x, int y, int color);
 
 #endif

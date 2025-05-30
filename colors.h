@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   colors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/05/20 12:38:17 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:37:14 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COLORS_H
 # define COLORS_H
 
-enum e_colors {
+typedef enum e_colors {
 	RED = 0x00FF0000,
 	GREEN = 0x0000FF00,
 	BLUE  = 0x000000FF,

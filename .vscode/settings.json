@@ -4,7 +4,8 @@
 		"mlx.h": "c",
 		"random": "c",
 		"stdio.h": "c",
-		"colors.h": "c"
+		"colors.h": "c",
+		"dda.h": "c"
 	},
 	"C_Cpp.default.compilerPath": "/usr/bin/clang"
 }

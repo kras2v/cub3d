@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+         #
+#    By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 16:22:08 by kvalerii          #+#    #+#              #
-#    Updated: 2025/05/19 16:58:04 by kvalerii         ###   ########.fr        #
+#    Updated: 2025/05/30 17:23:15 by valeriia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 MINILIBX_DIR = minilibx_linux
 MINILIBX_LIB = mlx_Linux
-SRCS = dda_test.c
+SRCS =	dda_test.c \
+		tools.c
 OBJS = $(SRCS:%.c=%.o)
 NAME = dda
 
@@ -22,10 +23,10 @@ CC := cc
 all : $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -L$(MINILIBX_DIR) -l$(MINILIBX_LIB) -L/usr/lib -I$(MINILIBX_DIR) -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -L$(MINILIBX_DIR) -l$(MINILIBX_LIB) -L/usr/lib -I$(MINILIBX_DIR) -fPIE -lXext -lX11 -lm -lz -o $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -I/usr/include -Iminilibx_linux -O3 -c $< -o $@
+	$(CC) $(CFLAGS) -fPIE -I/usr/include -Iminilibx_linux -O3 -c $< -o $@
 
 clean :
 	rm -f $(OBJS)
