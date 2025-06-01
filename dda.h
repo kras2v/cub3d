@@ -6,7 +6,7 @@
 /*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/05/30 19:08:26 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/05/30 23:03:48 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include <stdlib.h>
 #include <X11/keysym.h>
 #include <math.h>
+
+#include <sys/time.h>
 
 #include "colors.h"
 #include "events.h"
@@ -72,8 +74,10 @@ typedef struct s_data
 	int			**map;
 } t_data;
 
-
-void	draw_line(t_data *data, t_point a, t_point b);
+int		check_wall(t_data *data, int px, int py);
+void	draw_line(t_data *data, t_point a, t_point b, t_colors color);
 void	my_mlx_pixel_put(t_image *data, int x, int y, int color);
+void	clear_display(t_data *data);
+void	dda(t_data *data);
 
 #endif

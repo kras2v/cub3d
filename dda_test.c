@@ -6,7 +6,7 @@
 /*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/05/30 19:47:32 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/06/01 19:57:08 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ void	draw_player(t_data *data)
 		x++;
 	}
 	t_point new_point;
-	new_point.x = data->player.position.x + data->player.direction.x * 50;
-	new_point.y = data->player.position.y + data->player.direction.y * 50;
+	new_point.x = data->player.position.x + data->player.direction.x * WIDTH;
+	new_point.y = data->player.position.y + data->player.direction.y * HEIGHT;
 	printf("player: (%d, %d) |  a: (%d, %d) |  dir: (%f, %f)\n", data->player.position.x, data->player.position.y, new_point.x, new_point.y, data->player.direction.x, data->player.direction.y);
-	draw_line(data, data->player.position, new_point);
+	draw_line(data, data->player.position, new_point, WHITE);
 }
 
 
@@ -109,33 +109,19 @@ void	border_square(t_data *data, int px, int py)
 	}
 }
 
-float	degrees_to_radian(int degrees)
+double	degrees_to_radian(int degrees)
 {
-	return ((PI / 180.0) * (float)degrees);
+	return ((PI / 180.0) * (double)degrees);
 }
 
-void	ccw_rotate(t_fvector *point, int degrees)
+void	rotate(t_fvector *point, double radian)
 {
 	t_fvector	temp;
-	float	radian;
 
 	temp.x = point->x;
 	temp.y = point->y;
-	radian = degrees_to_radian(degrees);
 	point->x = (temp.x * cos(radian) - temp.y * sin(radian));
 	point->y = (temp.x * sin(radian) + temp.y * cos(radian));
-}
-
-void	cw_rotate(t_fvector *point, int degrees)
-{
-	t_fvector	temp;
-	float	radian;
-
-	temp.x = point->x;
-	temp.y = point->y;
-	radian = degrees_to_radian(degrees);
-	point->x = (temp.x * cos(radian) + temp.y * sin(radian));
-	point->y = (temp.x * -sin(radian) + temp.y * cos(radian));
 }
 
 void	draw_map(t_data *data)
@@ -184,32 +170,111 @@ int	close_event(t_data *data)
 	return(0);
 }
 
+int	check_wall(t_data *data, int px, int py)
+{
+	printf("Check map(%d, %d) wall - %s\n", (px)/CELL_SIZE, (py)/CELL_SIZE, (data->map[(px)/CELL_SIZE][(py)/CELL_SIZE] >= 1) ? "Yes" : "No");
+	return (data->map[(px)/CELL_SIZE][(py)/CELL_SIZE] >= 1);
+}
+
 int	move_player(int keycode, t_data *data)
 {
+	static struct timeval	old_time;
+	static struct timeval	now_time;
+	double					frame_time;
+	double					move_speed;
+	double					rot_speed;
+
+	if (now_time.tv_sec == 0)
+	{
+		gettimeofday(&now_time, 0);
+	}
+	old_time.tv_sec = now_time.tv_sec;
+	old_time.tv_usec = now_time.tv_usec;
+	gettimeofday(&now_time, 0);
+	frame_time = (now_time.tv_sec - old_time.tv_sec) + (now_time.tv_usec - old_time.tv_usec) / 1000000.0;
+	if (frame_time > 0)
+		printf("FPS %f\n", 1.0 / frame_time);
+	clear_display(data);
+	dda(data);
+
+	move_speed = frame_time * 5.0;
+	rot_speed = frame_time * 3.0;
+
 	if (keycode == XK_W || keycode == XK_w)
 	{
-		data->player.position.y -= PLAYER_SIZE;
+		if (check_wall(data, data->player.position.x ))
+		data->player.position.x += data->player.direction.x * move_speed;
+		data->player.position.y += data->player.direction.y * move_speed;
 	}
 	else if (keycode == XK_S || keycode == XK_s)
 	{
-		data->player.position.y += PLAYER_SIZE;
+		data->player.position.x -= data->player.direction.x * move_speed;
+		data->player.position.y -= data->player.direction.y * move_speed;
 	}
 	else if (keycode == XK_D || keycode == XK_d)
 	{
-		data->player.position.x += PLAYER_SIZE;
+		data->player.position.x += data->player.direction.x * move_speed;
 	}
-	else if (keycode == XK_A || keycode == XK_a )
+	else if (keycode == XK_A || keycode == XK_a)
 	{
-		data->player.position.x -= PLAYER_SIZE;
+		data->player.position.x -= data->player.direction.x * move_speed;
 	}
 	else if (keycode == XK_Left)
 	{
-		ccw_rotate(&(data->player.direction), 1);
+		rotate(&(data->player.direction), rot_speed);
+		rotate(&(data->player.plane), rot_speed);
 	}
 	else if (keycode == XK_Right)
 	{
-		cw_rotate(&(data->player.direction), 1);
+		rotate(&(data->player.direction), -rot_speed);
+		rotate(&(data->player.plane), -rot_speed);
 	}
+	return (0);
+}
+
+int	move_player_2d(int keycode, t_data *data)
+{
+	int	yshift;
+	int	xshift;
+
+	xshift = 0;
+	yshift = 0;
+
+	if (keycode == XK_W || keycode == XK_w)
+	{
+		yshift -= PLAYER_SIZE;
+	}
+	else if (keycode == XK_S || keycode == XK_s)
+	{
+		yshift += PLAYER_SIZE;
+	}
+	else if (keycode == XK_D || keycode == XK_d)
+	{
+		xshift += PLAYER_SIZE;
+	}
+	else if (keycode == XK_A || keycode == XK_a )
+	{
+		xshift -= PLAYER_SIZE;
+	}
+	else if (keycode == XK_Left)
+	{
+		rotate(&(data->player.direction), 1);
+	}
+	else if (keycode == XK_Right)
+	{
+		rotate(&(data->player.direction), -1);
+	}
+	else
+	{
+		return (1);
+	}
+	if (check_wall(data, xshift + data->player.position.x, yshift + data->player.position.y))
+	{
+		printf("return\n");
+		return (1);
+	}
+	data->player.position.x += xshift;
+	data->player.position.y += yshift;
 	return (0);
 }
 
@@ -226,7 +291,7 @@ int	key_press_event(int keycode, t_data *data)
 		|| (keycode == XK_Right || keycode == XK_Left))
 	{
 		move_player(keycode, data);
-		display(data);
+		// display(data);
 	}
 	return (0);
 }
@@ -239,8 +304,8 @@ void	init_hooks(t_data *data)
 
 void	init_player(t_data *data)
 {
-	data->player.position.x = WIDTH / 2 + PLAYER_SIZE / 2;
-	data->player.position.y = HEIGHT / 2 + PLAYER_SIZE / 2;
+	data->player.position.x = WIDTH / 2;
+	data->player.position.y = HEIGHT / 2 - 100;
 	data->player.rotation_angle = 0;
 	data->player.delta_position.x = 0;
 	data->player.delta_position.y = 0;
@@ -343,8 +408,10 @@ int	main(void)
 	}
 	print_map(data->map);
 	init_player(data);
-	display(data);
-	draw_map(data);
+	dda(data);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
+	// display(data);
+	// draw_map(data);
 	init_hooks(data);
 	mlx_loop(data->mlx);
 	return (0);
