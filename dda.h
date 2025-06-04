@@ -6,7 +6,7 @@
 /*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/05/30 23:03:48 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/06/04 10:13:56 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_point
 } t_point;
 
 typedef struct	s_player {
-	t_point		position;
+	t_fvector	position;
 	t_fvector	direction;
 	t_fvector	plane;
 	t_fvector	center;
@@ -75,7 +75,7 @@ typedef struct s_data
 } t_data;
 
 int		check_wall(t_data *data, int px, int py);
-void	draw_line(t_data *data, t_point a, t_point b, t_colors color);
+void	draw_line(t_data *data, t_fvector a, t_fvector b, t_colors color, int second_window);
 void	my_mlx_pixel_put(t_image *data, int x, int y, int color);
 void	clear_display(t_data *data);
 void	dda(t_data *data);

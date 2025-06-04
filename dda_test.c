@@ -6,7 +6,7 @@
 /*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/01 19:57:08 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/06/04 10:57:10 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	clear_display(t_data *data)
 	while (y < HEIGHT)
 	{
 		x = 0;
-		while (x < WIDTH)
+		while (x < WIDTH * 2)
 		{
 			my_mlx_pixel_put(&(data->img), x, y, BLACK);
 			x++;
@@ -53,23 +53,23 @@ void	draw_player(t_data *data)
 	while (x < PLAYER_SIZE)
 	{
 		y = 0;
-		my_mlx_pixel_put(&(data->img), data->player.position.x + x, data->player.position.y + y, GREEN);
+		my_mlx_pixel_put(&(data->img), data->player.position.x + x + WIDTH - 1, data->player.position.y + y, GREEN);
 		while (y < PLAYER_SIZE)
 		{
-			my_mlx_pixel_put(&(data->img), data->player.position.x + x, data->player.position.y + y, GREEN);
+			my_mlx_pixel_put(&(data->img), data->player.position.x + x + WIDTH - 1, data->player.position.y + y, GREEN);
 			y++;
 		}
 		x++;
 	}
-	t_point new_point;
-	new_point.x = data->player.position.x + data->player.direction.x * WIDTH;
-	new_point.y = data->player.position.y + data->player.direction.y * HEIGHT;
-	printf("player: (%d, %d) |  a: (%d, %d) |  dir: (%f, %f)\n", data->player.position.x, data->player.position.y, new_point.x, new_point.y, data->player.direction.x, data->player.direction.y);
-	draw_line(data, data->player.position, new_point, WHITE);
+	t_fvector new_point;
+	new_point.x = data->player.position.x + PLAYER_SIZE / 2 + data->player.direction.x * (double)100;
+	new_point.y = data->player.position.y + PLAYER_SIZE / 2 + data->player.direction.y * (double)100;
+	printf("player: (%f, %f) |  a: (%f, %f) |  dir: (%f, %f)\n", data->player.position.x, data->player.position.y, new_point.x, new_point.y, data->player.direction.x, data->player.direction.y);
+	draw_line(data, data->player.position, new_point, WHITE, 1);
 }
 
 
-void	fill_square(t_data *data, int px, int py)
+void	fill_square(t_data *data, int px, int py, t_colors color)
 {
 	int	x;
 	int	y;
@@ -80,7 +80,7 @@ void	fill_square(t_data *data, int px, int py)
 		x = 0;
 		while (x < CELL_SIZE)
 		{
-			my_mlx_pixel_put(&(data->img), x + px, y + py, WHITE);
+			my_mlx_pixel_put(&(data->img), x + px, y + py, color);
 			x++;
 		}
 		y++;
@@ -137,9 +137,18 @@ void	draw_map(t_data *data)
 		{
 			if (data->map[px][py] >= 1)
 			{
-				fill_square(data, px * CELL_SIZE, py * CELL_SIZE);
+				t_colors color;
+				switch(data->map[px][py])
+				{
+					case 1:  color = RED;  break; //red
+					case 2:  color = GREEN;  break; //green
+					case 3:  color = BLUE;   break; //blue
+					case 4:  color = WHITE;  break; //white
+					default: color = YELLOW; break; //yellow
+				}
+				fill_square(data, px * CELL_SIZE + WIDTH - 1, py * CELL_SIZE, color);
 			}
-			border_square(data,  px * CELL_SIZE, py * CELL_SIZE);
+			border_square(data,  px * CELL_SIZE + WIDTH - 1, py * CELL_SIZE);
 			px++;
 		}
 		py++;
@@ -151,6 +160,7 @@ void	display(t_data *data)
 {
 	clear_display(data);
 	draw_map(data);
+	dda(data);
 	draw_player(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
 }
@@ -188,11 +198,10 @@ int	move_player(int keycode, t_data *data)
 	{
 		gettimeofday(&now_time, 0);
 	}
-	old_time.tv_sec = now_time.tv_sec;
-	old_time.tv_usec = now_time.tv_usec;
+	old_time = now_time;
 	gettimeofday(&now_time, 0);
 	frame_time = (now_time.tv_sec - old_time.tv_sec) + (now_time.tv_usec - old_time.tv_usec) / 1000000.0;
-	if (frame_time > 0)
+	if (frame_time > 0.1)
 		printf("FPS %f\n", 1.0 / frame_time);
 	clear_display(data);
 	dda(data);
@@ -202,7 +211,6 @@ int	move_player(int keycode, t_data *data)
 
 	if (keycode == XK_W || keycode == XK_w)
 	{
-		if (check_wall(data, data->player.position.x ))
 		data->player.position.x += data->player.direction.x * move_speed;
 		data->player.position.y += data->player.direction.y * move_speed;
 	}
@@ -258,11 +266,11 @@ int	move_player_2d(int keycode, t_data *data)
 	}
 	else if (keycode == XK_Left)
 	{
-		rotate(&(data->player.direction), 1);
+		rotate(&(data->player.direction), -PI/16);
 	}
 	else if (keycode == XK_Right)
 	{
-		rotate(&(data->player.direction), -1);
+		rotate(&(data->player.direction), PI/16);
 	}
 	else
 	{
@@ -290,8 +298,8 @@ int	key_press_event(int keycode, t_data *data)
 		|| (keycode == XK_A || keycode == XK_a )
 		|| (keycode == XK_Right || keycode == XK_Left))
 	{
-		move_player(keycode, data);
-		// display(data);
+		move_player_2d(keycode, data);
+		display(data);
 	}
 	return (0);
 }
@@ -305,7 +313,7 @@ void	init_hooks(t_data *data)
 void	init_player(t_data *data)
 {
 	data->player.position.x = WIDTH / 2;
-	data->player.position.y = HEIGHT / 2 - 100;
+	data->player.position.y = HEIGHT / 2;
 	data->player.rotation_angle = 0;
 	data->player.delta_position.x = 0;
 	data->player.delta_position.y = 0;
@@ -382,8 +390,8 @@ int	main(void)
 	if (data == NULL)
 		return (1);
 	data->mlx = mlx_init();
-	data->mlx_win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "cub3d");
-	data->img.ptr = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	data->mlx_win = mlx_new_window(data->mlx, WIDTH * 2, HEIGHT, "cub3d");
+	data->img.ptr = mlx_new_image(data->mlx, WIDTH * 2, HEIGHT);
 	data->img.addr = mlx_get_data_addr(data->img.ptr, &data->img.bits_per_pixel, &data->img.line_length, &data->img.endian);
 	data->map = malloc(sizeof(int *) * MAP_HEIGHT);
 	if (data->map == NULL)
@@ -406,12 +414,12 @@ int	main(void)
 		}
 		i++;
 	}
-	print_map(data->map);
+	// print_map(data->map);
 	init_player(data);
 	dda(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
-	// display(data);
-	// draw_map(data);
+	display(data);
+	draw_map(data);
 	init_hooks(data);
 	mlx_loop(data->mlx);
 	return (0);
