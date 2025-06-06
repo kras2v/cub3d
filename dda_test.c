@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda_test.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/04 10:57:10 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/06/06 21:26:32 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,20 @@ void	draw_player(t_data *data)
 	int	y;
 
 	y = 0;
-	x = 0;
-	while (x < PLAYER_SIZE)
+	while (y < PLAYER_SIZE)
 	{
-		y = 0;
+		x = 0;
 		my_mlx_pixel_put(&(data->img), data->player.position.x + x + WIDTH - 1, data->player.position.y + y, GREEN);
-		while (y < PLAYER_SIZE)
+		while (x < PLAYER_SIZE)
 		{
 			my_mlx_pixel_put(&(data->img), data->player.position.x + x + WIDTH - 1, data->player.position.y + y, GREEN);
-			y++;
+			x++;
 		}
-		x++;
+		y++;
 	}
 	t_fvector new_point;
-	new_point.x = data->player.position.x + PLAYER_SIZE / 2 + data->player.direction.x * (double)100;
-	new_point.y = data->player.position.y + PLAYER_SIZE / 2 + data->player.direction.y * (double)100;
+	new_point.x = data->player.position.x + PLAYER_SIZE / 2 + data->player.direction.x * 100.0;
+	new_point.y = data->player.position.y + PLAYER_SIZE / 2 + data->player.direction.y * 100.0;
 	printf("player: (%f, %f) |  a: (%f, %f) |  dir: (%f, %f)\n", data->player.position.x, data->player.position.y, new_point.x, new_point.y, data->player.direction.x, data->player.direction.y);
 	draw_line(data, data->player.position, new_point, WHITE, 1);
 }
@@ -135,16 +134,16 @@ void	draw_map(t_data *data)
 		px = 0;
 		while (px < MAP_WIDTH)
 		{
-			if (data->map[px][py] >= 1)
+			if (data->map[py][px] >= 1)
 			{
 				t_colors color;
-				switch(data->map[px][py])
+				switch(data->map[py][px])
 				{
 					case 1:  color = RED;  break; //red
 					case 2:  color = GREEN;  break; //green
 					case 3:  color = BLUE;   break; //blue
-					case 4:  color = WHITE;  break; //white
-					default: color = YELLOW; break; //yellow
+					case 4:  color = YELLOW;  break; //white
+					default: color = WHITE; break; //yellow
 				}
 				fill_square(data, px * CELL_SIZE + WIDTH - 1, py * CELL_SIZE, color);
 			}
@@ -183,7 +182,7 @@ int	close_event(t_data *data)
 int	check_wall(t_data *data, int px, int py)
 {
 	printf("Check map(%d, %d) wall - %s\n", (px)/CELL_SIZE, (py)/CELL_SIZE, (data->map[(px)/CELL_SIZE][(py)/CELL_SIZE] >= 1) ? "Yes" : "No");
-	return (data->map[(px)/CELL_SIZE][(py)/CELL_SIZE] >= 1);
+	return (data->map[(py)/CELL_SIZE][(px)/CELL_SIZE] >= 1);
 }
 
 int	move_player(int keycode, t_data *data)
@@ -206,8 +205,8 @@ int	move_player(int keycode, t_data *data)
 	clear_display(data);
 	dda(data);
 
-	move_speed = frame_time * 5.0;
-	rot_speed = frame_time * 3.0;
+	move_speed = frame_time * 25.0;
+	rot_speed = frame_time;
 
 	if (keycode == XK_W || keycode == XK_w)
 	{
@@ -221,21 +220,19 @@ int	move_player(int keycode, t_data *data)
 	}
 	else if (keycode == XK_D || keycode == XK_d)
 	{
-		data->player.position.x += data->player.direction.x * move_speed;
+		data->player.position.x -= data->player.direction.x * move_speed;
 	}
 	else if (keycode == XK_A || keycode == XK_a)
 	{
-		data->player.position.x -= data->player.direction.x * move_speed;
+		data->player.position.x += data->player.direction.x * move_speed;
 	}
 	else if (keycode == XK_Left)
 	{
-		rotate(&(data->player.direction), rot_speed);
-		rotate(&(data->player.plane), rot_speed);
+		rotate(&(data->player.direction), -rot_speed);
 	}
 	else if (keycode == XK_Right)
 	{
-		rotate(&(data->player.direction), -rot_speed);
-		rotate(&(data->player.plane), -rot_speed);
+		rotate(&(data->player.direction), rot_speed);
 	}
 	return (0);
 }
@@ -278,7 +275,6 @@ int	move_player_2d(int keycode, t_data *data)
 	}
 	if (check_wall(data, xshift + data->player.position.x, yshift + data->player.position.y))
 	{
-		printf("return\n");
 		return (1);
 	}
 	data->player.position.x += xshift;
@@ -298,7 +294,7 @@ int	key_press_event(int keycode, t_data *data)
 		|| (keycode == XK_A || keycode == XK_a )
 		|| (keycode == XK_Right || keycode == XK_Left))
 	{
-		move_player_2d(keycode, data);
+		move_player(keycode, data);
 		display(data);
 	}
 	return (0);
@@ -310,17 +306,60 @@ void	init_hooks(t_data *data)
 	mlx_hook(data->mlx_win, ON_KEYDOWN, KEY_PRESS_MASK, key_press_event, data);
 }
 
+void	init_player2(t_data *data)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < MAP_HEIGHT)
+	{
+		x = 0;
+		while (x < MAP_WIDTH)
+		{
+			if (data->map[y][x] == 'N')
+			{
+				data->player.direction.x = 0;
+				data->player.direction.y = -1;
+				data->player.position.x = x * CELL_SIZE + CELL_SIZE / 2;
+				data->player.position.y = y * CELL_SIZE + CELL_SIZE / 2;
+			}
+			else if (data->map[y][x] == 'E')
+			{
+				data->player.direction.x = 1;
+				data->player.direction.y = 0;
+				data->player.position.x = x * CELL_SIZE + CELL_SIZE / 2;
+				data->player.position.y = y * CELL_SIZE + CELL_SIZE / 2;
+			}
+			else if (data->map[y][x] == 'S')
+			{
+				data->player.direction.x = 0;
+				data->player.direction.y = 1;
+				data->player.position.x = x * CELL_SIZE + CELL_SIZE / 2;
+				data->player.position.y = y * CELL_SIZE + CELL_SIZE / 2;
+			}
+			else if (data->map[y][x] == 'W')
+			{
+				data->player.direction.x = -1;
+				data->player.direction.y = 0;
+				data->player.position.x = x * CELL_SIZE + CELL_SIZE / 2;
+				data->player.position.y = y * CELL_SIZE + CELL_SIZE / 2;
+			}
+			x++;
+		}
+		y++;
+	}
+	data->player.rotation_angle = 0;
+}
+
+
 void	init_player(t_data *data)
 {
 	data->player.position.x = WIDTH / 2;
 	data->player.position.y = HEIGHT / 2;
 	data->player.rotation_angle = 0;
-	data->player.delta_position.x = 0;
-	data->player.delta_position.y = 0;
 	data->player.direction.x = 1;
 	data->player.direction.y = 0;
-	data->player.plane.x = 0;
-	data->player.plane.y = 0.66;
 }
 
 void	free_map(int **map, int i)
@@ -373,7 +412,7 @@ int	main(void)
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,'N',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},

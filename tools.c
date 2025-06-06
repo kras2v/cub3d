@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:03:35 by valeriia          #+#    #+#             */
-/*   Updated: 2025/06/04 11:22:43 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/06/06 21:03:44 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	swap_points(t_fvector *a, t_fvector *b)
 
 void	dda(t_data *data)
 {
+	double	pos_pl_x;
+	double	pos_pl_y;
 	int		map_x;
 	int		map_y;
 	double	camera_x;
-	double	ray_dir_x;
-	double	ray_dir_y;
 	double	side_dist_x;
 	double	side_dist_y;
 	double	delta_dist_x;
@@ -45,53 +45,56 @@ void	dda(t_data *data)
 	int		line_height;
 
 	int		x;
+
 	x = 0;
 	side = 0;
 	double theta_player = atan2(data->player.direction.y, data->player.direction.x);
+	double cos_theta_ray;
+	double sin_theta_ray;
 	double theta_ray;
+	double FOV = PI / 5;
+
 	while (x < WIDTH)
 	{
 		hit = 0;
 		camera_x = 2.0 * (double)x / (double)WIDTH - 1.0;
-		theta_ray = theta_player + camera_x * PI / 6;
+		theta_ray = theta_player + camera_x * FOV;
 
-		map_x = (int)data->player.position.x / CELL_SIZE;
-		map_y = (int)data->player.position.y / CELL_SIZE;
+		pos_pl_x = (data->player.position.x / CELL_SIZE);
+		pos_pl_y = (data->player.position.y / CELL_SIZE);
 
-		double cos_theta_ray = sec(theta_ray);
-		if (ray_dir_x == 0)
-			delta_dist_x = 1e30;
-		else
-			delta_dist_x = fabs(1 / ray_dir_x);
+		map_x = (int)pos_pl_x;
+		map_y = (int)pos_pl_y;
 
-		if (ray_dir_y == 0)
-			delta_dist_y = 1e30;
-		else
-			delta_dist_y = fabs(1 / ray_dir_y);
+		cos_theta_ray = cos(theta_ray);
+		sin_theta_ray = sin(theta_ray);
 
-		if (ray_dir_x < 0)
+		delta_dist_x = fabs(1.0 / cos_theta_ray);
+		delta_dist_y = fabs(1.0 / sin_theta_ray);
+
+		if (cos_theta_ray < 0.0)
 		{
 			step_x = -1;
-			side_dist_x = (data->player.position.x - map_x) * delta_dist_x;
+			side_dist_x = (pos_pl_x - map_x) * delta_dist_x;
 		}
 		else
 		{
 			step_x = 1;
-			side_dist_x = (map_x + 1.0 - data->player.position.x) * delta_dist_x;
+			side_dist_x = (map_x + 1.0 - pos_pl_x) * delta_dist_x;
 		}
 
-		if (ray_dir_y < 0)
+		if (sin_theta_ray < 0.0)
 		{
 			step_y = -1;
-			side_dist_y = (data->player.position.y - map_y) * delta_dist_y;
+			side_dist_y = (pos_pl_y - map_y) * delta_dist_y;
 		}
 		else
 		{
 			step_y = 1;
-			side_dist_y = (1.0 + map_y - data->player.position.y) * delta_dist_y;
+			side_dist_y = (1.0 + map_y - pos_pl_y) * delta_dist_y;
 		}
 
-		while (hit == 0)
+		while (hit == 0.0)
 		{
 			if (side_dist_x < side_dist_y)
 			{
@@ -130,13 +133,13 @@ void	dda(t_data *data)
 		second.y = end;
 
 		t_colors color;
-		switch(data->map[map_x][map_y])
+		switch(data->map[map_y][map_x])
 		{
 			case 1:  color = RED;  break; //red
 			case 2:  color = GREEN;  break; //green
 			case 3:  color = BLUE;   break; //blue
-			case 4:  color = WHITE;  break; //white
-			default: color = YELLOW; break; //yellow
+			case 4:  color = YELLOW;  break; //white
+			default: color = WHITE; break; //yellow
 		}
 
 		if (side == 1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/04 10:13:56 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/06/06 20:45:36 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,7 @@ typedef struct s_point
 typedef struct	s_player {
 	t_fvector	position;
 	t_fvector	direction;
-	t_fvector	plane;
 	t_fvector	center;
-	t_fvector	delta_position;
 	float		rotation_angle;
 }	t_player;
 
