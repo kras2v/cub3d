@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:03:35 by valeriia          #+#    #+#             */
-/*   Updated: 2025/06/08 15:27:50 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/06/09 17:39:18 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	swap_points(t_fvector *a, t_fvector *b)
 	b->x = temp.x;
 	b->y = temp.y;
 }
-
 
 void	dda(t_data *data)
 {
@@ -52,7 +51,7 @@ void	dda(t_data *data)
 	double cos_theta_ray;
 	double sin_theta_ray;
 	double theta_ray;
-	double FOV = PI / 5;
+	double FOV = PI / 6;
 
 	while (x < WIDTH)
 	{
@@ -91,7 +90,7 @@ void	dda(t_data *data)
 		else
 		{
 			step_y = 1;
-			side_dist_y = (1.0 + map_y - pos_pl_y) * delta_dist_y;
+			side_dist_y = (map_y + 1.0 - pos_pl_y) * delta_dist_y;
 		}
 
 		while (hit == 0.0)
@@ -108,6 +107,7 @@ void	dda(t_data *data)
 				map_y += step_y;
 				side = 1;
 			}
+
 			if (data->map[map_y][map_x] > 0 && !is_direction(data->map[map_y][map_x]))
 				hit = 1;
 		}
@@ -115,15 +115,22 @@ void	dda(t_data *data)
 			perp_wall_dist = (side_dist_x - delta_dist_x);
 		else
 			perp_wall_dist = (side_dist_y - delta_dist_y);
-		
-		line_height = HEIGHT / perp_wall_dist;
+
+		t_fvector	new_point;
+		new_point.x = map_x * CELL_SIZE;
+		new_point.y = map_y * CELL_SIZE;
+		draw_line(data, data->player.position, new_point, 0xFFFFFF, 1);
+
+		double corrected_dist = perp_wall_dist * cos(theta_ray - theta_player);
+
+		line_height = HEIGHT / corrected_dist;
 		int start =  HEIGHT / 2 - line_height / 2;
 		if (start < 0)
 			start = 0;
 		int end =  HEIGHT / 2 + line_height / 2;
 		if (end >= HEIGHT)
 			end = HEIGHT - 1;
-		
+
 		t_fvector	first;
 		t_fvector	second;
 
@@ -143,7 +150,7 @@ void	dda(t_data *data)
 		}
 
 		if (side == 1)
-			color = color / 2;
+			color = color / 1.5;
 		draw_line(data, first, second, color, 0);
 		x++;
 	}

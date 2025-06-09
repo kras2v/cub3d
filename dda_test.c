@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda_test.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/08 15:46:20 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/06/09 18:28:10 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,15 @@ void	rotate(t_fvector *point, double radian)
 	point->y = (temp.x * sin(radian) + temp.y * cos(radian));
 }
 
+
+int	roundi(double numd)
+{
+	if (numd - (int)(numd) >= 0.5)
+		return ((int)ceil(numd));
+	return ((int)round(numd));
+}
+
+
 bool is_direction(int coordinate)
 {
 	return (coordinate == NORTH
@@ -131,9 +140,9 @@ bool is_direction(int coordinate)
 		|| coordinate == WEST);
 }
 
-int	get_cell_on_grid(int **map, int px, int py)
+int	get_cell_on_grid(int **map, double px, double py)
 {
-	return (map[py/CELL_SIZE][px/CELL_SIZE]);
+	return (map[(int)roundi(py / CELL_SIZE)][(int)roundi(px / CELL_SIZE)]);
 }
 
 void	draw_map(t_data *data)
@@ -192,10 +201,13 @@ int	close_event(t_data *data)
 	return(0);
 }
 
-int	check_wall(t_data *data, int px, int py)
+int	check_wall(t_data *data, double px, double py)
 {
-	return (get_cell_on_grid(data->map, px, py) > 0
-		&& !is_direction(data->map[py][px]));
+	printf("px: %f, py: %f, mapx: %d, mapy: %d, is wall: %d\n", px, py, roundi(px / CELL_SIZE), roundi(py / CELL_SIZE),
+		data->map[(int)roundi(py / CELL_SIZE)][(int)roundi(px / CELL_SIZE)] > 0);
+
+		return (get_cell_on_grid(data->map, px, py) > 0
+		&& !is_direction(data->map[(int)roundi(py / CELL_SIZE)][(int)roundi(px / CELL_SIZE)]));
 }
 
 int	move_player(int keycode, t_data *data)
@@ -217,12 +229,14 @@ int	move_player(int keycode, t_data *data)
 	frame_time = (now_time.tv_sec - old_time.tv_sec) + (now_time.tv_usec - old_time.tv_usec) / 1000000.0;
 	if (frame_time > 0.1)
 		printf("FPS %f\n", 1.0 / frame_time);
+	if (frame_time > 0.2)
+		frame_time = 0.2;
 	clear_display(data);
 	dda(data);
 
 	move_speed = frame_time * 25.0;
 	rot_speed = frame_time;
-	
+
 	shift_x = 0;
 	shift_y = 0;
 	if (keycode == XK_W || keycode == XK_w)
@@ -230,29 +244,28 @@ int	move_player(int keycode, t_data *data)
 		shift_x += data->player.direction.x * move_speed;
 		shift_y += data->player.direction.y * move_speed;
 	}
-	else if (keycode == XK_S || keycode == XK_s)
+	if (keycode == XK_S || keycode == XK_s)
 	{
 		shift_x -= data->player.direction.x * move_speed;
 		shift_y -= data->player.direction.y * move_speed;
 	}
-	else if (keycode == XK_D || keycode == XK_d)
+	if (keycode == XK_A || keycode == XK_a)
 	{
-		shift_x += data->player.direction.x * move_speed;
+		shift_x += data->player.direction.y * move_speed;
+		shift_y += -data->player.direction.x * move_speed;
 	}
-	else if (keycode == XK_A || keycode == XK_a)
+	if (keycode == XK_D || keycode == XK_d)
 	{
-		shift_x -= data->player.direction.x * move_speed;
+		shift_x += -data->player.direction.y * move_speed;
+		shift_y += data->player.direction.x * move_speed;
 	}
 
-	if (shift_x != 0 && shift_y != 0 && check_wall(data, shift_x, shift_y))
+	if (check_wall(data, (data->player.position.x + shift_x), (data->player.position.y + shift_y)) == false)
 	{
 		data->player.position.x += shift_x;
-	}
-	if (shift_x != 0 && check_wall(data, data->player.position.x, shift_y))
-	{
 		data->player.position.y += shift_y;
 	}
-	
+
 	if (keycode == XK_Left)
 	{
 		rotate(&(data->player.direction), -rot_speed);
@@ -282,9 +295,19 @@ int	key_press_event(int keycode, t_data *data)
 	return (0);
 }
 
+
+int print_coords(int button, int x, int y, void *param)
+{
+	(void)param;
+	(void)button;
+	printf("x: %d, y: %d\n", x - WIDTH, y);
+	return (0);
+}
+
 void	init_hooks(t_data *data)
 {
 	mlx_hook(data->mlx_win, ON_DESTROY, NO_EVENT_MASK, close_event, data);
+	mlx_mouse_hook(data->mlx_win, print_coords, data);
 	mlx_hook(data->mlx_win, ON_KEYDOWN, KEY_PRESS_MASK, key_press_event, data);
 }
 
@@ -303,29 +326,29 @@ void	init_player2(t_data *data)
 			{
 				data->player.direction.x = 0;
 				data->player.direction.y = -1;
-				data->player.position.x = x * CELL_SIZE + CELL_SIZE / 2;
-				data->player.position.y = y * CELL_SIZE + CELL_SIZE / 2;
+				data->player.position.x = x * CELL_SIZE + CELL_SIZE / 4;
+				data->player.position.y = y * CELL_SIZE + CELL_SIZE / 4;
 			}
 			else if (data->map[y][x] == 'E')
 			{
 				data->player.direction.x = 1;
 				data->player.direction.y = 0;
-				data->player.position.x = x * CELL_SIZE + CELL_SIZE / 2;
-				data->player.position.y = y * CELL_SIZE + CELL_SIZE / 2;
+				data->player.position.x = x * CELL_SIZE + CELL_SIZE / 4;
+				data->player.position.y = y * CELL_SIZE + CELL_SIZE / 4;
 			}
 			else if (data->map[y][x] == 'S')
 			{
 				data->player.direction.x = 0;
 				data->player.direction.y = 1;
-				data->player.position.x = x * CELL_SIZE + CELL_SIZE / 2;
-				data->player.position.y = y * CELL_SIZE + CELL_SIZE / 2;
+				data->player.position.x = x * CELL_SIZE + CELL_SIZE / 4;
+				data->player.position.y = y * CELL_SIZE + CELL_SIZE / 4;
 			}
 			else if (data->map[y][x] == 'W')
 			{
 				data->player.direction.x = -1;
 				data->player.direction.y = 0;
-				data->player.position.x = x * CELL_SIZE + CELL_SIZE / 2;
-				data->player.position.y = y * CELL_SIZE + CELL_SIZE / 2;
+				data->player.position.x = x * CELL_SIZE + CELL_SIZE / 4;
+				data->player.position.y = y * CELL_SIZE + CELL_SIZE / 4;
 			}
 			x++;
 		}

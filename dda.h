@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/08 15:24:09 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/06/09 17:32:10 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,11 @@ typedef struct s_data
 	void		*mlx_win;
 	t_player	player;
 	t_image		img;
+	long		time;
 	int			**map;
 } t_data;
 
-int		check_wall(t_data *data, int px, int py);
+int	check_wall(t_data *data, double px, double py);
 void	draw_line(t_data *data, t_fvector a, t_fvector b, t_colors color, int second_window);
 void	my_mlx_pixel_put(t_image *data, int x, int y, int color);
 void	clear_display(t_data *data);
@@ -85,7 +86,7 @@ void	dda(t_data *data);
 
 
 bool is_direction(int coordinate);
-int	get_cell_on_grid(int **map, int px, int py);
+int	get_cell_on_grid(int **map, double px, double py);
 
 
 #endif
