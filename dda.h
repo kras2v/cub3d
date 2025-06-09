@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/06 20:45:36 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/08 15:24:09 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <stdlib.h>
 #include <X11/keysym.h>
 #include <math.h>
+#include <stdbool.h>
 
 #include <sys/time.h>
 
@@ -30,6 +31,10 @@
 #define POINTER_SIZE 20
 #define CELL_SIZE 30
 #define CELLS_COUNT 20
+#define EAST 'E'
+#define WEST 'W'
+#define SOUTH 'S'
+#define NORTH 'N'
 
 #define WIDTH 720
 #define HEIGHT 720
@@ -77,5 +82,10 @@ void	draw_line(t_data *data, t_fvector a, t_fvector b, t_colors color, int secon
 void	my_mlx_pixel_put(t_image *data, int x, int y, int color);
 void	clear_display(t_data *data);
 void	dda(t_data *data);
+
+
+bool is_direction(int coordinate);
+int	get_cell_on_grid(int **map, int px, int py);
+
 
 #endif

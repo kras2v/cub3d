@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda_test.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/06 21:26:32 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/08 15:46:20 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,19 @@ void	rotate(t_fvector *point, double radian)
 	point->y = (temp.x * sin(radian) + temp.y * cos(radian));
 }
 
+bool is_direction(int coordinate)
+{
+	return (coordinate == NORTH
+		|| coordinate == EAST
+		|| coordinate == SOUTH
+		|| coordinate == WEST);
+}
+
+int	get_cell_on_grid(int **map, int px, int py)
+{
+	return (map[py/CELL_SIZE][px/CELL_SIZE]);
+}
+
 void	draw_map(t_data *data)
 {
 	int	px;
@@ -134,16 +147,16 @@ void	draw_map(t_data *data)
 		px = 0;
 		while (px < MAP_WIDTH)
 		{
-			if (data->map[py][px] >= 1)
+			if (data->map[py][px] >= 1 && !is_direction(data->map[py][px]))
 			{
 				t_colors color;
 				switch(data->map[py][px])
 				{
-					case 1:  color = RED;  break; //red
-					case 2:  color = GREEN;  break; //green
-					case 3:  color = BLUE;   break; //blue
-					case 4:  color = YELLOW;  break; //white
-					default: color = WHITE; break; //yellow
+					case 1:  color = RED;  break;
+					case 2:  color = GREEN;  break;
+					case 3:  color = BLUE;   break;
+					case 4:  color = YELLOW;  break;
+					default: color = WHITE; break;
 				}
 				fill_square(data, px * CELL_SIZE + WIDTH - 1, py * CELL_SIZE, color);
 			}
@@ -181,8 +194,8 @@ int	close_event(t_data *data)
 
 int	check_wall(t_data *data, int px, int py)
 {
-	printf("Check map(%d, %d) wall - %s\n", (px)/CELL_SIZE, (py)/CELL_SIZE, (data->map[(px)/CELL_SIZE][(py)/CELL_SIZE] >= 1) ? "Yes" : "No");
-	return (data->map[(py)/CELL_SIZE][(px)/CELL_SIZE] >= 1);
+	return (get_cell_on_grid(data->map, px, py) > 0
+		&& !is_direction(data->map[py][px]));
 }
 
 int	move_player(int keycode, t_data *data)
@@ -192,6 +205,8 @@ int	move_player(int keycode, t_data *data)
 	double					frame_time;
 	double					move_speed;
 	double					rot_speed;
+	double					shift_x;
+	double					shift_y;
 
 	if (now_time.tv_sec == 0)
 	{
@@ -207,26 +222,38 @@ int	move_player(int keycode, t_data *data)
 
 	move_speed = frame_time * 25.0;
 	rot_speed = frame_time;
-
+	
+	shift_x = 0;
+	shift_y = 0;
 	if (keycode == XK_W || keycode == XK_w)
 	{
-		data->player.position.x += data->player.direction.x * move_speed;
-		data->player.position.y += data->player.direction.y * move_speed;
+		shift_x += data->player.direction.x * move_speed;
+		shift_y += data->player.direction.y * move_speed;
 	}
 	else if (keycode == XK_S || keycode == XK_s)
 	{
-		data->player.position.x -= data->player.direction.x * move_speed;
-		data->player.position.y -= data->player.direction.y * move_speed;
+		shift_x -= data->player.direction.x * move_speed;
+		shift_y -= data->player.direction.y * move_speed;
 	}
 	else if (keycode == XK_D || keycode == XK_d)
 	{
-		data->player.position.x -= data->player.direction.x * move_speed;
+		shift_x += data->player.direction.x * move_speed;
 	}
 	else if (keycode == XK_A || keycode == XK_a)
 	{
-		data->player.position.x += data->player.direction.x * move_speed;
+		shift_x -= data->player.direction.x * move_speed;
 	}
-	else if (keycode == XK_Left)
+
+	if (shift_x != 0 && shift_y != 0 && check_wall(data, shift_x, shift_y))
+	{
+		data->player.position.x += shift_x;
+	}
+	if (shift_x != 0 && check_wall(data, data->player.position.x, shift_y))
+	{
+		data->player.position.y += shift_y;
+	}
+	
+	if (keycode == XK_Left)
 	{
 		rotate(&(data->player.direction), -rot_speed);
 	}
@@ -234,51 +261,6 @@ int	move_player(int keycode, t_data *data)
 	{
 		rotate(&(data->player.direction), rot_speed);
 	}
-	return (0);
-}
-
-int	move_player_2d(int keycode, t_data *data)
-{
-	int	yshift;
-	int	xshift;
-
-	xshift = 0;
-	yshift = 0;
-
-	if (keycode == XK_W || keycode == XK_w)
-	{
-		yshift -= PLAYER_SIZE;
-	}
-	else if (keycode == XK_S || keycode == XK_s)
-	{
-		yshift += PLAYER_SIZE;
-	}
-	else if (keycode == XK_D || keycode == XK_d)
-	{
-		xshift += PLAYER_SIZE;
-	}
-	else if (keycode == XK_A || keycode == XK_a )
-	{
-		xshift -= PLAYER_SIZE;
-	}
-	else if (keycode == XK_Left)
-	{
-		rotate(&(data->player.direction), -PI/16);
-	}
-	else if (keycode == XK_Right)
-	{
-		rotate(&(data->player.direction), PI/16);
-	}
-	else
-	{
-		return (1);
-	}
-	if (check_wall(data, xshift + data->player.position.x, yshift + data->player.position.y))
-	{
-		return (1);
-	}
-	data->player.position.x += xshift;
-	data->player.position.y += yshift;
 	return (0);
 }
 
@@ -454,7 +436,7 @@ int	main(void)
 		i++;
 	}
 	// print_map(data->map);
-	init_player(data);
+	init_player2(data);
 	dda(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
 	display(data);
