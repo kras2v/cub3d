@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/09 18:28:10 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/11 15:25:02 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,9 @@ void	draw_player(t_data *data)
 	t_fvector new_point;
 	new_point.x = data->player.position.x + PLAYER_SIZE / 2 + data->player.direction.x * 100.0;
 	new_point.y = data->player.position.y + PLAYER_SIZE / 2 + data->player.direction.y * 100.0;
-	printf("player: (%f, %f) |  a: (%f, %f) |  dir: (%f, %f)\n", data->player.position.x, data->player.position.y, new_point.x, new_point.y, data->player.direction.x, data->player.direction.y);
+	// printf("player: (%f, %f) |  a: (%f, %f) |  dir: (%f, %f)\n", data->player.position.x, data->player.position.y, new_point.x, new_point.y, data->player.direction.x, data->player.direction.y);
 	draw_line(data, data->player.position, new_point, WHITE, 1);
 }
-
 
 void	fill_square(t_data *data, int px, int py, t_colors color)
 {
@@ -108,11 +107,6 @@ void	border_square(t_data *data, int px, int py)
 	}
 }
 
-double	degrees_to_radian(int degrees)
-{
-	return ((PI / 180.0) * (double)degrees);
-}
-
 void	rotate(t_fvector *point, double radian)
 {
 	t_fvector	temp;
@@ -121,16 +115,8 @@ void	rotate(t_fvector *point, double radian)
 	temp.y = point->y;
 	point->x = (temp.x * cos(radian) - temp.y * sin(radian));
 	point->y = (temp.x * sin(radian) + temp.y * cos(radian));
+	printf("dir x: %f | y: %f\n", point->x, point->y);
 }
-
-
-int	roundi(double numd)
-{
-	if (numd - (int)(numd) >= 0.5)
-		return ((int)ceil(numd));
-	return ((int)round(numd));
-}
-
 
 bool is_direction(int coordinate)
 {
@@ -140,12 +126,39 @@ bool is_direction(int coordinate)
 		|| coordinate == WEST);
 }
 
-int	get_cell_on_grid(int **map, double px, double py)
+void	draw_map_fill(t_data *data)
 {
-	return (map[(int)roundi(py / CELL_SIZE)][(int)roundi(px / CELL_SIZE)]);
+	int	px;
+	int	py;
+
+	py = 0;
+	while (py < MAP_HEIGHT)
+	{
+		px = 0;
+		while (px < MAP_WIDTH)
+		{
+			if (data->map[py][px] >= 1 && !is_direction(data->map[py][px]))
+			{
+				t_colors color;
+				switch(data->map[py][px])
+				{
+					case 1:  color = RED;  break;
+					case 2:  color = GREEN;  break;
+					case 3:  color = BLUE;   break;
+					case 4:  color = YELLOW;  break;
+					default: color = WHITE; break;
+				}
+				fill_square(data, px * CELL_SIZE + WIDTH - 1, py * CELL_SIZE, color);
+				border_square(data,  px * CELL_SIZE + WIDTH - 1, py * CELL_SIZE);
+			}
+			px++;
+		}
+		py++;
+	}
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
 }
 
-void	draw_map(t_data *data)
+void	draw_map_border(t_data *data)
 {
 	int	px;
 	int	py;
@@ -180,8 +193,9 @@ void	draw_map(t_data *data)
 void	display(t_data *data)
 {
 	clear_display(data);
-	draw_map(data);
+	draw_map_border(data);
 	dda(data);
+	draw_map_fill(data);
 	draw_player(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
 }
@@ -201,14 +215,88 @@ int	close_event(t_data *data)
 	return(0);
 }
 
-int	check_wall(t_data *data, double px, double py)
+int	check_wall(t_move move, t_data *data, double px, double py)
 {
-	printf("px: %f, py: %f, mapx: %d, mapy: %d, is wall: %d\n", px, py, roundi(px / CELL_SIZE), roundi(py / CELL_SIZE),
-		data->map[(int)roundi(py / CELL_SIZE)][(int)roundi(px / CELL_SIZE)] > 0);
+	int	direction_cell;
+	int	cell_left;
+	int	cell_right;
 
-		return (get_cell_on_grid(data->map, px, py) > 0
-		&& !is_direction(data->map[(int)roundi(py / CELL_SIZE)][(int)roundi(px / CELL_SIZE)]));
+	direction_cell = 0;
+	if (move == UP || move == DOWN)
+	{
+		if (move == UP)
+			direction_cell = (int)(py / CELL_SIZE);
+		else
+			direction_cell = (int)((py + PLAYER_SIZE) / CELL_SIZE);
+
+		cell_left = (int)(px / CELL_SIZE);
+		cell_right = (int)((px + PLAYER_SIZE) / CELL_SIZE);
+
+		printf("px: %f, py: %f, mapx: %d, mapy: %d, is wall: %d\n", px, py + PLAYER_SIZE, cell_right, direction_cell, data->map[direction_cell][cell_right] > 0);
+
+		if (px >= cell_left * CELL_SIZE && px <= (cell_left + 1) * CELL_SIZE
+		&& (px + PLAYER_SIZE) >= cell_left * CELL_SIZE && (px + PLAYER_SIZE) <= (cell_left + 1) * CELL_SIZE)
+		{
+			return (data->map[direction_cell][cell_left] > 0
+				&& !is_direction(data->map[direction_cell][cell_left]));
+		}
+		else
+		{
+			return ((data->map[direction_cell][cell_left] > 0
+				&& !is_direction(data->map[direction_cell][cell_left]))
+				|| (data->map[direction_cell][cell_right] > 0
+				&& !is_direction(data->map[direction_cell][cell_right])));
+		}
+	}
+	if (move == RIGHT || move == LEFT)
+	{
+		if (move == RIGHT)
+			direction_cell = (int)((px + PLAYER_SIZE) / CELL_SIZE);
+		else
+			direction_cell = (int)(px / CELL_SIZE);
+
+		cell_left = (int)(py / CELL_SIZE);
+		cell_right = (int)((py + PLAYER_SIZE) / CELL_SIZE);
+
+		if (py >= cell_left * CELL_SIZE && py <= (cell_left + 1) * CELL_SIZE
+		&& (py + PLAYER_SIZE) >= cell_left * CELL_SIZE && (py + PLAYER_SIZE) <= (cell_left + 1) * CELL_SIZE)
+		{
+			return (data->map[cell_left][direction_cell] > 0
+				&& !is_direction(data->map[cell_left][direction_cell]));
+		}
+		else
+		{
+			return ((data->map[cell_left][direction_cell] > 0
+				&& !is_direction(data->map[cell_left][direction_cell]))
+				|| (data->map[cell_right][direction_cell] > 0
+				&& !is_direction(data->map[cell_right][direction_cell])));
+		}
+	}
+	return (0);
 }
+
+// bool	is_corner_crossing_border(t_move move, t_data *data, int px, int py)
+// {
+// 	int	shift_x;
+// 	int	shift_y;
+
+// 	shift_y = 0;
+// 	while (shift_y < PLAYER_SIZE)
+// 	{
+// 		shift_x = 0;
+// 		while (shift_x < PLAYER_SIZE)
+// 		{
+// 			if (move == UP && shift_y == 0 && (shift_x == 0 || shift_x == PLAYER_SIZE - 1))
+// 			{
+// 				if (check_wall(move, data, px + shift_x, py + shift_y) > 0)
+// 					return (true);
+// 			}
+// 			shift_x += PLAYER_SIZE;
+// 		}
+// 		shift_y += PLAYER_SIZE;
+// 	}
+// 	return (false);
+// }
 
 int	move_player(int keycode, t_data *data)
 {
@@ -219,6 +307,7 @@ int	move_player(int keycode, t_data *data)
 	double					rot_speed;
 	double					shift_x;
 	double					shift_y;
+	bool					is_wall;
 
 	if (now_time.tv_sec == 0)
 	{
@@ -239,28 +328,45 @@ int	move_player(int keycode, t_data *data)
 
 	shift_x = 0;
 	shift_y = 0;
+	is_wall = false;
 	if (keycode == XK_W || keycode == XK_w)
 	{
 		shift_x += data->player.direction.x * move_speed;
 		shift_y += data->player.direction.y * move_speed;
+		if (data->player.direction.y < 0)
+			is_wall = check_wall(UP, data, data->player.position.x + shift_x, data->player.position.y + shift_y);
+		else
+			is_wall = check_wall(DOWN, data, data->player.position.x + shift_x, data->player.position.y + shift_y);
 	}
 	if (keycode == XK_S || keycode == XK_s)
 	{
 		shift_x -= data->player.direction.x * move_speed;
 		shift_y -= data->player.direction.y * move_speed;
+			if (data->player.direction.y > 0)
+			is_wall = check_wall(UP, data, data->player.position.x + shift_x, data->player.position.y + shift_y);
+		else
+			is_wall = check_wall(DOWN, data, data->player.position.x + shift_x, data->player.position.y + shift_y);
 	}
 	if (keycode == XK_A || keycode == XK_a)
 	{
 		shift_x += data->player.direction.y * move_speed;
 		shift_y += -data->player.direction.x * move_speed;
+		if (data->player.direction.y < 0)
+			is_wall = check_wall(LEFT, data, data->player.position.x + shift_x, data->player.position.y + shift_y);
+		else
+			is_wall = check_wall(RIGHT, data, data->player.position.x + shift_x, data->player.position.y + shift_y);
 	}
 	if (keycode == XK_D || keycode == XK_d)
 	{
 		shift_x += -data->player.direction.y * move_speed;
 		shift_y += data->player.direction.x * move_speed;
+		if (data->player.direction.y > 0)
+			is_wall = check_wall(LEFT, data, data->player.position.x + shift_x, data->player.position.y + shift_y);
+		else
+			is_wall = check_wall(RIGHT, data, data->player.position.x + shift_x, data->player.position.y + shift_y);
 	}
 
-	if (check_wall(data, (data->player.position.x + shift_x), (data->player.position.y + shift_y)) == false)
+	if (is_wall == false)
 	{
 		data->player.position.x += shift_x;
 		data->player.position.y += shift_y;
@@ -296,11 +402,12 @@ int	key_press_event(int keycode, t_data *data)
 }
 
 
-int print_coords(int button, int x, int y, void *param)
+int print_coords(int button, int x, int y, t_data *param)
 {
 	(void)param;
 	(void)button;
-	printf("x: %d, y: %d\n", x - WIDTH, y);
+	printf("px: %d | py: %d | map_x: %d | map_y: %d | is_wall: %d|\n", x - WIDTH, y, ( x - WIDTH) / CELL_SIZE, y / CELL_SIZE, param->map[y / CELL_SIZE][(x - WIDTH) / CELL_SIZE] > 0
+		&& !is_direction(param->map[y / CELL_SIZE][(x - WIDTH) / CELL_SIZE]));
 	return (0);
 }
 
@@ -463,7 +570,6 @@ int	main(void)
 	dda(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
 	display(data);
-	draw_map(data);
 	init_hooks(data);
 	mlx_loop(data->mlx);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/09 17:32:10 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/11 14:47:49 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,19 @@
 
 #define PI 3.14159265358979323846
 #define PLAYER_SIZE 15
-#define POINTER_SIZE 20
 #define CELL_SIZE 30
-#define CELLS_COUNT 20
 #define EAST 'E'
 #define WEST 'W'
 #define SOUTH 'S'
 #define NORTH 'N'
+
+typedef enum e_move
+{
+	UP,
+	LEFT,
+	DOWN,
+	RIGHT,
+}	t_move;
 
 #define WIDTH 720
 #define HEIGHT 720
@@ -78,7 +84,6 @@ typedef struct s_data
 	int			**map;
 } t_data;
 
-int	check_wall(t_data *data, double px, double py);
 void	draw_line(t_data *data, t_fvector a, t_fvector b, t_colors color, int second_window);
 void	my_mlx_pixel_put(t_image *data, int x, int y, int color);
 void	clear_display(t_data *data);
