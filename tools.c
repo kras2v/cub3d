@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:03:35 by valeriia          #+#    #+#             */
-/*   Updated: 2025/06/09 17:39:18 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/12 12:19:35 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	swap_points(t_fvector *a, t_fvector *b)
 	b->x = temp.x;
 	b->y = temp.y;
 }
+
 
 void	dda(t_data *data)
 {
@@ -51,7 +52,7 @@ void	dda(t_data *data)
 	double cos_theta_ray;
 	double sin_theta_ray;
 	double theta_ray;
-	double FOV = PI / 6;
+	double FOV = PI / 5;
 
 	while (x < WIDTH)
 	{
@@ -90,7 +91,7 @@ void	dda(t_data *data)
 		else
 		{
 			step_y = 1;
-			side_dist_y = (map_y + 1.0 - pos_pl_y) * delta_dist_y;
+			side_dist_y = (1.0 + map_y - pos_pl_y) * delta_dist_y;
 		}
 
 		while (hit == 0.0)
@@ -107,7 +108,6 @@ void	dda(t_data *data)
 				map_y += step_y;
 				side = 1;
 			}
-
 			if (data->map[map_y][map_x] > 0 && !is_direction(data->map[map_y][map_x]))
 				hit = 1;
 		}
@@ -121,7 +121,7 @@ void	dda(t_data *data)
 		new_point.y = map_y * CELL_SIZE;
 		draw_line(data, data->player.position, new_point, 0xFFFFFF, 1);
 
-		double corrected_dist = perp_wall_dist * cos(theta_ray - theta_player);
+		double corrected_dist = perp_wall_dist /* * cos(theta_ray - theta_player) */;
 
 		line_height = HEIGHT / corrected_dist;
 		int start =  HEIGHT / 2 - line_height / 2;
@@ -130,7 +130,7 @@ void	dda(t_data *data)
 		int end =  HEIGHT / 2 + line_height / 2;
 		if (end >= HEIGHT)
 			end = HEIGHT - 1;
-
+		
 		t_fvector	first;
 		t_fvector	second;
 
@@ -242,15 +242,6 @@ void	draw_vertical(t_data *data, t_fvector a, t_fvector b, t_colors color, int s
 			y++;
 		}
 	}
-}
-
-t_fvector sum_points(t_fvector a, t_fvector b)
-{
-	t_fvector	sum;
-
-	sum.x = a.x + b.x;
-	sum.y = a.y + b.y;
-	return (sum);
 }
 
 void	draw_line(t_data *data, t_fvector a, t_fvector b, t_colors color, int second_window)
