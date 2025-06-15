@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:03:35 by valeriia          #+#    #+#             */
-/*   Updated: 2025/06/12 12:19:35 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/06/15 17:20:08 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,13 @@ void	dda(t_data *data)
 
 		if (side == 1)
 			color = color / 1.5;
-		draw_line(data, first, second, color, 0);
+		// draw_line(data, first, second, color, 0);
+		while (first.y < second.y)
+		{
+			put_image(data, first.x, first.y);
+			first.y += data->texture->height;
+			printf("%f - %f\n", first.y, second.y);
+		}
 		x++;
 	}
 }
@@ -256,4 +262,10 @@ void	draw_line(t_data *data, t_fvector a, t_fvector b, t_colors color, int secon
 	{
 		draw_vertical(data, a, b, color, second_window);
 	}
+}
+
+void	put_image(t_data *data, int x, int y)
+{
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->texture->image,
+		x * data->texture->width, y * data->texture->height);
 }

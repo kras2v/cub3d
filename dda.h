@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/11 14:47:49 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/12 14:52:11 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,14 @@ typedef struct s_point
 	int	y;
 } t_point;
 
+typedef struct s_texture
+{
+	void	*image;
+	int		width;
+	int		height;
+}	t_texture;
+
+
 typedef struct	s_player {
 	t_fvector	position;
 	t_fvector	direction;
@@ -81,6 +89,7 @@ typedef struct s_data
 	t_player	player;
 	t_image		img;
 	long		time;
+	t_texture	*texture;
 	int			**map;
 } t_data;
 
@@ -88,10 +97,9 @@ void	draw_line(t_data *data, t_fvector a, t_fvector b, t_colors color, int secon
 void	my_mlx_pixel_put(t_image *data, int x, int y, int color);
 void	clear_display(t_data *data);
 void	dda(t_data *data);
+void	put_image(t_data *data, int x, int y);
 
-
-bool is_direction(int coordinate);
-int	get_cell_on_grid(int **map, double px, double py);
+bool	is_direction(int coordinate);
 
 
 #endif
