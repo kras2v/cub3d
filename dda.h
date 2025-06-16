@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/12 14:52:11 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:19:51 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ typedef enum e_move
 	DOWN,
 	RIGHT,
 }	t_move;
+
+typedef enum e_side
+{
+	HORIZONTAL,
+	VERTICAL,
+}	t_side;
 
 #define WIDTH 720
 #define HEIGHT 720
@@ -97,7 +103,7 @@ void	draw_line(t_data *data, t_fvector a, t_fvector b, t_colors color, int secon
 void	my_mlx_pixel_put(t_image *data, int x, int y, int color);
 void	clear_display(t_data *data);
 void	dda(t_data *data);
-void	put_image(t_data *data, int x, int y);
+void	put_image(t_data *data, t_texture *texture, int x, int y);
 
 bool	is_direction(int coordinate);
 

@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/15 17:21:39 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:21:28 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void	draw_map_fill(t_data *data)
 		}
 		py++;
 	}
-	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
+	// mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
 }
 
 void	draw_map_border(t_data *data)
@@ -187,7 +187,7 @@ void	draw_map_border(t_data *data)
 		}
 		py++;
 	}
-	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
+	// mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
 }
 
 void	display(t_data *data)
@@ -506,6 +506,35 @@ void	print_map(int **map)
 	}
 }
 
+int upload_textures(t_data *data)
+{
+	data->texture = malloc(sizeof(t_texture) * 4);
+	int	i;
+	i = 0;
+	while (i < 4)
+	{
+		if (i == 0)
+			data->texture[i].image = mlx_xpm_file_to_image(data->mlx, "./walls/xpm/north_wall.xpm", &data->texture[i].width, &data->texture[i].height);
+		else if (i == 1)
+			data->texture[i].image = mlx_xpm_file_to_image(data->mlx, "./walls/xpm/east_wall.xpm", &data->texture[i].width, &data->texture[i].height);
+		else if (i == 2)
+			data->texture[i].image = mlx_xpm_file_to_image(data->mlx, "./walls/xpm/south_wall.xpm", &data->texture[i].width, &data->texture[i].height);
+		else if (i == 3)
+			data->texture[i].image = mlx_xpm_file_to_image(data->mlx, "./walls/xpm/west_wall.xpm", &data->texture[i].width, &data->texture[i].height);
+		if (data->texture[i].image == NULL)
+		{
+			printf("Error occured while converting file to image\n");
+			return (1);
+		}
+		else
+		{
+			printf("Image size %dx%d\n", data->texture[i].width, data->texture[i].height);
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	main(void)
 {
 	t_data	*data;
@@ -544,18 +573,8 @@ int	main(void)
 	data->mlx_win = mlx_new_window(data->mlx, WIDTH * 2, HEIGHT, "cub3d");
 	data->img.ptr = mlx_new_image(data->mlx, WIDTH * 2, HEIGHT);
 	data->img.addr = mlx_get_data_addr(data->img.ptr, &data->img.bits_per_pixel, &data->img.line_length, &data->img.endian);
-
-	data->texture = malloc(sizeof(t_texture));
-	data->texture->image = mlx_xpm_file_to_image(data->mlx, "./sand.xpm", &data->texture->width, &data->texture->height);
-	if (data->texture->image == NULL)
-	{
-		printf("Error occured while converting file to image\n");
-	}
-	else
-	{
-		printf("Image size %dx%d\n", data->texture->width, data->texture->height);
-	}
-	
+	if (upload_textures(data))
+		return (1);
 	data->map = malloc(sizeof(int *) * MAP_HEIGHT);
 	if (data->map == NULL)
 	{
@@ -577,12 +596,18 @@ int	main(void)
 		}
 		i++;
 	}
-	// print_map(data->map);
 	init_player2(data);
-	dda(data);
-	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
-	display(data);
+	// print_map(data->map);
+	// dda(data);
+	// mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
+	// display(data);
 	init_hooks(data);
 	mlx_loop(data->mlx);
+	mlx_destroy_image(data->mlx, data->img.ptr);
+	mlx_destroy_image(data->mlx, data->texture->image);
+	mlx_clear_window(data->mlx, data->mlx_win);
+	free(data->mlx);
+	free_map(data->map, MAP_HEIGHT);
+	free(data);
 	return (0);
 }

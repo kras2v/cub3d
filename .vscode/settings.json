@@ -5,7 +5,9 @@
 		"random": "c",
 		"stdio.h": "c",
 		"colors.h": "c",
-		"dda.h": "c"
+		"dda.h": "c",
+		"errno.h": "c",
+		"stdbool.h": "c"
 	},
 	"C_Cpp.default.compilerPath": "/usr/bin/clang"
 }

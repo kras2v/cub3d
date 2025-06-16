@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:03:35 by valeriia          #+#    #+#             */
-/*   Updated: 2025/06/15 17:20:08 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:21:49 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ void	dda(t_data *data)
 	int		step_x;
 	int		step_y;
 	int		hit;
-	int		side;
+	t_side	side;
 	double	perp_wall_dist;
 	int		line_height;
 
 	int		x;
 
 	x = 0;
-	side = 0;
+	side = HORIZONTAL;
 	double theta_player = atan2(data->player.direction.y, data->player.direction.x);
 	double cos_theta_ray;
 	double sin_theta_ray;
@@ -100,18 +100,18 @@ void	dda(t_data *data)
 			{
 				side_dist_x += delta_dist_x;
 				map_x += step_x;
-				side = 0;
+				side = VERTICAL;
 			}
 			else
 			{
 				side_dist_y += delta_dist_y;
 				map_y += step_y;
-				side = 1;
+				side = HORIZONTAL;
 			}
 			if (data->map[map_y][map_x] > 0 && !is_direction(data->map[map_y][map_x]))
 				hit = 1;
 		}
-		if (side == 0)
+		if (side == VERTICAL)
 			perp_wall_dist = (side_dist_x - delta_dist_x);
 		else
 			perp_wall_dist = (side_dist_y - delta_dist_y);
@@ -124,39 +124,78 @@ void	dda(t_data *data)
 		double corrected_dist = perp_wall_dist /* * cos(theta_ray - theta_player) */;
 
 		line_height = HEIGHT / corrected_dist;
+
+		// t_fvector	first;
+		// t_fvector	second;
+
+		// first.x = x;
+		// second.x = x;
+		// first.y = start;
+		// second.y = end;
+
+		// t_colors color;
+		// switch(data->map[map_y][map_x])
+		// {
+		// 	case 1:  color = RED;  break; //red
+		// 	case 2:  color = GREEN;  break; //green
+		// 	case 3:  color = BLUE;   break; //blue
+		// 	case 4:  color = YELLOW;  break; //white
+		// 	default: color = WHITE; break; //yellow
+		// }
+
+		// if (side == 1)
+		// 	color = color / 1.5;
+		// // draw_line(data, first, second, color, 0);
+		// while (first.y < second.y)
+		// { 
+		// 	put_image(data, first.x, first.y);
+		// 	first.y += data->texture->height;
+		// 	// printf("%f - %f\n", first.y, second.y);
+		// }
+
+		// int		tex_num = data->map[map_x][map_y] - 1; //1 subtracted from it so that texture 0 can be used!
+		double	wall; //where exactly the wall was hit
+		if (side == VERTICAL)
+		{
+			wall = pos_pl_x + perp_wall_dist * cos_theta_ray;
+		}
+		else
+		{
+			wall = pos_pl_y + perp_wall_dist * sin_theta_ray;
+		}
+		wall -= floor(wall);
+		int	tex_x = (int)(wall * (double)(data->texture->width)); //the pixel column (texX) of the texture you should draw.
+		//So you flip the texture column horizontally if the ray hits the wall from the opposite direction.
+		if ((side == VERTICAL && cos_theta_ray > 0) || (side == HORIZONTAL && sin_theta_ray < 0))
+		{
+			tex_x = data->texture->width - tex_x - 1;
+		}
+		double step = 1.0 * (double)data->texture->height / line_height;
 		int start =  HEIGHT / 2 - line_height / 2;
 		if (start < 0)
 			start = 0;
 		int end =  HEIGHT / 2 + line_height / 2;
 		if (end >= HEIGHT)
-			end = HEIGHT - 1;
-		
-		t_fvector	first;
-		t_fvector	second;
-
-		first.x = x;
-		second.x = x;
-		first.y = start;
-		second.y = end;
-
-		t_colors color;
-		switch(data->map[map_y][map_x])
+		end = HEIGHT - 1;
+		// This centers the texture vertically on the wall slice.
+		double tex_pos = (start - HEIGHT / 2 + line_height / 2) * step;
+		int	y = start;
+		t_texture *texture;
+		while (y < end)
 		{
-			case 1:  color = RED;  break; //red
-			case 2:  color = GREEN;  break; //green
-			case 3:  color = BLUE;   break; //blue
-			case 4:  color = YELLOW;  break; //white
-			default: color = WHITE; break; //yellow
-		}
-
-		if (side == 1)
-			color = color / 1.5;
-		// draw_line(data, first, second, color, 0);
-		while (first.y < second.y)
-		{
-			put_image(data, first.x, first.y);
-			first.y += data->texture->height;
-			printf("%f - %f\n", first.y, second.y);
+			//This helps prevent texture coordinate overflow (going out of bounds) by effectively performing a modulo operation, but it's faster because it's just a bitwise AND.
+			// int tex_y = (int)tex_pos & (data->texture->height - 1);
+			tex_pos += step;
+			if (side == VERTICAL && cos_theta_ray > 0)
+				texture = &data->texture[1];
+			else if (side == VERTICAL && cos_theta_ray <= 0)
+				texture = &data->texture[3];
+			else if (side == HORIZONTAL && sin_theta_ray > 0)
+				texture = &data->texture[0];
+			else if (side == HORIZONTAL && sin_theta_ray <= 0)
+				texture = &data->texture[2];
+			y++;
+			put_image(data, texture, x, y);
 		}
 		x++;
 	}
@@ -264,8 +303,16 @@ void	draw_line(t_data *data, t_fvector a, t_fvector b, t_colors color, int secon
 	}
 }
 
-void	put_image(t_data *data, int x, int y)
+#include <errno.h>
+#include <string.h>
+#include <string.h>
+#include <unistd.h>
+
+void	put_image(t_data *data, t_texture *texture, int x, int y)
 {
-	mlx_put_image_to_window(data->mlx, data->mlx_win, data->texture->image,
-		x * data->texture->width, y * data->texture->height);
+	(void)y;
+	if (mlx_put_image_to_window(data->mlx, data->mlx_win, texture->image, x * texture->width, y))
+	{
+		printf("NO PUT IMAGE %s\n", strerror(errno));
+	}
 }
