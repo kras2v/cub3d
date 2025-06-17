@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/16 15:19:51 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/16 23:00:10 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,26 @@ typedef struct	s_image {
 }			t_image;
 
 typedef struct	s_fvector {
-	float	x;
-	float	y;
+	double	x;
+	double	y;
 }	t_fvector;
 
 typedef struct s_point
 {
+	double	x;
+	double	y;
+} t_point;
+
+typedef struct s_coordinates
+{
 	int	x;
 	int	y;
-} t_point;
+} t_coordinates;
 
 typedef struct s_texture
 {
-	void	*image;
+	t_image	image;
+	char	*name;
 	int		width;
 	int		height;
 }	t_texture;
@@ -84,8 +91,6 @@ typedef struct s_texture
 typedef struct	s_player {
 	t_fvector	position;
 	t_fvector	direction;
-	t_fvector	center;
-	float		rotation_angle;
 }	t_player;
 
 typedef struct s_data

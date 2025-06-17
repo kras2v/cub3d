@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   dda_test.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/16 15:21:28 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/16 22:48:58 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dda.h"
 
-void	my_mlx_pixel_put(t_image *data, int x, int y, int color)
+void	my_mlx_pixel_put(t_image *image, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	dst = image->addr + (y * image->line_length + x * (image->bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
 
@@ -197,7 +197,7 @@ void	display(t_data *data)
 	dda(data);
 	draw_map_fill(data);
 	draw_player(data);
-	// mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
 }
 
 int	close_event(t_data *data)
@@ -461,7 +461,6 @@ void	init_player2(t_data *data)
 		}
 		y++;
 	}
-	data->player.rotation_angle = 0;
 }
 
 
@@ -469,9 +468,10 @@ void	init_player(t_data *data)
 {
 	data->player.position.x = WIDTH / 2;
 	data->player.position.y = HEIGHT / 2;
-	data->player.rotation_angle = 0;
 	data->player.direction.x = 1;
 	data->player.direction.y = 0;
+	// data->player.plane.x = 0.66;
+	// data->player.plane.y = 0;
 }
 
 void	free_map(int **map, int i)
@@ -508,20 +508,23 @@ void	print_map(int **map)
 
 int upload_textures(t_data *data)
 {
-	data->texture = malloc(sizeof(t_texture) * 4);
 	int	i;
+
 	i = 0;
+	data->texture = malloc(sizeof(t_texture) * 4);
+	//!CHECK MALLOC
 	while (i < 4)
 	{
 		if (i == 0)
-			data->texture[i].image = mlx_xpm_file_to_image(data->mlx, "./walls/xpm/north_wall.xpm", &data->texture[i].width, &data->texture[i].height);
+			data->texture[i].name = "./walls/xpm/north_wall.xpm";
 		else if (i == 1)
-			data->texture[i].image = mlx_xpm_file_to_image(data->mlx, "./walls/xpm/east_wall.xpm", &data->texture[i].width, &data->texture[i].height);
+			data->texture[i].name = "./walls/xpm/east_wall.xpm";
 		else if (i == 2)
-			data->texture[i].image = mlx_xpm_file_to_image(data->mlx, "./walls/xpm/south_wall.xpm", &data->texture[i].width, &data->texture[i].height);
+			data->texture[i].name = "./walls/xpm/south_wall.xpm";
 		else if (i == 3)
-			data->texture[i].image = mlx_xpm_file_to_image(data->mlx, "./walls/xpm/west_wall.xpm", &data->texture[i].width, &data->texture[i].height);
-		if (data->texture[i].image == NULL)
+			data->texture[i].name = "./walls/xpm/west_wall.xpm";
+		data->texture[i].image.ptr = mlx_xpm_file_to_image(data->mlx, data->texture->name, &data->texture[i].width, &data->texture[i].height);
+		if (data->texture[i].image.ptr == NULL)
 		{
 			printf("Error occured while converting file to image\n");
 			return (1);
@@ -530,6 +533,8 @@ int upload_textures(t_data *data)
 		{
 			printf("Image size %dx%d\n", data->texture[i].width, data->texture[i].height);
 		}
+		data->texture[i].image.addr = mlx_get_data_addr(data->texture[i].image.ptr, &data->texture[i].image.bits_per_pixel,
+				&data->texture[i].image.line_length, &data->texture[i].image.endian);
 		i++;
 	}
 	return (0);
@@ -553,7 +558,7 @@ int	main(void)
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,'N',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,'E',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -604,7 +609,7 @@ int	main(void)
 	init_hooks(data);
 	mlx_loop(data->mlx);
 	mlx_destroy_image(data->mlx, data->img.ptr);
-	mlx_destroy_image(data->mlx, data->texture->image);
+	mlx_destroy_image(data->mlx, data->texture->image.ptr);
 	mlx_clear_window(data->mlx, data->mlx_win);
 	free(data->mlx);
 	free_map(data->map, MAP_HEIGHT);
