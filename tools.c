@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:03:35 by valeriia          #+#    #+#             */
-/*   Updated: 2025/06/16 23:04:19 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/06/18 13:55:39 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,57 @@ void	get_player_cell(
 	player_cell->y = (int)player_position_in_cell.y;
 }
 
-void	dda_revision(t_data *data)
+void	pre_calculate_sin_cos_table(t_data *data, double *sin_cos_table[WIDTH][WIDTH])
 {
-	double			FOV = PI / 3;
-	t_point			player_position_in_cell;
-	t_coordinates	player_cell;
-	double			direction_angle;
-	double			scaled_x;
-	int				x;
+	double	direction_angle;
+	double	scaled_x_angle;
+	double	scaled_x;
+	int		x;
 
 	x = 0;
 	direction_angle = atan2(data->player.direction.y, data->player.direction.x);
 	while (x < WIDTH)
 	{
-		scaled_x = 2.0 * x / (double)WIDTH - 1.0;
+		scaled_x = 2.0 * (double)x / (double)WIDTH - 1.0;
+		scaled_x_angle = direction_angle + scaled_x * FOV;
+		*sin_cos_table[0][x] = sin(scaled_x_angle);
+		*sin_cos_table[1][x] = cos(scaled_x_angle);
+		x++;
+	}
+}
+
+void	get_initial_step(
+	t_data *data,
+	t_fvector *initial_step,
+	)
+{
+	if (cos_theta_ray < 0.0)
+	{
+		step_x = -1;
+		side_dist_x = (pos_pl_x - map_x) * delta_dist_x;
+	}
+	else
+	{
+		step_x = 1;
+		side_dist_x = (map_x + 1.0 - pos_pl_x) * delta_dist_x;
+	}
+}
+
+void	dda_revision(t_data *data)
+{
+	t_point			player_position_in_cell;
+	double			ray_angle_sin_cos_table[WIDTH][WIDTH];
+	t_coordinates	player_cell;
+	t_fvector		initial_step;
+	t_fvector		fixed_step;
+	int				x;
+
+	x = 0;
+	pre_calculate_sin_cos_table(data, &ray_angle_sin_cos_table);
+	while (x < WIDTH)
+	{
 		get_player_cell(player_position_in_cell, &player_cell);
 		get_player_position_on_map(data, &player_position_in_cell);
-		
 		
 		x++;
 	}
@@ -90,13 +124,13 @@ void	dda(t_data *data)
 	double cos_theta_ray;
 	double sin_theta_ray;
 	double theta_ray;
-	double FOV = PI / 4;
 
+	double sin_cos[2][WIDTH];
+
+	x = 0;
 	while (x < WIDTH)
 	{
 		hit = 0;
-		camera_x = 2.0 * (double)x / (double)WIDTH - 1.0;
-		theta_ray = theta_player + camera_x * FOV;
 
 		pos_pl_x = (data->player.position.x / CELL_SIZE);
 		pos_pl_y = (data->player.position.y / CELL_SIZE);
@@ -104,22 +138,13 @@ void	dda(t_data *data)
 		map_x = floor(pos_pl_x);
 		map_y = floor(pos_pl_y);
 
-		cos_theta_ray = cos(theta_ray);
-		sin_theta_ray = sin(theta_ray);
+		cos_theta_ray = sin_cos[1][x];
+		sin_theta_ray = sin_cos[0][x];
 
 		delta_dist_x = fabs(1.0 / cos_theta_ray);
 		delta_dist_y = fabs(1.0 / sin_theta_ray);
 
-		if (cos_theta_ray < 0.0)
-		{
-			step_x = -1;
-			side_dist_x = (pos_pl_x - map_x) * delta_dist_x;
-		}
-		else
-		{
-			step_x = 1;
-			side_dist_x = (map_x + 1.0 - pos_pl_x) * delta_dist_x;
-		}
+
 
 		if (sin_theta_ray < 0.0)
 		{
@@ -159,7 +184,7 @@ void	dda(t_data *data)
 		new_point.y = map_y * CELL_SIZE;
 		draw_line(data, data->player.position, new_point, 0xFFFFFF, 1);
 
-		double corrected_dist = perp_wall_dist * cos(theta_ray - theta_player);
+		double corrected_dist = perp_wall_dist /* cos(theta_ray - theta_player) */;
 		line_height = HEIGHT / corrected_dist;
 
 		// t_fvector	first;
@@ -235,7 +260,7 @@ void	dda(t_data *data)
 				texture = &data->texture[0];
 			else if (side == HORIZONTAL && sin_theta_ray <= 0)
 				texture = &data->texture[2];
-			char *offset = texture->image.addr + (tex_y * texture->image.line_length + x);
+			char *offset = texture->image.addr + (tex_y * texture->image.line_length + x * texture->image.bits_per_pixel / 8);
 			int color = *(unsigned int *)offset;
 			// if (y == start)
 			// 	printf("color %d and texture %s\n", color, data->texture->name);
