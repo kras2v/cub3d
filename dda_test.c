@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda_test.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/16 22:48:58 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/06/18 12:42:04 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ void	rotate(t_fvector *point, double radian)
 	temp.y = point->y;
 	point->x = (temp.x * cos(radian) - temp.y * sin(radian));
 	point->y = (temp.x * sin(radian) + temp.y * cos(radian));
-	printf("dir x: %f | y: %f\n", point->x, point->y);
 }
 
 bool is_direction(int coordinate)
