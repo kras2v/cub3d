@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/23 14:49:00 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/24 00:15:03 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@
 #include "events.h"
 
 #define PI 3.14159265358979323846
-#define INFINITY 1e30
-#define FOV PI / 3
-#define PLAYER_SIZE 15
+#define PLAYER_SIZE 10
 #define CELL_SIZE 30
 #define EAST 'E'
 #define WEST 'W'
@@ -46,8 +44,8 @@ typedef enum e_move
 
 typedef enum e_side
 {
-	HORIZONTAL,
 	VERTICAL,
+	HORIZONTAL,
 }	t_side;
 
 #define WIDTH 720
