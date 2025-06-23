@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:03:35 by valeriia          #+#    #+#             */
-/*   Updated: 2025/06/23 14:40:24 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/23 14:54:31 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,28 +43,92 @@ void	get_player_cell(
 
 void	get_initial_step(
 	t_data *data,
+	t_fvector ray,
+	t_point player_position_in_cell,
+	t_coordinates player_cell,
 	t_fvector *initial_step,
+	t_fvector fixed_step,
+	int *step
 	)
 {
-	
+	if (ray.x < 0)
+	{
+		*step = -1;
+		initial_step->x = (player_position_in_cell.x - player_cell.x) * fixed_step.x;
+	}
+	else
+	{
+		*step = 1;
+		initial_step->x = (player_position_in_cell.x + 1.0 - player_cell.x) * fixed_step.x;
+	}
+	if (ray.y < 0)
+	{
+		*step = -1;
+		initial_step->y = (player_position_in_cell.y - player_cell.y) * fixed_step.y;
+	}
+	else
+	{
+		*step = 1;
+		initial_step->y = (player_position_in_cell.y + 1.0 - player_cell.y) * fixed_step.y;
+	}
+}
+
+void	get_fixed_step_between_lines(
+	t_data *data,
+	t_fvector ray,
+	t_fvector *fixed_step
+	)
+{
+	fixed_step->x = INFINITY;
+	fixed_step->y = INFINITY;
+	if (fixed_step->x != 0)
+	{
+		fixed_step->x = abs(1 / ray.x);
+	}
+	if (fixed_step->y != 0)
+	{
+		fixed_step->y = abs(1 / ray.y);
+	}
+}
+
+void	get_x_ray_coordinates(
+	int x,
+	t_data *data,
+	t_fvector *ray
+	)
+{
+	ray->x = data->player.direction.x + data->player.plane.x * data->normilized_x[x];
+	ray->y = data->player.direction.y + data->player.plane.y * data->normilized_x[x];
+}
+
+void	find_wall_hit(
+	t_fvector *fixed_step,
+	t_fvector *initial_step,
+	t_side side,
+	)
+{
+
 }
 
 void	dda_revision(t_data *data)
 {
 	t_point			player_position_in_cell;
-	double			ray_angle_sin_cos_table[WIDTH][WIDTH];
 	t_coordinates	player_cell;
+	t_fvector		ray;
 	t_fvector		initial_step;
 	t_fvector		fixed_step;
+	int				step;
 	int				x;
 
 	x = 0;
-	pre_calculate_sin_cos_table(data, &ray_angle_sin_cos_table);
 	while (x < WIDTH)
 	{
 		get_player_cell(player_position_in_cell, &player_cell);
 		get_player_position_on_map(data, &player_position_in_cell);
-		
+		get_x_ray_coordinates(x, data, &ray);
+		get_fixed_step_between_lines(data, ray, &fixed_step);
+		get_initial_step(data, ray, player_position_in_cell, player_cell, &initial_step, fixed_step, &step);
+
 		x++;
 	}
 	
