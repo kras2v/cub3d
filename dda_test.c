@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda_test.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/23 14:43:53 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/24 00:23:18 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,11 +191,11 @@ void	draw_map_border(t_data *data)
 
 void	display(t_data *data)
 {
-	clear_display(data);
-	draw_map_border(data);
+	// clear_display(data);
+	// draw_map_border(data);
 	dda(data);
-	draw_map_fill(data);
-	draw_player(data);
+	// draw_map_fill(data);
+	// draw_player(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
 }
 
@@ -296,8 +296,7 @@ int	move_player(int keycode, t_data *data)
 		printf("FPS %f\n", 1.0 / frame_time);
 	if (frame_time > 0.2)
 		frame_time = 0.2;
-	clear_display(data);
-	dda(data);
+	display(data);
 
 	move_speed = frame_time * 25.0;
 	rot_speed = frame_time;
@@ -351,10 +350,12 @@ int	move_player(int keycode, t_data *data)
 	if (keycode == XK_Left)
 	{
 		rotate(&(data->player.direction), -rot_speed);
+		rotate(&(data->player.plane), -rot_speed);
 	}
 	else if (keycode == XK_Right)
 	{
 		rotate(&(data->player.direction), rot_speed);
+		rotate(&(data->player.plane), rot_speed);
 	}
 	return (0);
 }
@@ -400,6 +401,8 @@ void	init_player2(t_data *data)
 	int	x;
 
 	y = 0;
+	data->player.plane.x = 0;
+	data->player.plane.y = 0;
 	while (y < MAP_HEIGHT)
 	{
 		x = 0;
@@ -409,45 +412,38 @@ void	init_player2(t_data *data)
 			{
 				data->player.direction.x = 0;
 				data->player.direction.y = -1;
-				data->player.position.x = x * CELL_SIZE + CELL_SIZE / 4;
-				data->player.position.y = y * CELL_SIZE + CELL_SIZE / 4;
+				data->player.position.x = x;
+				data->player.position.y = y;
+				data->player.plane.x = 0.66;
+				data->player.plane.y = 0;
 			}
 			else if (data->map[y][x] == 'E')
 			{
 				data->player.direction.x = 1;
 				data->player.direction.y = 0;
-				data->player.position.x = x * CELL_SIZE + CELL_SIZE / 4;
-				data->player.position.y = y * CELL_SIZE + CELL_SIZE / 4;
+				data->player.position.x = x;
+				data->player.position.y = y;
 			}
 			else if (data->map[y][x] == 'S')
 			{
 				data->player.direction.x = 0;
 				data->player.direction.y = 1;
-				data->player.position.x = x * CELL_SIZE + CELL_SIZE / 4;
-				data->player.position.y = y * CELL_SIZE + CELL_SIZE / 4;
+				data->player.position.x = x;
+				data->player.position.y = y;
 			}
 			else if (data->map[y][x] == 'W')
 			{
 				data->player.direction.x = -1;
 				data->player.direction.y = 0;
-				data->player.position.x = x * CELL_SIZE + CELL_SIZE / 4;
-				data->player.position.y = y * CELL_SIZE + CELL_SIZE / 4;
+				data->player.position.x = x;
+				data->player.position.y = y;
 			}
 			x++;
 		}
 		y++;
 	}
-}
+	// printf("player pos: %f %f\n", data->player.position.x)
 
-
-void	init_player(t_data *data)
-{
-	data->player.position.x = WIDTH / 2;
-	data->player.position.y = HEIGHT / 2;
-	data->player.direction.x = 1;
-	data->player.direction.y = 0;
-	// data->player.plane.x = 0.66;
-	// data->player.plane.y = 0;
 }
 
 void	free_map(int **map, int i)
@@ -534,7 +530,7 @@ int	main(void)
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,'E',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,'N',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -580,14 +576,14 @@ int	main(void)
 	int x = 0;
 	while (x < WIDTH)
 	{
-		data->normilized_x[x] = 2 * x / (double)WIDTH - 1;
+		data->normilized_x[x] = (2.0 * x / (double)WIDTH) - 1.0;
 		x++;
 	}
 	init_player2(data);
 	// print_map(data->map);
 	// dda(data);
 	// mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
-	// display(data);
+	display(data);
 	init_hooks(data);
 	mlx_loop(data->mlx);
 	mlx_destroy_image(data->mlx, data->img.ptr);

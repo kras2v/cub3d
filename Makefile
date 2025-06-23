@@ -6,7 +6,7 @@
 #    By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 16:22:08 by kvalerii          #+#    #+#              #
-#    Updated: 2025/06/16 21:15:25 by valeriia         ###   ########.fr        #
+#    Updated: 2025/06/23 22:18:59 by valeriia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OBJS = $(SRCS:%.c=%.o)
 NAME = dda
 
 CFLAGS := -Wall -Werror -Wextra
-CC := gcc -g
+CC := clang -g
 
 all : $(NAME)
 
