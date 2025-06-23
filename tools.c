@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:03:35 by valeriia          #+#    #+#             */
-/*   Updated: 2025/06/18 13:55:39 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/23 14:40:24 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,40 +41,12 @@ void	get_player_cell(
 	player_cell->y = (int)player_position_in_cell.y;
 }
 
-void	pre_calculate_sin_cos_table(t_data *data, double *sin_cos_table[WIDTH][WIDTH])
-{
-	double	direction_angle;
-	double	scaled_x_angle;
-	double	scaled_x;
-	int		x;
-
-	x = 0;
-	direction_angle = atan2(data->player.direction.y, data->player.direction.x);
-	while (x < WIDTH)
-	{
-		scaled_x = 2.0 * (double)x / (double)WIDTH - 1.0;
-		scaled_x_angle = direction_angle + scaled_x * FOV;
-		*sin_cos_table[0][x] = sin(scaled_x_angle);
-		*sin_cos_table[1][x] = cos(scaled_x_angle);
-		x++;
-	}
-}
-
 void	get_initial_step(
 	t_data *data,
 	t_fvector *initial_step,
 	)
 {
-	if (cos_theta_ray < 0.0)
-	{
-		step_x = -1;
-		side_dist_x = (pos_pl_x - map_x) * delta_dist_x;
-	}
-	else
-	{
-		step_x = 1;
-		side_dist_x = (map_x + 1.0 - pos_pl_x) * delta_dist_x;
-	}
+	
 }
 
 void	dda_revision(t_data *data)
