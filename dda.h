@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/18 12:59:11 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/23 14:49:00 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 #include "events.h"
 
 #define PI 3.14159265358979323846
+#define INFINITY 1e30
 #define FOV PI / 3
 #define PLAYER_SIZE 15
 #define CELL_SIZE 30
@@ -92,6 +93,7 @@ typedef struct s_texture
 typedef struct	s_player {
 	t_fvector	position;
 	t_fvector	direction;
+	t_fvector	plane;
 }	t_player;
 
 typedef struct s_data
@@ -103,6 +105,7 @@ typedef struct s_data
 	long		time;
 	t_texture	*texture;
 	int			**map;
+	double		normilized_x[WIDTH];
 } t_data;
 
 void	draw_line(t_data *data, t_fvector a, t_fvector b, t_colors color, int second_window);

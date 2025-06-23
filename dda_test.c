@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/18 12:42:04 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/23 14:43:53 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,29 +273,6 @@ int	check_wall(t_move move, t_data *data, double px, double py)
 	}
 	return (0);
 }
-
-// bool	is_corner_crossing_border(t_move move, t_data *data, int px, int py)
-// {
-// 	int	shift_x;
-// 	int	shift_y;
-
-// 	shift_y = 0;
-// 	while (shift_y < PLAYER_SIZE)
-// 	{
-// 		shift_x = 0;
-// 		while (shift_x < PLAYER_SIZE)
-// 		{
-// 			if (move == UP && shift_y == 0 && (shift_x == 0 || shift_x == PLAYER_SIZE - 1))
-// 			{
-// 				if (check_wall(move, data, px + shift_x, py + shift_y) > 0)
-// 					return (true);
-// 			}
-// 			shift_x += PLAYER_SIZE;
-// 		}
-// 		shift_y += PLAYER_SIZE;
-// 	}
-// 	return (false);
-// }
 
 int	move_player(int keycode, t_data *data)
 {
@@ -599,6 +576,12 @@ int	main(void)
 			j++;
 		}
 		i++;
+	}
+	int x = 0;
+	while (x < WIDTH)
+	{
+		data->normilized_x[x] = 2 * x / (double)WIDTH - 1;
+		x++;
 	}
 	init_player2(data);
 	// print_map(data->map);
