@@ -6,7 +6,7 @@
 /*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:03:35 by valeriia          #+#    #+#             */
-/*   Updated: 2025/06/24 00:27:14 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/06/24 12:42:58 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,22 @@ void	get_initial_step(
 	if (ray.x < 0)
 	{
 		step->x = -1;
-		initial_step->x = (player_position_in_cell.x - player_cell.x) * fixed_step.x;
+		initial_step->x = (player_position_in_cell.x - (double)player_cell.x) * fixed_step.x;
 	}
 	else
 	{
 		step->x = 1;
-		initial_step->x = (player_cell.x + 1.0 - player_position_in_cell.x) * fixed_step.x;
+		initial_step->x = ((double)player_cell.x + 1.0 - player_position_in_cell.x) * fixed_step.x;
 	}
 	if (ray.y < 0)
 	{
 		step->y = -1;
-		initial_step->y = (player_position_in_cell.y - player_cell.y) * fixed_step.y;
+		initial_step->y = (player_position_in_cell.y - (double)player_cell.y) * fixed_step.y;
 	}
 	else
 	{
 		step->y = 1;
-		initial_step->y = (player_cell.y + 1.0 - player_position_in_cell.y) * fixed_step.y;
+		initial_step->y = ((double)player_cell.y + 1.0 - player_position_in_cell.y) * fixed_step.y;
 	}
 }
 
@@ -78,14 +78,14 @@ void	get_fixed_step_between_lines(
 	)
 {
 	fixed_step->x = INFINITY;
-	if (ray.x != 0.0)
+	if (ray.x != 0)
 	{
-		fixed_step->x = fabs(1 / ray.x);
+		fixed_step->x = fabs(1.0 / ray.x);
 	}
 	fixed_step->y = INFINITY;
-	if (ray.y != 0.0)
+	if (ray.y != 0)
 	{
-		fixed_step->y = fabs(1 / ray.y);
+		fixed_step->y = fabs(1.0 / ray.y);
 	}
 }
 
@@ -131,8 +131,7 @@ double	find_distance_to_wall(
 	}
 	if (*side == VERTICAL)
 		return (initial_step->x - fixed_step.x);
-	else
-		return (initial_step->y - fixed_step.y);
+	return (initial_step->y - fixed_step.y);
 }
 
 void	get_start_and_end_draw_pixels(
@@ -149,74 +148,97 @@ void	get_start_and_end_draw_pixels(
 		*end_pixel = HEIGHT - 1;
 }
 
+void	make_it_color(
+	t_side side,
+	t_data *data,
+	t_coordinates player_cell,
+	int start_pixel,
+	int end_pixel,
+	int x
+)
+{
+	t_colors color;
+	switch(data->map[player_cell.y][player_cell.x])
+	{
+	case 1:  color = RED;  break; //red
+	case 2:  color = GREEN;  break; //green
+	case 3:  color = BLUE;   break; //blue
+	case 4:  color = WHITE;  break; //white
+	default: color = YELLOW; break; //yellow
+	}
+
+	//give x and y sides different brightness
+	if (side == 1) {color = color / 2;}
+
+	//draw the pixels of the stripe as a vertical line
+	t_fvector a;
+	a.x = x;
+	a.y = start_pixel;
+
+	t_fvector b;
+	b.x = x;
+	b.y = end_pixel;
+	//   printf("a(%f, %f) b(%f, %f)\n", a.x, a.y, b.x, b.y);
+	draw_line(data, a, b, color, 0);
+}
+
 void	draw_line_text(
 	t_data *data,
 	t_side side,
 	int x,
 	t_fvector ray,
 	t_point player_position_in_cell,
-	t_coordinates player_cell,
+	// t_coordinates player_cell,
 	double			distance_to_wall
 )
 {
 	(void)player_position_in_cell;
 	(void)ray;
 	int				line_height;
-	// double			y_increase_step;
+	double			y_increase_step;
 	int				start_pixel;
 	int				end_pixel;
-	// double			wall_hit_coord;
-	// char			*offset;
-	// unsigned int	color;
-	// double			position_on_texture;
-	// t_coordinates	texture;
+	double			wall_hit_coord;
+	char			*offset;
+	unsigned int	color;
+	double			position_on_texture;
+	t_coordinates	texture;
+	int				text_num;
 
 	line_height = (int)(HEIGHT / distance_to_wall);
 	get_start_and_end_draw_pixels(line_height, &start_pixel, &end_pixel);
-	// if (side == VERTICAL)
-	// 	wall_hit_coord = player_position_in_cell.y + distance_to_wall * ray.y;
-	// else
-	// 	wall_hit_coord = player_position_in_cell.x + distance_to_wall * ray.x;
-	// wall_hit_coord -= floor(wall_hit_coord);
-	// texture.x = (int)(wall_hit_coord * (double)data->texture->width);
-	// //reflection:
-	// //if(side == 0 && rayDirX > 0) texX = texWidth - texX - 1;
-	// //if(side == 1 && rayDirY < 0) texX = texWidth - texX - 1;
-	// y_increase_step = 1.0 * (double)data->texture->height / (double)line_height;
-	// position_on_texture = (start_pixel - HEIGHT / 2 + line_height / 2) * y_increase_step;
-	// while (start_pixel < end_pixel)
-	// {
-	// 	int texY = (int)position_on_texture & (data->texture->height - 1);
-	// 	position_on_texture += y_increase_step;
-	// 	offset = data->texture->image.addr + (texY * data->texture->image.line_length + texture.x * data->texture->image.bits_per_pixel / 8);
-	// 	color = *(unsigned int *)offset;
-	// 	my_mlx_pixel_put(&data->img, x, start_pixel, color);
-	// 	start_pixel++;
-	// }
-
-	 t_colors color;
-      switch(data->map[player_cell.y][player_cell.x])
-      {
-        case 1:  color = RED;  break; //red
-        case 2:  color = GREEN;  break; //green
-        case 3:  color = BLUE;   break; //blue
-        case 4:  color = WHITE;  break; //white
-        default: color = YELLOW; break; //yellow
-      }
-
-      //give x and y sides different brightness
-      if (side == 1) {color = color / 2;}
-
-      //draw the pixels of the stripe as a vertical line
-	  t_fvector a;
-	  a.x = x;
-	  a.y = start_pixel;
-
-	  t_fvector b;
-	  b.x = x;
-	  b.y = end_pixel;
-	  printf("a(%f, %f) b(%f, %f)\n", a.x, a.y, b.x, b.y);
-	  draw_line(data, a, b, color, 0);
+	if (side == VERTICAL)
+		wall_hit_coord = player_position_in_cell.y + distance_to_wall * ray.y;
+	else
+		wall_hit_coord = player_position_in_cell.x + distance_to_wall * ray.x;
+	wall_hit_coord -= floor(wall_hit_coord);
+	texture.x = (int)(wall_hit_coord * (double)data->texture->width);
+	//reflection:
+	//if(side == 0 && rayDirX > 0) texX = texWidth - texX - 1;
+	//if(side == 1 && rayDirY < 0) texX = texWidth - texX - 1;
+	y_increase_step = 1.0 * (double)data->texture->height / (double)line_height;
+	position_on_texture = (start_pixel - HEIGHT / 2 + line_height / 2) * y_increase_step;
+	while (start_pixel < end_pixel)
+	{
+		position_on_texture += y_increase_step;
+		if (side == VERTICAL && ray.x < 0)
+			text_num = E;
+		else if (side == VERTICAL && ray.x > 0)
+			text_num = W;
+		else if (side == HORIZONTAL && ray.y < 0)
+			text_num = N;
+		else if (side == HORIZONTAL && ray.y > 0)
+			text_num = S;
+		int texY = (int)position_on_texture & (data->texture[text_num].height - 1);
+		offset = data->texture[text_num].image.addr + (texY * data->texture[text_num].image.line_length 
+			+ texture.x * data->texture[text_num].image.bits_per_pixel / 8);
+		color = *(unsigned int *)offset;
+		// if (text_num != 3)
+		// 	printf("%d\n", text_num);
+		my_mlx_pixel_put(&data->img, x, start_pixel, color);
+		start_pixel++;
+	}
+	// make_it_color(side, data, player_cell, start_pixel, end_pixel, x);
 }
 
 void	dda(t_data *data)
@@ -240,7 +262,7 @@ void	dda(t_data *data)
 		get_fixed_step_between_lines(ray, &fixed_step);
 		get_initial_step(ray, player_position_in_cell, player_cell, &initial_step, fixed_step, &step);
 		distance_to_wall = find_distance_to_wall(data, fixed_step, &initial_step, &side, &step, player_cell);
-		draw_line_text(data, side, x, ray, player_position_in_cell, player_cell, distance_to_wall);
+		draw_line_text(data, side, x, ray, player_position_in_cell, /* player_cell,  */distance_to_wall);
 		x++;
 	}
 }
@@ -508,8 +530,8 @@ void	draw_vertical(t_data *data, t_fvector a, t_fvector b, t_colors color, int s
 
 void	draw_line(t_data *data, t_fvector a, t_fvector b, t_colors color, int second_window)
 {
-	a.x += PLAYER_SIZE / 2;
-	a.y += PLAYER_SIZE / 2;
+	// a.x += PLAYER_SIZE / 2;
+	// a.y += PLAYER_SIZE / 2;
 	if (fabs(b.x - a.x) >= fabs(b.y - a.y))
 	{
 		draw_horizontal(data, a, b, color, second_window);

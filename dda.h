@@ -6,7 +6,7 @@
 /*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/24 00:15:03 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/06/24 12:35:11 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,25 @@ typedef enum e_move
 	RIGHT,
 }	t_move;
 
+typedef enum e_direction
+{
+	N,
+	E,
+	S,
+	W,
+}	t_direction;
+
 typedef enum e_side
 {
 	VERTICAL,
 	HORIZONTAL,
 }	t_side;
 
-#define WIDTH 720
-#define HEIGHT 720
+#define WIDTH 750
+#define HEIGHT 750
 
-#define MAP_WIDTH 24
-#define MAP_HEIGHT 24
+#define MAP_WIDTH 25
+#define MAP_HEIGHT 25
 
 typedef struct	s_image {
 	void	*ptr;
