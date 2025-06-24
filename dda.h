@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/24 12:35:11 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/06/24 21:06:46 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ typedef enum e_side
 	HORIZONTAL,
 }	t_side;
 
-#define WIDTH 750
-#define HEIGHT 750
+#define WIDTH 720
+#define HEIGHT 720
 
-#define MAP_WIDTH 25
-#define MAP_HEIGHT 25
+#define MAP_WIDTH 24
+#define MAP_HEIGHT 24
 
 typedef struct	s_image {
 	void	*ptr;
@@ -119,7 +119,6 @@ void	my_mlx_pixel_put(t_image *data, int x, int y, int color);
 void	clear_display(t_data *data);
 void	dda(t_data *data);
 void	put_image(t_data *data, t_texture *texture, int x, int y);
-
 bool	is_direction(int coordinate);
 
 

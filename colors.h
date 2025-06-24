@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/05/30 17:37:14 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/06/24 21:11:29 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ typedef enum e_colors {
 	RED = 0x00FF0000,
 	GREEN = 0x0000FF00,
 	BLUE  = 0x000000FF,
+	LIGHT_BLUE = 0x0080B0FF,
 	WHITE = 0x00FFFFFF,
 	BLACK = 0x00000000,
 	YELLOW = 0x00FFFF00,
