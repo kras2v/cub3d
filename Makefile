@@ -18,41 +18,43 @@ CFLAGS := -Wall -Werror -Wextra
 CC := clang -g
 SRC_DIR := .
 
-SRCS =  dda_test.c \
-    tools.c \
-    minimap_utils.c \
-    draw_utils.c \
-    movement.c \
-    events.c \
-    free_utils.c \
-    math.c
+SRCS =	dda_test.c \
+		tools.c \
+		minimap_utils.c \
+		draw_utils.c \
+		movement.c \
+		events.c \
+		free_utils.c \
+		math.c
+
+OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 all: $(MINILIBX_DIR)/.git build_mlx $(NAME)
 
 build_mlx:
-  $(MAKE) -C $(MINILIBX_DIR)
+	$(MAKE) -C $(MINILIBX_DIR)
 
 $(MINILIBX_DIR)/.git:
-  @git submodule update --init $(MINILIBX_DIR)
+	@git submodule update --init $(MINILIBX_DIR)
 
 $(OBJS_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJS_DIR)
-  $(CC) $(CFLAGS) -I$(MINILIBX_DIR) -o $@ -c $< $(HEADERS)
+	$(CC) $(CFLAGS) -I$(MINILIBX_DIR) -o $@ -c $< $(HEADERS)
 
 $(OBJS_DIR):
-  mkdir -p $(OBJS_DIR)
+	mkdir -p $(OBJS_DIR)
 
 $(NAME): $(OBJS)
-  $(CC) $(CFLAGS) $(OBJS) -L$(MINILIBX_DIR) -l$(MINILIBX_LIB) -L/usr/lib -I$(MINILIBX_DIR) -fPIE -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -L$(MINILIBX_DIR) -l$(MINILIBX_LIB) -L/usr/lib -I$(MINILIBX_DIR) -fPIE -lXext -lX11 -lm -lz -o $(NAME)
 
 
 # %.o: %.c
 #   $(CC) $(CFLAGS) -fPIE -I/usr/include -Iminilibx_linux -O3 -c $< -o $@
 
 clean :
-  rm -rf $(OBJS_DIR)
+	rm -rf $(OBJS_DIR)
 
 fclean : clean
-  rm -f $(NAME)
+	rm -f $(NAME)
 
 re : fclean all
 
