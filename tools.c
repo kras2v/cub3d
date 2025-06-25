@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:03:35 by valeriia          #+#    #+#             */
-/*   Updated: 2025/06/24 21:09:37 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/25 19:27:51 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,13 +130,12 @@ double	find_distance_to_wall(
 			hit = true;
 	}
 	t_fvector player_position_in_pixels;
-	player_position_in_pixels.x = data->player.position.x * CELL_SIZE + PLAYER_SIZE / 2;
-	player_position_in_pixels.y = data->player.position.y * CELL_SIZE + PLAYER_SIZE / 2;
+	player_position_in_pixels.x = data->player.position.x * CELL_SIZE;
+	player_position_in_pixels.y = data->player.position.y * CELL_SIZE;
 	t_fvector end_ray_point;
 	end_ray_point.x = player_cell.x * CELL_SIZE;
 	end_ray_point.y = player_cell.y * CELL_SIZE;
 	draw_line(data, player_position_in_pixels, end_ray_point, WHITE, true);
-
 	if (*side == VERTICAL)
 		return (initial_step->x - fixed_step.x);
 	return (initial_step->y - fixed_step.y);

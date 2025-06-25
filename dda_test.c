@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/24 21:07:04 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/25 19:30:33 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,6 @@ void	my_mlx_pixel_put(t_image *image, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-int	create_trgb(int t, int r, int g, int b)
-{
-	return (t << 24 | r << 16 | g << 8 | b);
-}
-
 void	clear_display(t_data *data)
 {
 	int	x;
@@ -33,7 +28,7 @@ void	clear_display(t_data *data)
 	y = 0;
 	while (y < HEIGHT)
 	{
-		x = 0;
+		x = WIDTH;
 		while (x < WIDTH * 2)
 		{
 			my_mlx_pixel_put(&(data->img), x, y, BLACK);
@@ -52,10 +47,10 @@ void	draw_player(t_data *data)
 	while (y < PLAYER_SIZE)
 	{
 		x = 0;
-		my_mlx_pixel_put(&(data->img), (data->player.position.x * CELL_SIZE + x) + WIDTH - 1, (data->player.position.y * CELL_SIZE + y), GREEN);
+		my_mlx_pixel_put(&(data->img), ((data->player.position.x) * CELL_SIZE  - PLAYER_SIZE / 2 + x) + WIDTH - 1, ((data->player.position.y) * CELL_SIZE  - PLAYER_SIZE / 2 + y), GREEN);
 		while (x < PLAYER_SIZE)
 		{
-			my_mlx_pixel_put(&(data->img), (data->player.position.x * CELL_SIZE + x) + WIDTH - 1, (data->player.position.y * CELL_SIZE + y), GREEN);
+			my_mlx_pixel_put(&(data->img), ((data->player.position.x) * CELL_SIZE  - PLAYER_SIZE / 2 + x) + WIDTH - 1, ((data->player.position.y) * CELL_SIZE  - PLAYER_SIZE / 2 + y), GREEN);
 			x++;
 		}
 		y++;
@@ -136,10 +131,10 @@ void	draw_map_fill(t_data *data)
 				t_colors color;
 				switch(data->map[py][px])
 				{
-					case 1:  color = RED;  break;
+					case 1:  color = YELLOW;  break;
 					case 2:  color = GREEN;  break;
 					case 3:  color = BLUE;   break;
-					case 4:  color = YELLOW;  break;
+					case 4:  color = RED;  break;
 					default: color = WHITE; break;
 				}
 				fill_square(data, px * CELL_SIZE + WIDTH - 1, py * CELL_SIZE, color);
@@ -149,7 +144,6 @@ void	draw_map_fill(t_data *data)
 		}
 		py++;
 	}
-	// mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
 }
 
 void	draw_map_border(t_data *data)
@@ -168,10 +162,10 @@ void	draw_map_border(t_data *data)
 				t_colors color;
 				switch(data->map[py][px])
 				{
-					case 1:  color = RED;  break;
+					case 1:  color = YELLOW;  break;
 					case 2:  color = GREEN;  break;
 					case 3:  color = BLUE;   break;
-					case 4:  color = YELLOW;  break;
+					case 4:  color = RED;  break;
 					default: color = WHITE; break;
 				}
 				fill_square(data, px * CELL_SIZE + WIDTH - 1, py * CELL_SIZE, color);
@@ -180,9 +174,7 @@ void	draw_map_border(t_data *data)
 			px++;
 		}
 		py++;
-	}
-	// mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
-}
+	}}
 
 void	display(t_data *data)
 {
@@ -209,11 +201,28 @@ int	close_event(t_data *data)
 	return(0);
 }
 
-// int	check_wall(t_move move, t_data *data, double px, double py)
-// {
-	
-// 	return (0);
-// }
+bool	is_wall(t_data *data, double shift_x, double shift_y)
+{
+	double	player_size_in_cell;
+
+	player_size_in_cell = ((double)PLAYER_SIZE / 2.0) / (double)CELL_SIZE;
+	if (data->map[(int)(data->player.position.y - player_size_in_cell + shift_y)][(int)(data->player.position.x - player_size_in_cell + shift_x)] == WALL
+		|| data->map[(int)(data->player.position.y - player_size_in_cell + shift_y)][(int)(data->player.position.x + player_size_in_cell + shift_x)] == WALL
+		|| data->map[(int)(data->player.position.y + player_size_in_cell +  shift_y)][(int)(data->player.position.x + player_size_in_cell +  shift_x)] == WALL
+		|| data->map[(int)(data->player.position.y + player_size_in_cell +  shift_y)][(int)(data->player.position.x - player_size_in_cell +  shift_x)] == WALL)
+	{
+		return (true);
+	}
+	return (false);
+}
+
+void	slide(t_data *data, double shift_x, double shift_y, double move_speed)
+{
+	if (is_wall(data, shift_x * move_speed, 0) == false)
+		data->player.position.x += shift_x * move_speed;
+	if (is_wall(data, 0, shift_y * move_speed) == false)
+		data->player.position.y += shift_y * move_speed;
+}
 
 int	move_player(int keycode, t_data *data)
 {
@@ -224,7 +233,6 @@ int	move_player(int keycode, t_data *data)
 	double					rot_speed;
 	double					shift_x;
 	double					shift_y;
-	bool					is_wall;
 
 	if (now_time.tv_sec == 0)
 	{
@@ -239,28 +247,15 @@ int	move_player(int keycode, t_data *data)
 		frame_time = 0.2;
 	display(data);
 
-	move_speed = frame_time * 3.0;
+	move_speed = 0.3;
 	rot_speed = frame_time * 3.0;
 
 	shift_x = 0;
 	shift_y = 0;
-	is_wall = false;
 	if (keycode == XK_W || keycode == XK_w)
 	{
-		if (data->player.direction.y < 0)
-		{
-			// if (check_wall(UP, data, data->player.position.x + data->player.direction.x * move_speed, data->player.position.y) == false)
-				shift_x += data->player.direction.x * move_speed;
-			// if (check_wall(UP, data, data->player.position.x, data->player.position.y + data->player.direction.y * move_speed) == false)
-				shift_y += data->player.direction.y * move_speed;
-		}
-		else
-		{
-			// if (check_wall(DOWN, data, data->player.position.x + shift_x, data->player.position.y))
-				shift_x += data->player.direction.x * move_speed;
-			// if (check_wall(DOWN, data, data->player.position.x, data->player.position.y + shift_y))
-				shift_y += data->player.direction.y * move_speed;
-		}
+		shift_x += data->player.direction.x * move_speed;
+		shift_y += data->player.direction.y * move_speed;
 	}
 	if (keycode == XK_S || keycode == XK_s)
 	{
@@ -278,11 +273,7 @@ int	move_player(int keycode, t_data *data)
 		shift_y += data->player.direction.x * move_speed;
 	}
 
-	if (is_wall == false)
-	{
-		data->player.position.x += shift_x;
-		data->player.position.y += shift_y;
-	}
+	slide(data, shift_x, shift_y, move_speed);
 
 	if (keycode == XK_Left)
 	{
@@ -458,11 +449,11 @@ int	main(void)
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-		{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-		{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
+		{1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,1,0,1,0,1,0,0,0,1},
+		{1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,1},
+		{1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,0,0,0,0,0,1,1,0,1,1,0,0,0,0,1,0,1,0,1,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -470,13 +461,13 @@ int	main(void)
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-		{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+		{1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 	};
 	data = malloc(sizeof(t_data));
