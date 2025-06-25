@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/25 19:30:33 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/25 19:43:12 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -439,10 +439,8 @@ int upload_textures(t_data *data)
 	return (0);
 }
 
-int	main(void)
+void	add_map(t_data **data)
 {
-	t_data	*data;
-
 	int worldMap[MAP_WIDTH][MAP_HEIGHT]=
 	{
 		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -470,36 +468,50 @@ int	main(void)
 		{1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
 		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 	};
-	data = malloc(sizeof(t_data));
-	if (data == NULL)
-		return (1);
-	data->mlx = mlx_init();
-	data->mlx_win = mlx_new_window(data->mlx, WIDTH * 2, HEIGHT, "cub3d");
-	data->img.ptr = mlx_new_image(data->mlx, WIDTH * 2, HEIGHT);
-	data->img.addr = mlx_get_data_addr(data->img.ptr, &data->img.bits_per_pixel, &data->img.line_length, &data->img.endian);
-	if (upload_textures(data))
-		return (1);
-	data->map = malloc(sizeof(int *) * MAP_HEIGHT);
-	if (data->map == NULL)
+	
+	(*data)->map = malloc(sizeof(int *) * MAP_HEIGHT);
+	if ((*data)->map == NULL)
 	{
-		close_event(data);
+		close_event((*data));
 	}
 	int i = 0;
 	while (i < MAP_HEIGHT)
 	{
-		data->map[i] = malloc(sizeof(int) * MAP_WIDTH);
-		if (data->map[i] == NULL)
+		(*data)->map[i] = malloc(sizeof(int) * MAP_WIDTH);
+		if ((*data)->map[i] == NULL)
 		{
-			free_map(data->map, i);
+			free_map((*data)->map, i);
 		}
 		int j = 0;
 		while (j < MAP_WIDTH)
 		{
-			data->map[i][j] = worldMap[i][j];
+			(*data)->map[i][j] = worldMap[i][j];
 			j++;
 		}
 		i++;
 	}
+}
+
+int	initialize_data(t_data **data)
+{
+	(*data) = malloc(sizeof(t_data));
+	if ((*data) == NULL)
+		return (1);
+	(*data)->mlx = mlx_init();
+	(*data)->mlx_win = mlx_new_window((*data)->mlx, WIDTH * 2, HEIGHT, "cub3d");
+	(*data)->img.ptr = mlx_new_image((*data)->mlx, WIDTH * 2, HEIGHT);
+	(*data)->img.addr = mlx_get_data_addr((*data)->img.ptr, &(*data)->img.bits_per_pixel, &(*data)->img.line_length, &(*data)->img.endian);
+	if (upload_textures((*data)))
+		return (1);
+	add_map(data);
+	return (0);
+}
+
+int	main(void)
+{
+	t_data	*data;
+
+	initialize_data(&data);
 	int x = 0;
 	while (x < WIDTH)
 	{
