@@ -41,12 +41,6 @@ typedef enum e_characters
 	WALL
 }	t_characters;
 
-typedef enum e_characters
-{
-	EMPTY,
-	WALL
-}	t_characters;
-
 typedef enum e_move
 {
 	UP,
