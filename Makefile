@@ -10,30 +10,47 @@
 #                                                                              #
 # **************************************************************************** #
 
+NAME = dda
 MINILIBX_DIR = minilibx_linux
 MINILIBX_LIB = mlx_Linux
-SRCS =	dda_test.c \
-		tools.c
-OBJS = $(SRCS:%.c=%.o)
-NAME = dda
-
+OBJS_DIR  = objs
 CFLAGS := -Wall -Werror -Wextra
 CC := clang -g
+SRC_DIR := .
 
-all : $(NAME)
+SRCS =	dda_test.c \
+		tools.c
+
+OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)
+
+all: GitInit build_mlx $(NAME)
+
+build_mlx:
+	$(MAKE) -C $(MINILIBX_DIR)
+
+GitInit: minilibx_linux/.git
+	git submodule update --init minilibx_linux
+
+
+$(OBJS_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJS_DIR)
+	$(CC) $(CFLAGS) -I$(MINILIBX_DIR) -o $@ -c $< $(HEADERS)
+
+$(OBJS_DIR):
+	mkdir -p $(OBJS_DIR)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -L$(MINILIBX_DIR) -l$(MINILIBX_LIB) -L/usr/lib -I$(MINILIBX_DIR) -fPIE -lXext -lX11 -lm -lz -o $(NAME)
 
-%.o: %.c
-	$(CC) $(CFLAGS) -fPIE -I/usr/include -Iminilibx_linux -O3 -c $< -o $@
+
+# %.o: %.c
+# 	$(CC) $(CFLAGS) -fPIE -I/usr/include -Iminilibx_linux -O3 -c $< -o $@
 
 clean :
-	rm -f $(OBJS)
+	rm -rf $(OBJS_DIR)
 
 fclean : clean
 	rm -f $(NAME)
 
 re : fclean all
 
-.PHONY : all clean fclean re
+.PHONY : all clean fclean re GitInit
