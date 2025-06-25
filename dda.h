@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/25 19:29:38 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/25 20:39:18 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@
 #define WEST 'W'
 #define SOUTH 'S'
 #define NORTH 'N'
+#define FOV PI / 5
+
+typedef enum e_characters
+{
+	EMPTY,
+	WALL
+}	t_characters;
 
 typedef enum e_characters
 {
@@ -120,12 +127,34 @@ typedef struct s_data
 	double		normilized_x[WIDTH];
 } t_data;
 
+void	dda(t_data *data);
+bool	is_direction(int coordinate);
+
+//DRAW UTILS
 void	draw_line(t_data *data, t_fvector a, t_fvector b, t_colors color, int second_window);
 void	my_mlx_pixel_put(t_image *data, int x, int y, int color);
 void	clear_display(t_data *data);
-void	dda(t_data *data);
-void	put_image(t_data *data, t_texture *texture, int x, int y);
-bool	is_direction(int coordinate);
 
+//MATH
+void	rotate(t_fvector *point, double radian);
+void	swap_points(t_fvector *a, t_fvector *b);
+
+//MINIMAP
+void	draw_player(t_data *data);
+void	draw_map_fill(t_data *data);
+void	draw_map_border(t_data *data);
+
+//EVENT
+void	init_hooks(t_data *data);
+int		close_event(t_data *data);
+
+//GENERAL
+void	display(t_data *data);
+
+//FREE UTILS
+void	free_map(int **map, int i);
+
+//MOVEMENT
+int	move_player(int keycode, t_data *data);
 
 #endif

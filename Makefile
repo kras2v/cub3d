@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+         #
+#    By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 16:22:08 by kvalerii          #+#    #+#              #
-#    Updated: 2025/06/23 22:18:59 by valeriia         ###   ########.fr        #
+#    Updated: 2025/06/25 20:33:35 by kvalerii         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,9 +19,18 @@ CC := clang -g
 SRC_DIR := .
 
 SRCS =	dda_test.c \
-		tools.c
+		tools.c \
+		minimap_utils.c \
+		draw_utils.c \
+		movement.c \
+		events.c \
+		free_utils.c \
+		math.c
+OBJS = $(SRCS:%.c=%.o)
+NAME = dda
 
-OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)
+CFLAGS := -Wall -Werror -Wextra
+CC := clang -g
 
 all: $(MINILIBX_DIR)/.git build_mlx $(NAME)
 

@@ -6,24 +6,11 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:03:35 by valeriia          #+#    #+#             */
-/*   Updated: 2025/06/25 19:27:51 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/25 20:42:42 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dda.h"
-
-void	swap_points(t_fvector *a, t_fvector *b)
-{
-	t_fvector temp;
-
-	temp.x = a->x;
-	temp.y = a->y;
-	a->x = b->x;
-	a->y = b->y;
-
-	b->x = temp.x;
-	b->y = temp.y;
-}
 
 void	get_player_position_on_map(
 	t_data *data,
@@ -99,6 +86,21 @@ void	get_x_ray_coordinates(
 	ray->y = data->player.direction.y + data->player.plane.y * data->normilized_x[x];
 }
 
+void	draw_rays_on_map(
+	t_data *data,
+	t_coordinates player_cell
+)
+{
+	t_fvector player_position_in_pixels;
+	t_fvector end_ray_point;
+
+	player_position_in_pixels.x = data->player.position.x * CELL_SIZE;
+	player_position_in_pixels.y = data->player.position.y * CELL_SIZE;
+	end_ray_point.x = player_cell.x * CELL_SIZE;
+	end_ray_point.y = player_cell.y * CELL_SIZE;
+	draw_line(data, player_position_in_pixels, end_ray_point, WHITE, true);
+}
+
 double	find_distance_to_wall(
 	t_data *data,
 	t_fvector fixed_step,
@@ -126,16 +128,10 @@ double	find_distance_to_wall(
 			player_cell.y += step->y;
 			*side = HORIZONTAL;
 		}
-		if (data->map[player_cell.y][player_cell.x] > 0)
+		if (data->map[player_cell.y][player_cell.x] > 0 && is_direction(data->map[player_cell.y][player_cell.x]) == false)
 			hit = true;
 	}
-	t_fvector player_position_in_pixels;
-	player_position_in_pixels.x = data->player.position.x * CELL_SIZE;
-	player_position_in_pixels.y = data->player.position.y * CELL_SIZE;
-	t_fvector end_ray_point;
-	end_ray_point.x = player_cell.x * CELL_SIZE;
-	end_ray_point.y = player_cell.y * CELL_SIZE;
-	draw_line(data, player_position_in_pixels, end_ray_point, WHITE, true);
+	draw_rays_on_map(data, player_cell);
 	if (*side == VERTICAL)
 		return (initial_step->x - fixed_step.x);
 	return (initial_step->y - fixed_step.y);
@@ -220,9 +216,6 @@ void	draw_line_text(
 		wall_hit_coord = player_position_in_cell.x + distance_to_wall * ray.x;
 	wall_hit_coord -= floor(wall_hit_coord);
 	texture.x = (int)(wall_hit_coord * (double)data->texture->width);
-	//reflection:
-	//if(side == 0 && rayDirX > 0) texX = texWidth - texX - 1;
-	//if(side == 1 && rayDirY < 0) texX = texWidth - texX - 1;
 	y_increase_step = 1.0 * (double)data->texture->height / (double)line_height;
 	position_on_texture = (start_pixel - HEIGHT / 2 + line_height / 2) * y_increase_step;
 	draw_celing(data, start_pixel, LIGHT_BLUE, x);
@@ -271,105 +264,5 @@ void	dda(t_data *data)
 		distance_to_wall = find_distance_to_wall(data, fixed_step, &initial_step, &side, &step, player_cell);
 		draw_line_text(data, side, x, ray, player_position_in_cell, /* player_cell,  */distance_to_wall);
 		x++;
-	}
-}
-
-void	draw_horizontal(t_data *data, t_fvector a, t_fvector b, t_colors color, int second_window)
-{
-	int	dx;
-	int	dy;
-	int	p;
-	int	y;
-	int	x;
-	int	dir;
-
-	if (a.x > b.x)
-	{
-		swap_points(&a, &b);
-	}
-	dx = b.x - a.x;
-	dy = b.y - a.y;
-	if (dy < 0)
-	{
-		dir = -1;
-	}
-	else
-	{
-		dir = 1;
-	}
-	dy *= dir;
-	if (dx != 0)
-	{
-		x = 0;
-		y = a.y;
-		p = 2 * dy - dx;
-		while (x < dx + 1)
-		{
-			if (a.x + x >= 0 && a.x + x < WIDTH && y >= 0 && y < HEIGHT)
-				my_mlx_pixel_put(&(data->img), a.x + x + second_window * WIDTH, y, color);
-			if (p >= 0)
-			{
-				y += dir;
-				p = p - 2 * dx;
-			}
-			p = p + 2 * dy;
-			x++;
-		}
-	}
-}
-
-void	draw_vertical(t_data *data, t_fvector a, t_fvector b, t_colors color, int second_window)
-{
-	int	dx;
-	int	dy;
-	int	p;
-	int	y;
-	int	x;
-	int	dir;
-
-	if (a.y > b.y)
-	{
-		swap_points(&a, &b);
-	}
-	dx = b.x - a.x;
-	dy = b.y - a.y;
-	if (dx < 0)
-	{
-		dir = -1;
-	}
-	else
-	{
-		dir = 1;
-	}
-	dx *= dir;
-	if (dy != 0)
-	{
-		y = 0;
-		x = a.x;
-		p = 2 * dx - dy;
-		while (y < dy + 1)
-		{
-			if (y + a.y >= 0 && y + a.y < HEIGHT && x >= 0 && x < WIDTH)
-				my_mlx_pixel_put(&(data->img), x + second_window * WIDTH, y + a.y, color);
-			if (p >= 0)
-			{
-				x += dir;
-				p = p - 2 * dy;
-			}
-			p = p + 2 * dx;
-			y++;
-		}
-	}
-}
-
-void	draw_line(t_data *data, t_fvector a, t_fvector b, t_colors color, int second_window)
-{
-	if (fabs(b.x - a.x) >= fabs(b.y - a.y))
-	{
-		draw_horizontal(data, a, b, color, second_window);
-	}
-	else
-	{
-		draw_vertical(data, a, b, color, second_window);
 	}
 }
