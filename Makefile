@@ -23,14 +23,13 @@ SRCS =	dda_test.c \
 
 OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
-all: GitInit build_mlx $(NAME)
+all: $(MINILIBX_DIR)/.git build_mlx $(NAME)
 
 build_mlx:
 	$(MAKE) -C $(MINILIBX_DIR)
 
-GitInit: minilibx_linux/.git
-	git submodule update --init minilibx_linux
-
+$(MINILIBX_DIR)/.git:
+	@git submodule update --init $(MINILIBX_DIR)
 
 $(OBJS_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJS_DIR)
 	$(CC) $(CFLAGS) -I$(MINILIBX_DIR) -o $@ -c $< $(HEADERS)
