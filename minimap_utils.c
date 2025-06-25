@@ -82,7 +82,7 @@ void	draw_map_fill(t_data *data)
 		px = 0;
 		while (px < MAP_WIDTH)
 		{
-			if (data->map[py][px] >= 1 && !is_direction(data->map[py][px]))
+			if (data->map[py][px] == 1 && !is_direction(data->map[py][px]))
 			{
 				fill_square(data, px * CELL_SIZE + WIDTH - 1, py * CELL_SIZE, YELLOW);
 				border_square(data,  px * CELL_SIZE + WIDTH - 1, py * CELL_SIZE);
@@ -104,7 +104,7 @@ void	draw_map_border(t_data *data)
 		px = 0;
 		while (px < MAP_WIDTH)
 		{
-			if (data->map[py][px] >= 1 && !is_direction(data->map[py][px]))
+			if (data->map[py][px] == 1 && !is_direction(data->map[py][px]))
 			{
 				fill_square(data, px * CELL_SIZE + WIDTH - 1, py * CELL_SIZE, YELLOW);
 			}

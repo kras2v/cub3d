@@ -25,6 +25,7 @@
 
 #include "colors.h"
 #include "events.h"
+#include "libft/libft.h"
 
 #define PI 3.14159265358979323846
 #define PLAYER_SIZE 10
@@ -117,7 +118,7 @@ typedef struct s_data
 	t_image		img;
 	long		time;
 	t_texture	*texture;
-	int			**map;
+	char		**map;
 	double		normilized_x[WIDTH];
 } t_data;
 
@@ -151,4 +152,10 @@ void	free_map(int **map, int i);
 //MOVEMENT
 int	move_player(int keycode, t_data *data);
 
+// VALIDATION OF INPUT
+int	valid_input(char *name);
+
+// READ MAP
+char	**read_map(char *map_script);
+void	free_map_init(char **map);
 #endif

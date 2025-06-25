@@ -39,6 +39,7 @@ int print_coords(int button, int x, int y, t_data *param)
 	return (0);
 }
 
+//TODO 
 int	close_event(t_data *data)
 {
 	int i = 0;
@@ -55,7 +56,8 @@ int	close_event(t_data *data)
 			i++;
 		}
 		mlx_destroy_display(data->mlx);
-		free_map(data->map, MAP_HEIGHT);
+		// free_map(data->map, MAP_HEIGHT);
+		free_map_init(data->map);
 		free(data);
 	}
 	exit(0);

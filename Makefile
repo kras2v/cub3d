@@ -25,7 +25,8 @@ SRCS =	dda_test.c \
 		movement.c \
 		events.c \
 		free_utils.c \
-		math.c
+		math.c \
+		map_init.c
 
 OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
@@ -37,14 +38,17 @@ build_mlx:
 $(MINILIBX_DIR)/.git:
 	@git submodule update --init $(MINILIBX_DIR)
 
+libft/libft.a:
+	@make -C libft
+
 $(OBJS_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJS_DIR)
 	$(CC) $(CFLAGS) -I$(MINILIBX_DIR) -o $@ -c $< $(HEADERS)
 
 $(OBJS_DIR):
 	mkdir -p $(OBJS_DIR)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -L$(MINILIBX_DIR) -l$(MINILIBX_LIB) -L/usr/lib -I$(MINILIBX_DIR) -fPIE -lXext -lX11 -lm -lz -o $(NAME)
+$(NAME): $(OBJS) libft/libft.a
+	$(CC) $(CFLAGS) $(OBJS) -L$(MINILIBX_DIR) -l$(MINILIBX_LIB) -L/usr/lib -I$(MINILIBX_DIR) -fPIE -lXext -lX11 -lm -lz -o $(NAME) libft/libft.a
 
 
 # %.o: %.c
@@ -52,9 +56,11 @@ $(NAME): $(OBJS)
 
 clean :
 	rm -rf $(OBJS_DIR)
+	make -C libft clean
 
 fclean : clean
 	rm -f $(NAME)
+	make -C libft fclean
 
 re : fclean all
 
