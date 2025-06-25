@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/24 21:06:46 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/25 19:29:38 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@
 #define WEST 'W'
 #define SOUTH 'S'
 #define NORTH 'N'
+
+typedef enum e_characters
+{
+	EMPTY,
+	WALL
+}	t_characters;
 
 typedef enum e_move
 {
