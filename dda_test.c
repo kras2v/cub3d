@@ -6,7 +6,7 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/26 17:34:05 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/06/26 19:02:44 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ bool is_direction(int coordinate)
 void	display(t_data *data)
 {
 	clear_display(data);
-	draw_map_border(data);
 	dda(data);
 	draw_map_fill(data);
+	draw_map_border(data);
+	draw_map_partial(data);
 	draw_player(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
 }
@@ -172,7 +173,7 @@ int	initialize_data(t_data **data)
 	if ((*data) == NULL)
 		return (1);
 	(*data)->mlx = mlx_init();
-	(*data)->mlx_win = mlx_new_window((*data)->mlx, WIDTH * 2, HEIGHT, "cub3d");
+	(*data)->mlx_win = mlx_new_window((*data)->mlx, WIDTH, HEIGHT, "cub3d");
 	(*data)->img.ptr = mlx_new_image((*data)->mlx, WIDTH * 2, HEIGHT);
 	(*data)->img.addr = mlx_get_data_addr((*data)->img.ptr, &(*data)->img.bits_per_pixel, &(*data)->img.line_length, &(*data)->img.endian);
 	if (upload_textures((*data)))

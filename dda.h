@@ -6,7 +6,7 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/26 17:23:13 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/06/26 18:28:31 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,17 @@
 #include "libft/libft.h"
 
 #define PI 3.14159265358979323846
-#define PLAYER_SIZE 10
+#define PLAYER_SIZE 4
 #define CELL_SIZE 30
 // #define EAST 'E'
 // #define WEST 'W'
 // #define SOUTH 'S'
 // #define NORTH 'N'
 #define FOV PI / 5
+#define MINIMAP_TILE 10
+#define MINIMAP_RADIUS 10
+#define MINIMAP_OFFSET_X 20
+#define MINIMAP_OFFSET_Y 20
 
 typedef enum e_characters
 {
@@ -142,6 +146,7 @@ void	swap_points(t_fvector *a, t_fvector *b);
 void	draw_player(t_data *data);
 void	draw_map_fill(t_data *data);
 void	draw_map_border(t_data *data);
+void	draw_map_partial(t_data *data);
 
 //EVENT
 void	init_hooks(t_data *data);
