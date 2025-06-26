@@ -6,7 +6,7 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/26 15:05:32 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:34:05 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,12 +187,14 @@ int	main(int argc, char **args)
 
 	if (argc != 2)
 		return (printf("wrong number of arguments\n"), 1);
+	initialize_data(&data);
 	if (!valid_input(args[1]))
 		return (printf("invalid input\n"), 1);
-	initialize_data(&data);
 	data->map = read_map(args[1]);
 	if (!data->map)
 		return (1);
+	if (!map_valid(data))
+		return(printf("Invalid input\n"), free_map_init(data->map), 1);
 	int x = 0;
 	while (x < WIDTH)
 	{
@@ -201,7 +203,6 @@ int	main(int argc, char **args)
 	}
 	init_player(data);
 	display(data);
-	printf("hello\n");
 	init_hooks(data);
 	mlx_loop(data->mlx);
 	close_event(data);
