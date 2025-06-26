@@ -6,7 +6,7 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/26 15:06:51 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/06/26 17:23:13 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,20 @@
 #define PI 3.14159265358979323846
 #define PLAYER_SIZE 10
 #define CELL_SIZE 30
-#define EAST 'E'
-#define WEST 'W'
-#define SOUTH 'S'
-#define NORTH 'N'
+// #define EAST 'E'
+// #define WEST 'W'
+// #define SOUTH 'S'
+// #define NORTH 'N'
 #define FOV PI / 5
 
 typedef enum e_characters
 {
 	EMPTY = '0',
-	WALL = '1'
+	WALL = '1',
+	EAST = 'E',
+	WEST = 'W',
+	SOUTH = 'S',
+	NORTH = 'N'
 }	t_characters;
 
 typedef enum e_move
@@ -158,4 +162,7 @@ int	valid_input(char *name);
 // READ MAP
 char	**read_map(char *map_script);
 void	free_map_init(char **map);
+
+// VALID MAP
+bool	map_valid(t_data	*data);
 #endif

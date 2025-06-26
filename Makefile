@@ -6,7 +6,7 @@
 #    By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 16:22:08 by kvalerii          #+#    #+#              #
-#    Updated: 2025/06/26 15:30:44 by eklymova         ###   ########.fr        #
+#    Updated: 2025/06/26 16:01:41 by eklymova         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRCS =	dda_test.c \
 		events.c \
 		free_utils.c \
 		math.c \
-		map_init.c
+		map_init.c \
+		map_valid.c
 
 OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
