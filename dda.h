@@ -146,7 +146,6 @@ void	swap_points(t_fvector *a, t_fvector *b);
 void	draw_player(t_data *data);
 void	draw_map_fill(t_data *data);
 void	draw_map_border(t_data *data);
-void	draw_map_partial(t_data *data);
 
 //EVENT
 void	init_hooks(t_data *data);
