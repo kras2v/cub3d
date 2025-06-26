@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:28:59 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/25 20:29:35 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/26 15:07:03 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	close_event(t_data *data)
 			i++;
 		}
 		mlx_destroy_display(data->mlx);
-		// free_map(data->map, MAP_HEIGHT);
 		free_map_init(data->map);
 		free(data);
 	}

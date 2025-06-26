@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:03:35 by valeriia          #+#    #+#             */
-/*   Updated: 2025/06/25 20:42:42 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/26 15:08:06 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ double	find_distance_to_wall(
 			player_cell.y += step->y;
 			*side = HORIZONTAL;
 		}
-		if (data->map[player_cell.y][player_cell.x] > 0 && is_direction(data->map[player_cell.y][player_cell.x]) == false)
+		if (data->map[player_cell.y][player_cell.x] == WALL && is_direction(data->map[player_cell.y][player_cell.x]) == false)
 			hit = true;
 	}
 	draw_rays_on_map(data, player_cell);

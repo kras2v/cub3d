@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:24:18 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/25 20:25:41 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/06/26 15:08:01 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	draw_map_fill(t_data *data)
 		px = 0;
 		while (px < MAP_WIDTH)
 		{
-			if (data->map[py][px] == 1 && !is_direction(data->map[py][px]))
+			if (data->map[py][px] == WALL && !is_direction(data->map[py][px]))
 			{
 				fill_square(data, px * CELL_SIZE + WIDTH - 1, py * CELL_SIZE, YELLOW);
 				border_square(data,  px * CELL_SIZE + WIDTH - 1, py * CELL_SIZE);
@@ -104,7 +104,7 @@ void	draw_map_border(t_data *data)
 		px = 0;
 		while (px < MAP_WIDTH)
 		{
-			if (data->map[py][px] == 1 && !is_direction(data->map[py][px]))
+			if (data->map[py][px] == WALL && !is_direction(data->map[py][px]))
 			{
 				fill_square(data, px * CELL_SIZE + WIDTH - 1, py * CELL_SIZE, YELLOW);
 			}
