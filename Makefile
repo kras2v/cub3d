@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+         #
+#    By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 16:22:08 by kvalerii          #+#    #+#              #
-#    Updated: 2025/06/25 20:33:35 by kvalerii         ###   ########.fr        #
+#    Updated: 2025/06/26 15:30:44 by eklymova         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ MINILIBX_DIR = minilibx_linux
 MINILIBX_LIB = mlx_Linux
 OBJS_DIR  = objs
 CFLAGS := -Wall -Werror -Wextra
-CC := clang -g
+CC := cc
 SRC_DIR := .
 
 SRCS =	dda_test.c \
@@ -39,7 +39,7 @@ $(MINILIBX_DIR)/.git:
 	@git submodule update --init $(MINILIBX_DIR)
 
 libft/libft.a:
-	@make -C libft
+	$(MAKE) -C libft
 
 $(OBJS_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJS_DIR)
 	$(CC) $(CFLAGS) -I$(MINILIBX_DIR) -o $@ -c $< $(HEADERS)
@@ -51,9 +51,6 @@ $(NAME): $(OBJS) libft/libft.a
 	$(CC) $(CFLAGS) $(OBJS) -L$(MINILIBX_DIR) -l$(MINILIBX_LIB) -L/usr/lib -I$(MINILIBX_DIR) -fPIE -lXext -lX11 -lm -lz -o $(NAME) libft/libft.a
 
 
-# %.o: %.c
-#   $(CC) $(CFLAGS) -fPIE -I/usr/include -Iminilibx_linux -O3 -c $< -o $@
-
 clean :
 	rm -rf $(OBJS_DIR)
 	make -C libft clean
@@ -64,5 +61,5 @@ fclean : clean
 
 re : fclean all
 
-.PHONY : all clean fclean re build_mlx
+.PHONY : all clean fclean re build_mlx libft/libft.a
 
