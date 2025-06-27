@@ -12,7 +12,6 @@
 
 #include "dda.h"
 
-
 void	draw_player(t_data *data)
 {
 	int	x;
@@ -25,9 +24,9 @@ void	draw_player(t_data *data)
 		while (x < PLAYER_SIZE)
 		{
 			my_mlx_pixel_put(&(data->img),
-			(data->player.position.x * MINIMAP_TILE) - PLAYER_SIZE / 2 + x + MINIMAP_OFFSET_X,
-			(data->player.position.y * MINIMAP_TILE) - PLAYER_SIZE / 2 + y + MINIMAP_OFFSET_Y,
-			GREEN);
+				(MINIMAP_OFFSET_X * MINI_TILE / 2) - (PLAYER_SIZE / 2) + x,
+				(MINIMAP_OFFSET_Y * MINI_TILE / 2) - (PLAYER_SIZE / 2) + y,
+				GREEN);
 			x++;
 		}
 		y++;
@@ -40,10 +39,10 @@ void	fill_square(t_data *data, int px, int py, t_colors color)
 	int	y;
 
 	y = 0;
-	while (y < MINIMAP_TILE)
+	while (y < MINI_TILE)
 	{
 		x = 0;
-		while (x < MINIMAP_TILE)
+		while (x < MINI_TILE)
 		{
 			my_mlx_pixel_put(&(data->img), x + px, y + py, color);
 			x++;
@@ -58,12 +57,12 @@ void	border_square(t_data *data, int px, int py)
 	int	y;
 
 	y = 0;
-	while (y < MINIMAP_TILE)
+	while (y < MINI_TILE)
 	{
 		x = 0;
-		while (x < MINIMAP_TILE)
+		while (x < MINI_TILE)
 		{
-			if ((y == 0 || y == MINIMAP_TILE + 1) || (x == 0 || x == MINIMAP_TILE + 1))
+			if ((y == 0 || y == MINI_TILE + 1) || (x == 0 || x == MINI_TILE + 1))
 			{
 				my_mlx_pixel_put(&(data->img), x + px, y + py, PURPLE);
 			}
@@ -75,46 +74,30 @@ void	border_square(t_data *data, int px, int py)
 
 void	draw_map_fill(t_data *data)
 {
-	int	px;
-	int	py;
+	int	x;
+	int	y;
+	int	map_x;
+	int	map_y;
 
-	py = 0;
-	while (py < MAP_HEIGHT)
+	y = 0;
+	while (y < MINIMAP_OFFSET_Y)
 	{
-		px = 0;
-		while (px < MAP_WIDTH)
+		x = 0;
+		while (x < MINIMAP_OFFSET_X)
 		{
-			if (data->map[py][px] == WALL && !is_direction(data->map[py][px]))
-				fill_square(data, px * MINIMAP_TILE + MINIMAP_OFFSET_X, py * MINIMAP_TILE + MINIMAP_OFFSET_Y, YELLOW);
+			map_x = (int)data->player.position.x - MINIMAP_RADIUS + x;
+			map_y = (int)data->player.position.y - MINIMAP_RADIUS + y;
+			if (map_x < 0 || map_y < 0 || map_x >= MAP_WIDTH || map_y >= MAP_HEIGHT
+				|| !data->map[map_y] || data->map[map_y][map_x] == ' ')
+				fill_square(data, x * MINI_TILE, y * MINI_TILE, DARK_GRAY);
+			else if (data->map[map_y][map_x] == WALL)
+				fill_square(data, x * MINI_TILE, y * MINI_TILE, YELLOW);
 			else
-				fill_square(data, px * MINIMAP_TILE + MINIMAP_OFFSET_X, py * MINIMAP_TILE + MINIMAP_OFFSET_Y, BLACK);
-			border_square(data, px * MINIMAP_TILE + MINIMAP_OFFSET_X, py * MINIMAP_TILE + MINIMAP_OFFSET_Y);
-			px++;
+				fill_square(data, x * MINI_TILE, y * MINI_TILE, BLACK);
+
+			border_square(data, x * MINI_TILE, y * MINI_TILE);
+			x++;
 		}
-		py++;
+		y++;
 	}
 }
-
-// void	draw_map_border(t_data *data)
-// {
-// 	int	px;
-// 	int	py;
-
-// 	py = 0;
-// 	while (py < MAP_HEIGHT)
-// 	{
-// 		px = 0;
-// 		while (px < MAP_WIDTH)
-// 		{
-// 			if (data->map[py][px] == WALL && !is_direction(data->map[py][px]))
-// 			{
-// 				fill_square(data, px * MINIMAP_TILE + MINIMAP_OFFSET_X, py * MINIMAP_TILE + MINIMAP_OFFSET_Y, YELLOW);
-// 			}
-// 			else
-// 				fill_square(data, px * MINIMAP_TILE + MINIMAP_OFFSET_X, py * MINIMAP_TILE + MINIMAP_OFFSET_Y, BLACK);  // dark gray for floor/background
-// 			border_square(data, px * MINIMAP_TILE + MINIMAP_OFFSET_X, py * MINIMAP_TILE + MINIMAP_OFFSET_Y);
-// 			px++;
-// 		}
-// 		py++;
-// 	}
-// }
