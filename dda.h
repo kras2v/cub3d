@@ -35,7 +35,7 @@
 // #define SOUTH 'S'
 // #define NORTH 'N'
 #define FOV PI / 5
-#define MINIMAP_TILE 10
+#define MINI_TILE 10
 #define MINIMAP_RADIUS 10
 #define MINIMAP_OFFSET_X 20
 #define MINIMAP_OFFSET_Y 20
