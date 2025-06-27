@@ -14,18 +14,22 @@
 
 void	draw_player(t_data *data)
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	double	px;
+	double	py;
 
 	y = 0;
+	px = (data->player.position.x - ((int)data->player.position.x - MINIMAP_RADIUS)) * MINI_TILE;
+	py = (data->player.position.y - ((int)data->player.position.y - MINIMAP_RADIUS)) * MINI_TILE;
 	while (y < PLAYER_SIZE)
 	{
 		x = 0;
 		while (x < PLAYER_SIZE)
 		{
 			my_mlx_pixel_put(&(data->img),
-				(MINIMAP_OFFSET_X * MINI_TILE / 2) - (PLAYER_SIZE / 2) + x,
-				(MINIMAP_OFFSET_Y * MINI_TILE / 2) - (PLAYER_SIZE / 2) + y,
+				(int)(px - PLAYER_SIZE / 2 + x),
+				(int)(py - PLAYER_SIZE / 2 + y),
 				GREEN);
 			x++;
 		}
