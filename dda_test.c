@@ -23,9 +23,9 @@ bool is_direction(int coordinate)
 void	display(t_data *data)
 {
 	clear_display(data);
+	draw_map_border(data);
 	dda(data);
 	draw_map_fill(data);
-	// draw_map_border(data);
 	draw_player(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
 }

@@ -134,7 +134,7 @@ void	dda(t_data *data);
 bool	is_direction(int coordinate);
 
 //DRAW UTILS
-void	draw_line(t_data *data, t_fvector a, t_fvector b, t_colors color, int second_window);
+void	draw_line(t_data *data, t_fvector a, t_fvector b, t_colors color);
 void	my_mlx_pixel_put(t_image *data, int x, int y, int color);
 void	clear_display(t_data *data);
 
