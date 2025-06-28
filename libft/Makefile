@@ -48,30 +48,40 @@ SRCSB = ft_lstnew_bonus.c		\
 		ft_lstclear_bonus.c		\
 		ft_lstmap_bonus.c
 
+PRINTF		:= libftprintf.a
+PRINTF_DIR	:= ft_printf
+
 # SRCS_ALL = $(SRCS) $(SRCSB)
 
 OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
-OBJS_B = $(SRCSB:.c=.o)
+OBJS_B = $(SRCSB:.c=$(OBJS_DIR)/.o)
 
 $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
 	$(CC) $(CFLAGS) -o $@ -c $< 
 
 NAME = libft.a
 
+all: $(NAME) $(PRINTF_DIR)/$(PRINTF)
+
 $(NAME): $(OBJS)
-	ar rc $(NAME) $(OBJS)	
-# archive, replace, create 
+	ar rc $(NAME) $(OBJS)
+	@$(MAKE) -C $(PRINTF_DIR)
+	ar x $(PRINTF_DIR)/$(PRINTF)
+	ar r $(NAME) *.o
+	rm -f *.o
+
+$(NAME): $(OBJS)
+	ar rc $(NAME) $(OBJS)
+
+$(PRINTF_DIR)/$(PRINTF):
+	@$(MAKE) -C $(PRINTF_DIR)
 
 $(OBJS_DIR):
 	mkdir -p $(OBJS_DIR)
 
-all : $(NAME)
-
-
 bonus : $(OBJS) $(OBJS_B)
 	ar rc $(NAME) $(OBJS) $(OBJS_B)
-
 
 clean : 
 	rm -rf $(OBJS_DIR)

@@ -8,7 +8,9 @@
 		"dda.h": "c",
 		"errno.h": "c",
 		"stdbool.h": "c",
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"libft.h": "c",
+		"ft_printf.h": "c"
 	},
 	"C_Cpp.default.compilerPath": "/usr/bin/clang"
 }
