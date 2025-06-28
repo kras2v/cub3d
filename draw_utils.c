@@ -38,7 +38,7 @@ void	clear_display(t_data *data)
 	}
 }
 
-void	draw_horizontal(t_data *data, t_fvector a, t_fvector b, t_colors color, int second_window)
+void	draw_horizontal(t_data *data, t_fvector a, t_fvector b, t_colors color)
 {
 	int	dx;
 	int	dy;
@@ -70,7 +70,7 @@ void	draw_horizontal(t_data *data, t_fvector a, t_fvector b, t_colors color, int
 		while (x < dx + 1)
 		{
 			if (a.x + x >= 0 && a.x + x < WIDTH && y >= 0 && y < HEIGHT)
-				my_mlx_pixel_put(&(data->img), a.x + x + second_window * WIDTH, y, color);
+				my_mlx_pixel_put(&(data->img), a.x + x, y, color);
 			if (p >= 0)
 			{
 				y += dir;
@@ -82,7 +82,7 @@ void	draw_horizontal(t_data *data, t_fvector a, t_fvector b, t_colors color, int
 	}
 }
 
-void	draw_vertical(t_data *data, t_fvector a, t_fvector b, t_colors color, int second_window)
+void	draw_vertical(t_data *data, t_fvector a, t_fvector b, t_colors color)
 {
 	int	dx;
 	int	dy;
@@ -114,7 +114,7 @@ void	draw_vertical(t_data *data, t_fvector a, t_fvector b, t_colors color, int s
 		while (y < dy + 1)
 		{
 			if (y + a.y >= 0 && y + a.y < HEIGHT && x >= 0 && x < WIDTH)
-				my_mlx_pixel_put(&(data->img), x + second_window * WIDTH, y + a.y, color);
+				my_mlx_pixel_put(&(data->img), x, y + a.y, color);
 			if (p >= 0)
 			{
 				x += dir;
@@ -126,14 +126,14 @@ void	draw_vertical(t_data *data, t_fvector a, t_fvector b, t_colors color, int s
 	}
 }
 
-void	draw_line(t_data *data, t_fvector a, t_fvector b, t_colors color, int second_window)
+void	draw_line(t_data *data, t_fvector a, t_fvector b, t_colors color)
 {
 	if (fabs(b.x - a.x) >= fabs(b.y - a.y))
 	{
-		draw_horizontal(data, a, b, color, second_window);
+		draw_horizontal(data, a, b, color);
 	}
 	else
 	{
-		draw_vertical(data, a, b, color, second_window);
+		draw_vertical(data, a, b, color);
 	}
 }

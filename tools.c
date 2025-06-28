@@ -86,19 +86,35 @@ void	get_x_ray_coordinates(
 	ray->y = data->player.direction.y + data->player.plane.y * data->normilized_x[x];
 }
 
-void	draw_rays_on_map(
-	t_data *data,
-	t_coordinates player_cell
-)
-{
-	t_fvector player_position_in_pixels;
-	t_fvector end_ray_point;
+// void	draw_rays_on_map(
+// 	t_data *data,
+// 	t_coordinates player_cell
+// )
+// {
+// 	t_fvector player_position_in_pixels;
+// 	t_fvector end_ray_point;
 
-	player_position_in_pixels.x = data->player.position.x * CELL_SIZE;
-	player_position_in_pixels.y = data->player.position.y * CELL_SIZE;
-	end_ray_point.x = player_cell.x * CELL_SIZE;
-	end_ray_point.y = player_cell.y * CELL_SIZE;
-	draw_line(data, player_position_in_pixels, end_ray_point, WHITE, true);
+// 	player_position_in_pixels.x = data->player.position.x * CELL_SIZE;
+// 	player_position_in_pixels.y = data->player.position.y * CELL_SIZE;
+// 	end_ray_point.x = player_cell.x * CELL_SIZE;
+// 	end_ray_point.y = player_cell.y * CELL_SIZE;
+// 	draw_line(data, player_position_in_pixels, end_ray_point, WHITE, true);
+// }
+
+void	draw_rays_on_map(t_data *data, t_coordinates player_cell)
+{
+	t_fvector player_pos;
+	t_fvector ray_end;
+	int map_start_x = (int)data->player.position.x - MINIMAP_RADIUS;
+	int map_start_y = (int)data->player.position.y - MINIMAP_RADIUS ;
+
+	player_pos.x = ((data->player.position.x) - map_start_x) * MINI_TILE;
+	player_pos.y = ((data->player.position.y) - map_start_y) * MINI_TILE;
+
+	ray_end.x = (player_cell.x - map_start_x) * MINI_TILE;
+	ray_end.y = (player_cell.y - map_start_y) * MINI_TILE;
+
+ 	draw_line(data, player_pos, ray_end, WHITE);
 }
 
 double	find_distance_to_wall(
@@ -165,7 +181,7 @@ void	draw_floor(
 	screen_bottom.y = HEIGHT - 1;
 	start_point.x = x;
 	start_point.y = end_pixel;
-	draw_line(data, screen_bottom, start_point, color, false);
+	draw_line(data, screen_bottom, start_point, color);
 }
 
 void	draw_celing(
@@ -182,7 +198,7 @@ void	draw_celing(
 	screen_top.y = 0;
 	start_point.x = x;
 	start_point.y = start_pixel;
-	draw_line(data, screen_top, start_point, color, false);
+	draw_line(data, screen_top, start_point, color);
 }
 
 void	draw_line_text(

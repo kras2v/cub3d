@@ -76,6 +76,24 @@ void	border_square(t_data *data, int px, int py)
 	}
 }
 
+void	draw_map_border(t_data *data)
+{
+	int	px;
+	int	py;
+
+	py = 0;
+	while (py < MINI_TILE)
+	{
+		px = 0;
+		while (px < MINI_TILE)
+		{
+			border_square(data,  px * MINI_TILE, py * MINI_TILE);
+			px++;
+		}
+		py++;
+	}
+}
+
 void	draw_map_fill(t_data *data)
 {
 	int	x;
