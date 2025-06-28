@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+         #
+#    By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 16:22:08 by kvalerii          #+#    #+#              #
-#    Updated: 2025/06/26 15:30:44 by eklymova         ###   ########.fr        #
+#    Updated: 2025/06/28 18:29:55 by kvalerii         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ MINILIBX_DIR = minilibx_linux
 MINILIBX_LIB = mlx_Linux
 OBJS_DIR  = objs
 CFLAGS := -Wall -Werror -Wextra
-CC := cc
+CC := cc -g
 SRC_DIR := .
 
 SRCS =	dda_test.c \
@@ -48,8 +48,7 @@ $(OBJS_DIR):
 	mkdir -p $(OBJS_DIR)
 
 $(NAME): $(OBJS) libft/libft.a
-	$(CC) $(CFLAGS) $(OBJS) -L$(MINILIBX_DIR) -l$(MINILIBX_LIB) -L/usr/lib -I$(MINILIBX_DIR) -fPIE -lXext -lX11 -lm -lz -o $(NAME) libft/libft.a
-
+	$(CC) $(CFLAGS) $(OBJS) -L$(MINILIBX_DIR) -l$(MINILIBX_LIB) -Llibft/ft_printf -lftprintf -L/usr/lib -I$(MINILIBX_DIR) -fPIE -lXext -lX11 -lm -lz -o $(NAME) libft/libft.a
 
 clean :
 	rm -rf $(OBJS_DIR)

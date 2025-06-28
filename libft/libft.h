@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 16:57:20 by eklymova          #+#    #+#             */
-/*   Updated: 2024/10/30 14:44:39 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/06/28 17:51:13 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,7 @@ char	*get_n_line(char *s);
 char	*new_string(char *s);
 char	*read_str(int fd, char *s);
 char	*get_next_line(int fd);
+
+int		ft_printf(const char *format, ...);
 
 #endif

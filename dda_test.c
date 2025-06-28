@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda_test.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/27 11:23:58 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/06/28 19:18:26 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,9 +135,191 @@ int	initialize_data(t_data **data)
 	return (0);
 }
 
-int	map_validator(char **map)
+bool is_possible_to_go_up(char **map, int *p_i, int *p_j, bool *closed)
 {
-	
+	int	i;
+	int	j;
+
+	i = *p_i;
+	j = *p_j;
+	if (i - 1 >= 0 && map[i - 1][j] == '1')
+	{
+		i--;
+		printf("\n");
+		while (map[i][j] == '1' && i >= 0)
+		{
+			ft_printf("%c", map[i][j]);
+			i--;
+			if (i - 1 == 0 
+				|| map[i][j] == ' ')
+				break;
+			if (map[i - 1][j] == '0')
+				closed = false;
+		}
+	}
+	*p_i = i;
+	*p_j = j;
+	return (0);
+}
+
+bool is_possible_to_go_left(char **map, int *p_i, int *p_j, bool *closed)
+{
+	int	i;
+	int	j;
+
+	i = *p_i;
+	j = *p_j;
+	if (j + 1 < MAP_HEIGHT - 1 && map[i][j + 1] == '1')
+	{
+		j++;
+		printf("\n");
+		while (map[i][j] == '1' && j < MAP_HEIGHT - 1)
+		{
+			ft_printf("%c", map[i][j]);
+			j++;
+			if (map[i][j + 1] == ' '
+				|| j + 1 == MAP_HEIGHT - 1)
+				break;
+			if (map[i][j + 1] == '0')
+			closed = false;
+		}
+	}
+	*p_i = i;
+	*p_j = j;
+	return (0);
+}
+
+bool is_possible_to_go_right(char **map, int *p_i, int *p_j, bool *closed)
+{
+	int	i;
+	int	j;
+
+	i = *p_i;
+	j = *p_j;
+	if (j + 1 < MAP_HEIGHT - 1 && map[i][j + 1] == '1')
+	{
+		j++;
+		while (map[i][j] == '1' && j < MAP_HEIGHT - 1)
+		{
+			ft_printf("%c", map[i][j]);
+			j++;
+			if (map[i][j + 1] == ' '
+				|| j + 1 == MAP_HEIGHT - 1)
+				break;
+			if (map[i][j + 1] == '0')
+			closed = false;
+		}
+	}
+	*p_i = i;
+	*p_j = j;
+	return (0);
+}
+
+bool is_possible_to_go_down(char **map, int *p_i, int *p_j, bool *closed)
+{
+	int	i;
+	int	j;
+
+	i = *p_i;
+	j = *p_j;
+	if (i + 1 < MAP_WIDTH && map[i + 1][j] == '1')
+	{
+		i++;
+		ft_printf("\n");
+		while (map[i][j] == '1' && j < MAP_HEIGHT - 1)
+		{
+			ft_printf("%c", map[i][j]);
+			j++;
+			if (map[i][j + 1] == ' '
+				|| j + 1 == MAP_HEIGHT - 1 )
+				break;
+			if (map[i][j + 1] == '0')
+			closed = false;
+		}
+	}
+	*p_i = i;
+	*p_j = j;
+	return (0);
+}
+
+void	skip_spaces(char **map, int *p_i, int *p_j, t_move direction)
+{
+	int	i;
+	int	j;
+
+	i = *p_i;
+	j = *p_j;
+	if (direction == RIGHT)
+	{
+		while (map[i][j] == ' ' && j < MAP_HEIGHT - 1)
+		{
+			ft_printf("%c", map[i][j]);
+			if (map[i][j + 1] == '1' || map[i][j + 1] == '0')
+				break;
+			j++;
+		}
+	}
+	if (direction == LEFT)
+	{
+		while (map[i][j] == ' ' && j >= 0)
+		{
+			ft_printf("%c", map[i][j]);
+			if (map[i][j - 1] == '1' || map[i][j - 1] == '0')
+				break;
+			j--;
+		}
+	}
+	if (direction == DOWN)
+	{
+		while (map[i][j] == ' ' && i < MAP_WIDTH - 1)
+		{
+			ft_printf("%c", map[i][j]);
+			if (map[i + 1][j] == '1' || map[i + 1][j] == '0')
+				break;
+			i++;
+		}
+	}
+	if (direction == UP)
+	{
+		while (map[i][j] == ' ' && i >= 0)
+		{
+			ft_printf("%c", map[i][j]);
+			if (map[i - 1][j] == '1' || map[i - 1][j] == '0')
+				break;
+			i--;
+		}
+	}
+	*p_i = i;
+	*p_j = j;
+}
+
+bool	is_map_closed(char **map)
+{
+	t_coordinates	starting_point;
+	int				i;
+	int				j;
+	bool			closed;
+
+	i = 0;
+	j = 0;
+	closed = true;
+	skip_spaces(map, &i, &j, RIGHT);
+	starting_point.x = j;
+	starting_point.x = i;
+	while (true)
+	{
+		skip_spaces(map, &i, &j, RIGHT);
+		while (closed == true)
+		{
+			is_possible_to_go_down(map, &i, &j, &closed);
+			is_possible_to_go_right(map, &i, &j, &closed);
+			is_possible_to_go_up(map, &i, &j, &closed);
+		}
+		
+		if (1)
+			break;
+	}
+	return (true);
 }
 
 int	main(int argc, char **args)
@@ -152,10 +334,11 @@ int	main(int argc, char **args)
 	data->map = read_map(args[1]);
 	if (!data->map)
 		return (1);
-	
+	printf("hello\n");
+	if (is_map_closed(data->map) == false)
+		return (1);
 	init_player(data);
 	display(data);
-	printf("hello\n");
 	init_hooks(data);
 	mlx_loop(data->mlx);
 	close_event(data);
