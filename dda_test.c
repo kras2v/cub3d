@@ -37,7 +37,7 @@ t_fvector	cast_flashlight_ray(t_data *data, t_fvector dir,
 
 	pos = data->player.position;
 	len = 0;
-	while (len < 5.0)
+	while (len < 2.0)
 	{
 		mx = (int)pos.x;
 		my = (int)pos.y;
@@ -67,8 +67,8 @@ void	draw_flashlight(t_data *data)
 			- param.map_start_x) * MINI_TILE;
 	param.player_pos.y = (data->player.position.y
 			- param.map_start_y) * MINI_TILE;
-	param.fov = PI / 12;
-	param.rays = 25;
+	param.fov = 1;
+	param.rays = 30;
 	param.step_angle = param.fov / (param.rays - 1);
 	param.start = -param.fov / 2;
 	i = 0;
