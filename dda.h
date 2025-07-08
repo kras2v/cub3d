@@ -6,7 +6,7 @@
 /*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/14 11:25:50 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/07/14 11:26:20 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,17 @@ typedef struct s_data
 	char		**map;
 	double		normilized_x[WIDTH];
 } t_data;
+
+typedef struct s_flash_params
+{
+	t_fvector	player_pos;
+	int			map_start_x;
+	int			map_start_y;
+	double		fov;
+	int			rays;
+	double		step_angle;
+	double		start;
+}	t_flash_params;
 
 void	dda(t_data *data);
 bool	is_direction(int coordinate);
