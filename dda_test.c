@@ -6,18 +6,80 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/26 19:02:44 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/08 17:59:49 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dda.h"
 
-bool is_direction(int coordinate)
+bool	is_direction(int coordinate)
 {
 	return (coordinate == NORTH
 		|| coordinate == EAST
 		|| coordinate == SOUTH
 		|| coordinate == WEST);
+}
+
+void	compute_dir(t_fvector *dir, t_fvector player_dir, double angle)
+{
+	dir->x = player_dir.x * cos(angle) - player_dir.y * sin(angle);
+	dir->y = player_dir.x * sin(angle) + player_dir.y * cos(angle);
+}
+
+t_fvector	cast_flashlight_ray(t_data *data, t_fvector dir,
+		int map_start_x, int map_start_y)
+{
+	t_fvector	pos;
+	t_fvector	end;
+	double		len;
+	int			mx;
+	int			my;
+
+	pos = data->player.position;
+	len = 0;
+	while (len < 5.0)
+	{
+		mx = (int)pos.x;
+		my = (int)pos.y;
+		if (my >= 0 && my < MAP_HEIGHT && mx >= 0
+			&& mx < MAP_WIDTH && data->map[my][mx] == WALL)
+			break ;
+		pos.x += dir.x * 0.1;
+		pos.y += dir.y * 0.1;
+		len += 0.1;
+	}
+	end.x = (pos.x - map_start_x) * MINI_TILE;
+	end.y = (pos.y - map_start_y) * MINI_TILE;
+	return (end);
+}
+
+void	draw_flashlight(t_data *data)
+{
+	t_flash_params	param;
+	t_fvector		dir;
+	t_fvector		end;
+	int				i;
+	double			a;
+
+	param.map_start_x = (int)data->player.position.x - MINIMAP_RADIUS;
+	param.map_start_y = (int)data->player.position.y - MINIMAP_RADIUS;
+	param.player_pos.x = (data->player.position.x
+			- param.map_start_x) * MINI_TILE;
+	param.player_pos.y = (data->player.position.y
+			- param.map_start_y) * MINI_TILE;
+	param.fov = PI / 12;
+	param.rays = 25;
+	param.step_angle = param.fov / (param.rays - 1);
+	param.start = -param.fov / 2;
+	i = 0;
+	while (i++ < param.rays)
+	{
+		a = param.start + i * param.step_angle;
+		compute_dir(&dir, data->player.direction, a);
+		end = cast_flashlight_ray(data, dir, param.map_start_x,
+				param.map_start_y);
+		draw_line(data, param.player_pos, end, WHITE);
+	}
 }
 
 void	display(t_data *data)
@@ -27,6 +89,7 @@ void	display(t_data *data)
 	dda(data);
 	draw_map_fill(data);
 	draw_player(data);
+	draw_flashlight(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
 }
 
@@ -78,6 +141,8 @@ void	init_player(t_data *data)
 	data->player.plane.x = -data->player.direction.y * FOV;
 	data->player.plane.y = data->player.direction.x * FOV;
 }
+
+
 
 int upload_textures(t_data *data)
 {
@@ -156,6 +221,8 @@ int upload_textures(t_data *data)
 // 		{
 // 			free_map((*data)->map, i);
 // 		}
+
+
 // 		int j = 0;
 // 		while (j < MAP_WIDTH)
 // 		{

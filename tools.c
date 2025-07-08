@@ -6,7 +6,7 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:03:35 by valeriia          #+#    #+#             */
-/*   Updated: 2025/06/26 15:08:06 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/08 16:35:47 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	draw_rays_on_map(t_data *data, t_coordinates player_cell)
 	ray_end.x = (player_cell.x - map_start_x) * MINI_TILE;
 	ray_end.y = (player_cell.y - map_start_y) * MINI_TILE;
 
- 	draw_line(data, player_pos, ray_end, WHITE);
+ 	// draw_line(data, player_pos, ray_end, WHITE);
 }
 
 double	find_distance_to_wall(
