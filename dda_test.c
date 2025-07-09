@@ -154,13 +154,13 @@ int upload_textures(t_data *data)
 	while (i < 4)
 	{
 		if (i == N)
-			data->texture[i].name = "./walls/xpm/north_wall.xpm";
+			data->texture[i].name = data->N_T;
 		else if (i == E)
-			data->texture[i].name = "./walls/xpm/east_wall.xpm";
+			data->texture[i].name = data->E_T;
 		else if (i == S)
-			data->texture[i].name = "./walls/xpm/south_wall.xpm";
+			data->texture[i].name = data->S_T;
 		else if (i == W)
-			data->texture[i].name = "./walls/xpm/west_wall.xpm";
+			data->texture[i].name = data->W_T;
 		data->texture[i].image.ptr = mlx_xpm_file_to_image(data->mlx, data->texture[i].name, &data->texture[i].width, &data->texture[i].height);
 		if (data->texture[i].image.ptr == NULL)
 		{
@@ -255,11 +255,12 @@ int	main(int argc, char **args)
 	if (argc != 2)
 		return (printf("wrong number of arguments\n"), 1);
 	initialize_data(&data);
-	if (!valid_input(args[1]))
-		return (printf("invalid input\n"), 1);
-	data->map = read_map(args[1]);
-	if (!data->map)
+	// if (!valid_input(args[1]))
+	// 	return (printf("invalid input\n"), 1);
+	data->script = read_map(args[1]);
+	if (!data->script)
 		return (1);
+	script_init(data);
 	if (!map_valid(data))
 		return(printf("Invalid input\n"), free_map_init(data->map), 1);
 	int x = 0;

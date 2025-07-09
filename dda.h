@@ -126,7 +126,14 @@ typedef struct s_data
 	t_image		img;
 	long		time;
 	t_texture	*texture;
+	char		**script;
 	char		**map;
+	char		*E_T;
+	char		*W_T;
+	char		*S_T;
+	char		*N_T;
+	char		*F;
+	char		*C;		
 	double		normilized_x[WIDTH];
 } t_data;
 
@@ -180,4 +187,7 @@ void	free_map_init(char **map);
 
 // VALID MAP
 bool	map_valid(t_data	*data);
+
+// SCRIPT
+bool script_init(t_data *data);
 #endif
