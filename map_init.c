@@ -40,8 +40,8 @@ char	*read_map_str(int fd)
 		temp = get_next_line(fd);
 		if (!temp)
 			break ;
-		if (temp[0] == '\n')
-			return (free(temp), free(map_str), NULL);
+		// if (temp[0] == '\n')
+		// 	return (free(temp), free(map_str), NULL);
 		new_map_str = ft_strjoin(map_str, temp);
 		free(map_str);
 		free(temp);

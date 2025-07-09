@@ -27,7 +27,8 @@ SRCS =	dda_test.c \
 		free_utils.c \
 		math.c \
 		map_init.c \
-		map_valid.c
+		map_valid.c \
+		script_init.c
 
 OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
