@@ -6,7 +6,7 @@
 #    By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 16:22:08 by kvalerii          #+#    #+#              #
-#    Updated: 2025/07/14 11:25:58 by valeriia         ###   ########.fr        #
+#    Updated: 2025/07/14 11:27:38 by valeriia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME = dda
 MINILIBX_DIR = minilibx_linux
 MINILIBX_LIB = mlx_Linux
 OBJS_DIR  = objs
-CFLAGS := -Wall -Werror -Wextra
-CC := cc -g
+CFLAGS := -Wall -Werror -Wextra -g
+CC := cc
 SRC_DIR := .
 
 SRCS =	dda_test.c \

@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:33:02 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/25 20:33:08 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/10 13:04:28 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dda.h"
 
-void	free_map(int **map, int i)
-{
-	int j;
+// void	free_map(int **map, int i)
+// {
+// 	int j;
 
-	j = 0;
-	while (j < i)
-	{
-		free(map[j]);
-		j++;
-	}
-	free(map);
-}
+// 	j = 0;
+// 	while (j < i)
+// 	{
+// 		free(map[j]);
+// 		j++;
+// 	}
+// 	free(map);
+// }
