@@ -6,7 +6,7 @@
 /*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/14 11:28:13 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/07/14 11:29:07 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -390,7 +390,7 @@ bool	is_map_closed(char **map)
 int	main(int argc, char **args)
 {
 	t_data	*data;
-	
+
 	if (argc != 2)
 	return (printf("wrong number of arguments\n"), 1);
 	initialize_data(&data);
@@ -401,7 +401,7 @@ int	main(int argc, char **args)
 	return (1);
 	script_init(data);
 	if (!map_valid(data))
-		return(printf("Invalid input\n"), free_map_init(data->script), 1);
+		return(printf("Invalid input\n"), free_double_arr(data->script), 1);
 	if (upload_textures(data))
 		return (1);
 	int x = 0;

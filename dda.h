@@ -6,7 +6,7 @@
 /*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/14 11:28:37 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/07/14 11:28:59 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ int	valid_input(char *name);
 
 // READ MAP
 char	**read_map(char *map_script);
-void	free_map_init(char **map);
+void	free_double_arr(char **map);
 
 // VALID MAP
 bool	map_valid(t_data	*data);

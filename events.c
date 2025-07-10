@@ -6,7 +6,7 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:28:59 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/10 14:40:48 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:27:07 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ int	close_event(t_data *data)
 		if (data->C)
 			free(data->C);
 		mlx_destroy_display(data->mlx);
-		free_map_init(data->script);
+		free_double_arr(data->script);
 		data->script = NULL;
 		free(data->mlx);
-		free(data->lekkereclrs);
+		free_double_arr(data->lekkereclrs);
 		free(data);
 	}
 	exit(0);

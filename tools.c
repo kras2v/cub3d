@@ -6,7 +6,7 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:03:35 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/10 14:40:03 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:38:37 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,9 +199,17 @@ t_colors find_color(t_data *data, char part)
 	else
 		input_clr = data->C;
 	data->lekkereclrs = ft_split(input_clr, ',');
+	if (!data->lekkereclrs || !data->lekkereclrs[0] || !data->lekkereclrs[1] || !data->lekkereclrs[2])
+	{
+		free_double_arr(data->lekkereclrs);
+		return (0);
+	}
 	r = ft_atoi(data->lekkereclrs[0]);
 	g = ft_atoi(data->lekkereclrs[1]);
 	b = ft_atoi(data->lekkereclrs[2]);
+	if (data->lekkereclrs)
+		free_double_arr(data->lekkereclrs);
+	data->lekkereclrs = NULL;
 	color = (r << 16) | (g << 8) | b;
 	return (color);
 }
