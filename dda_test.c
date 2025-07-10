@@ -6,7 +6,7 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/08 17:59:49 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/10 13:19:26 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,61 +178,6 @@ int upload_textures(t_data *data)
 	return (0);
 }
 
-// void	add_map(t_data **data)
-// {
-// 	int worldMap[MAP_WIDTH][MAP_HEIGHT]=
-// 	{
-// 		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-// 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,0,0,0,0,0,1,1,1,1,1,0,0,0,0,1,0,1,0,1,0,0,0,1},
-// 		{1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,1},
-// 		{1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,0,0,0,0,0,1,1,0,1,1,0,0,0,0,1,0,1,0,1,0,0,0,1},
-// 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,0,0,0,'S',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-// 		{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-// 	};
-	
-// 	(*data)->map = malloc(sizeof(int *) * MAP_HEIGHT);
-// 	if ((*data)->map == NULL)
-// 	{
-// 		close_event((*data));
-// 	}
-// 	int i = 0;
-// 	while (i < MAP_HEIGHT)
-// 	{
-// 		(*data)->map[i] = malloc(sizeof(int) * MAP_WIDTH);
-// 		if ((*data)->map[i] == NULL)
-// 		{
-// 			free_map((*data)->map, i);
-// 		}
-
-
-// 		int j = 0;
-// 		while (j < MAP_WIDTH)
-// 		{
-// 			(*data)->map[i][j] = worldMap[i][j];
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }
-
 int	initialize_data(t_data **data)
 {
 	(*data) = malloc(sizeof(t_data));
@@ -242,8 +187,6 @@ int	initialize_data(t_data **data)
 	(*data)->mlx_win = mlx_new_window((*data)->mlx, WIDTH, HEIGHT, "cub3d");
 	(*data)->img.ptr = mlx_new_image((*data)->mlx, WIDTH * 2, HEIGHT);
 	(*data)->img.addr = mlx_get_data_addr((*data)->img.ptr, &(*data)->img.bits_per_pixel, &(*data)->img.line_length, &(*data)->img.endian);
-	if (upload_textures((*data)))
-		return (1);
 	// add_map(data);
 	return (0);
 }
@@ -251,18 +194,20 @@ int	initialize_data(t_data **data)
 int	main(int argc, char **args)
 {
 	t_data	*data;
-
+	
 	if (argc != 2)
-		return (printf("wrong number of arguments\n"), 1);
+	return (printf("wrong number of arguments\n"), 1);
 	initialize_data(&data);
-	// if (!valid_input(args[1]))
-	// 	return (printf("invalid input\n"), 1);
+	if (!valid_input(args[1]))
+		return (printf("invalid input\n"), 1);
 	data->script = read_map(args[1]);
 	if (!data->script)
-		return (1);
+	return (1);
 	script_init(data);
 	if (!map_valid(data))
-		return(printf("Invalid input\n"), free_map_init(data->map), 1);
+		return(printf("Invalid input\n"), free_map_init(data->script), 1);
+	if (upload_textures(data))
+		return (1);
 	int x = 0;
 	while (x < WIDTH)
 	{
