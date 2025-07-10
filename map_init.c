@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-void	free_map_init(char **map)
+void	free_double_arr(char **map)
 {
 	int	i;
 

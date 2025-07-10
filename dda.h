@@ -6,7 +6,7 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/10 14:20:42 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:27:31 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ int	valid_input(char *name);
 
 // READ MAP
 char	**read_map(char *map_script);
-void	free_map_init(char **map);
+void	free_double_arr(char **map);
 
 // VALID MAP
 bool	map_valid(t_data	*data);

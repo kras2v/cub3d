@@ -6,7 +6,7 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/10 13:19:26 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:28:45 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ int	initialize_data(t_data **data)
 int	main(int argc, char **args)
 {
 	t_data	*data;
-	
+
 	if (argc != 2)
 	return (printf("wrong number of arguments\n"), 1);
 	initialize_data(&data);
@@ -205,7 +205,7 @@ int	main(int argc, char **args)
 	return (1);
 	script_init(data);
 	if (!map_valid(data))
-		return(printf("Invalid input\n"), free_map_init(data->script), 1);
+		return(printf("Invalid input\n"), free_double_arr(data->script), 1);
 	if (upload_textures(data))
 		return (1);
 	int x = 0;
