@@ -6,7 +6,7 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/08 17:55:16 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/10 14:20:42 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ typedef struct s_data
 	t_image		img;
 	long		time;
 	t_texture	*texture;
+	char		**lekkereclrs;
 	char		**script;
 	char		**map;
 	char		*E_T;
@@ -133,7 +134,7 @@ typedef struct s_data
 	char		*S_T;
 	char		*N_T;
 	char		*F;
-	char		*C;		
+	char		*C;
 	double		normilized_x[WIDTH];
 } t_data;
 

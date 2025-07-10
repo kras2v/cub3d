@@ -15,10 +15,6 @@ void	textures_init(t_data *data, char *line, char c)
 		data->W_T = ft_strdup(line);
 	else if (c == 'S')
 		data->S_T = ft_strdup(line);
-	else if (c == 'F')
-		data->F = ft_strdup(line);
-	else if (c == 'C')
-		data->C = ft_strdup(line);
 }
 
 bool	is_map_line(char *line)
@@ -33,6 +29,19 @@ bool	is_map_line(char *line)
 		i++;
 	}
 	return (true);
+}
+void	colors_init(t_data *data, char *line, char c)
+{
+	while (*line && *line == ' ')
+		line++;
+	if (*line == c)
+		line++;
+	while (*line && *line == ' ')
+		line++;
+	if (c == 'F')
+		data->F = ft_strdup(line);
+	else if (c == 'C')
+		data->C = ft_strdup(line);
 }
 
 bool	script_init(t_data *data)
@@ -51,9 +60,9 @@ bool	script_init(t_data *data)
 		else if (!ft_strncmp(data->script[y], "SO", 2))
 			textures_init(data, data->script[y], 'S');
 		else if (!ft_strncmp(data->script[y], "F", 1))
-			textures_init(data, data->script[y], 'F');
+			colors_init(data, data->script[y], 'F');
 		else if (!ft_strncmp(data->script[y], "C", 1))
-			textures_init(data, data->script[y], 'C');
+			colors_init(data, data->script[y], 'C');
 		else if (is_map_line(data->script[y]))
 		{
 			data->map = &data->script[y];
