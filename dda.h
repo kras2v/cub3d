@@ -6,7 +6,7 @@
 /*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/14 11:26:20 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/07/14 11:28:37 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ typedef struct s_data
 	t_image		img;
 	long		time;
 	t_texture	*texture;
+	char		**lekkereclrs;
 	char		**script;
 	char		**map;
 	char		*E_T;
@@ -133,7 +134,7 @@ typedef struct s_data
 	char		*S_T;
 	char		*N_T;
 	char		*F;
-	char		*C;		
+	char		*C;
 	double		normilized_x[WIDTH];
 } t_data;
 

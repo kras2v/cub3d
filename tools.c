@@ -6,7 +6,7 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:03:35 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/08 16:35:47 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/10 14:40:03 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,26 @@ void	draw_celing(
 	draw_line(data, screen_top, start_point, color);
 }
 
+t_colors find_color(t_data *data, char part)
+{
+	t_colors	color;
+	char		*input_clr;
+	int			r;
+	int			g;
+	int			b;
+
+	if (part == 'F')
+		input_clr = data->F;
+	else
+		input_clr = data->C;
+	data->lekkereclrs = ft_split(input_clr, ',');
+	r = ft_atoi(data->lekkereclrs[0]);
+	g = ft_atoi(data->lekkereclrs[1]);
+	b = ft_atoi(data->lekkereclrs[2]);
+	color = (r << 16) | (g << 8) | b;
+	return (color);
+}
+
 void	draw_line_text(
 	t_data *data,
 	t_side side,
@@ -219,8 +239,8 @@ void	draw_line_text(
 	texture.x = (int)(wall_hit_coord * (double)data->texture->width);
 	y_increase_step = 1.0 * (double)data->texture->height / (double)line_height;
 	position_on_texture = (start_pixel - HEIGHT / 2 + line_height / 2) * y_increase_step;
-	draw_celing(data, start_pixel, LIGHT_BLUE, x);
-	draw_floor(data, end_pixel, GRAY, x);
+	draw_celing(data, start_pixel, find_color(data, 'C'), x);
+	draw_floor(data, end_pixel, find_color(data, 'F'), x);
 	while (start_pixel < end_pixel)
 	{
 		position_on_texture += y_increase_step;
