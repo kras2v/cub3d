@@ -6,7 +6,7 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/11 16:13:19 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/11 17:03:13 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	draw_flashlight(t_data *data)
 void	display(t_data *data)
 {
 	clear_display(data);
-	draw_map_border(data);
+	// draw_map_border(data);
 	dda(data);
 	draw_map_fill(data);
 	draw_player(data);
@@ -149,7 +149,7 @@ int upload_textures(t_data *data)
 	int	i;
 
 	i = 0;
-	data->texture = malloc(sizeof(t_texture) * 4);
+	data->texture = ft_calloc(4, sizeof(t_texture));
 	//!CHECK MALLOC
 	while (i < 4)
 	{
@@ -165,7 +165,7 @@ int upload_textures(t_data *data)
 		if (data->texture[i].image.ptr == NULL)
 		{
 			printf("Error occured while converting file to image\n");
-			return (1);
+			close_event(data);
 		}
 		else
 		{
@@ -180,7 +180,7 @@ int upload_textures(t_data *data)
 
 int	initialize_data(t_data **data)
 {
-	(*data) = malloc(sizeof(t_data));
+	(*data) = ft_calloc(1, sizeof(t_data));
 	if ((*data) == NULL)
 		return (1);
 	(*data)->mlx = mlx_init();
@@ -196,16 +196,16 @@ int	main(int argc, char **args)
 	t_data	*data;
 
 	if (argc != 2)
-	return (printf("wrong number of arguments\n"), 1);
-	initialize_data(&data);
+		return (printf("wrong number of arguments\n"), 1);
 	if (!valid_input(args[1]))
 		return (printf("invalid input\n"), 1);
+	initialize_data(&data);
 	data->script = read_map(args[1]);
 	if (!data->script)
 		return (1);
 	script_init(data);
 	if (!map_valid(data))
-		return(printf("Invalid input\n"), free_double_arr(data->script), 1);
+		return(printf("Invalid input\n"), close_event(data));
 	if (upload_textures(data))
 		return (1);
 	int x = 0;

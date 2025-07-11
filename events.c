@@ -6,7 +6,7 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:28:59 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/10 16:27:07 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/11 16:49:27 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,16 @@ int	close_event(t_data *data)
 			mlx_destroy_image(data->mlx, data->img.ptr);
 		if (data->mlx_win)
 			mlx_destroy_window(data->mlx, data->mlx_win);
-		while (i < 4)
+		if (data->texture)
 		{
-			if (data->texture[i].image.ptr)
-				mlx_destroy_image(data->mlx, data->texture[i].image.ptr);
-			i++;
+			while (i < 4)
+			{
+				if (data->texture[i].image.ptr)
+					mlx_destroy_image(data->mlx, data->texture[i].image.ptr);
+				i++;
+			}
+			free(data->texture);
 		}
-		free(data->texture);
 		if (data->N_T)
 			free(data->N_T);
 		if (data->S_T)
