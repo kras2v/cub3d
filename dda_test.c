@@ -6,7 +6,7 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/11 17:03:13 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/11 18:25:50 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	draw_flashlight(t_data *data)
 	param.player_pos.y = (data->player.position.y
 			- param.map_start_y) * MINI_TILE;
 	param.fov = 1;
-	param.rays = 30;
+	param.rays = 120;
 	param.step_angle = param.fov / (param.rays - 1);
 	param.start = -param.fov / 2;
 	i = 0;

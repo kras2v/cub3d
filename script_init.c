@@ -13,13 +13,13 @@ void	textures_init(t_data *data, char *line, char c)
 			return ;
 		line++;
 	}
-	if (c == 'N')
+	if (c == 'N' && !data->N_T)
 		data->N_T = ft_strdup(line);
-	else if (c == 'E')
+	else if (c == 'E' && !data->E_T)
 		data->E_T = ft_strdup(line);
-	else if (c == 'W')
+	else if (c == 'W' && !data->W_T)
 		data->W_T = ft_strdup(line);
-	else if (c == 'S')
+	else if (c == 'S' && !data->S_T)
 		data->S_T = ft_strdup(line);
 }
 
@@ -30,9 +30,9 @@ void	colors_init(t_data *data, char *line, char c)
 	line += 1;
 	while (*line && *line == ' ')
 		line++;
-	if (c == 'F')
+	if (c == 'F' && !data->F)
 		data->F = ft_strdup(line);
-	else if (c == 'C')
+	else if (c == 'C' && !data->C)
 		data->C = ft_strdup(line);
 }
 
