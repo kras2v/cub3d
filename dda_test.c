@@ -6,7 +6,7 @@
 /*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/14 11:29:07 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/07/14 11:29:24 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -398,7 +398,7 @@ int	main(int argc, char **args)
 		return (printf("invalid input\n"), 1);
 	data->script = read_map(args[1]);
 	if (!data->script)
-	return (1);
+		return (1);
 	script_init(data);
 	if (!map_valid(data))
 		return(printf("Invalid input\n"), free_double_arr(data->script), 1);

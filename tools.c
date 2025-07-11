@@ -6,7 +6,7 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:03:35 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/10 16:38:37 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/11 16:12:03 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,12 +201,17 @@ t_colors find_color(t_data *data, char part)
 	data->lekkereclrs = ft_split(input_clr, ',');
 	if (!data->lekkereclrs || !data->lekkereclrs[0] || !data->lekkereclrs[1] || !data->lekkereclrs[2])
 	{
-		free_double_arr(data->lekkereclrs);
+		close_event(data);
 		return (0);
 	}
 	r = ft_atoi(data->lekkereclrs[0]);
 	g = ft_atoi(data->lekkereclrs[1]);
 	b = ft_atoi(data->lekkereclrs[2]);
+	if (r == -1 | b == -1 | g == -1)
+	{
+		printf("Range from 0 to 255\n");
+		close_event(data);
+	}
 	if (data->lekkereclrs)
 		free_double_arr(data->lekkereclrs);
 	data->lekkereclrs = NULL;
