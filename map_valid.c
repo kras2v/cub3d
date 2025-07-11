@@ -6,7 +6,7 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:01:26 by eklymova          #+#    #+#             */
-/*   Updated: 2025/07/10 12:46:11 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/11 15:19:35 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ bool	char_counter(t_data *data)
 bool	map_valid(t_data	*data)
 {
 	if (!data->N_T || !data->S_T || !data->E_T || !data->W_T || !data->C || !data->F)
-		return (printf("Error: one or more texture paths are missing\n"), 1);
+		return (printf("Error: texture paths are missing\n"), false);
 	if (!char_counter(data))
 		return (false);
 	if (!invalid_char(data))
