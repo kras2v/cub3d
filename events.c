@@ -83,9 +83,52 @@ int	close_event(t_data *data)
 	return(0);
 }
 
+// int mouse_move_callback(int x, int y, t_data *data)
+// {
+// 	(void)y;
+// 	static int last_x = WIDTH / 2;
+// 	int delta_x = x - last_x;
+// 	last_x = x;
+// 	double rot_speed = delta_x * 0.002; // Коэффициент для плавности, можешь уменьшить/увеличить
+// 	if (delta_x != 0)
+// 	{
+// 		double old_dir_x = data->player.direction.x;
+// 		data->player.direction.x = data->player.direction.x * cos(rot_speed) - data->player.direction.y * sin(rot_speed);
+// 		data->player.direction.y = old_dir_x * sin(rot_speed) + data->player.direction.y * cos(rot_speed);
+// 		double old_plane_x = data->player.plane.x;
+// 		data->player.plane.x = data->player.plane.x * cos(rot_speed) - data->player.plane.y * sin(rot_speed);
+// 		data->player.plane.y = old_plane_x * sin(rot_speed) + data->player.plane.y * cos(rot_speed);
+// 		display(data);
+// 	}
+// 	return 0;
+// }
+
+// int mouse_move_callback(int x, int y, t_data *data)
+// {
+// 	(void)y;
+//     int center_x = WIDTH / 2;
+//     int delta_x = x - center_x;
+//     if (delta_x == 0)
+//         return 0;
+//     double rot_speed = delta_x * 0.0002;
+//     if (delta_x != 0)
+//     {
+// 		double old_dir_x = data->player.direction.x;
+// 		data->player.direction.x = data->player.direction.x * cos(rot_speed) - data->player.direction.y * sin(rot_speed);
+// 		data->player.direction.y = old_dir_x * sin(rot_speed) + data->player.direction.y * cos(rot_speed);
+// 		double old_plane_x = data->player.plane.x;
+// 		data->player.plane.x = data->player.plane.x * cos(rot_speed) - data->player.plane.y * sin(rot_speed);
+// 		data->player.plane.y = old_plane_x * sin(rot_speed) + data->player.plane.y * cos(rot_speed);
+//         mlx_mouse_move(data->mlx, data->mlx_win, WIDTH / 2, HEIGHT / 2);
+// 		display(data);
+//     }
+//     return 0;
+// }
+
 void	init_hooks(t_data *data)
 {
 	mlx_hook(data->mlx_win, ON_DESTROY, NO_EVENT_MASK, close_event, data);
 	mlx_mouse_hook(data->mlx_win, print_coords, data);
 	mlx_hook(data->mlx_win, ON_KEYDOWN, KEY_PRESS_MASK, key_press_event, data);
+	mlx_hook(data->mlx_win, 6, 1L << 6, mouse_move_callback, data);
 }

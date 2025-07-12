@@ -207,7 +207,7 @@ t_colors find_color(t_data *data, char part)
 	r = ft_atoi(data->lekkereclrs[0]);
 	g = ft_atoi(data->lekkereclrs[1]);
 	b = ft_atoi(data->lekkereclrs[2]);
-	if (r == -1 | b == -1 | g == -1)
+	if (r == -1 || b == -1 || g == -1)
 	{
 		printf("Range from 0 to 255\n");
 		close_event(data);
