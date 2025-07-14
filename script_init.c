@@ -50,7 +50,7 @@ bool	is_map_line(char *line)
 	return (true);
 }
 
-bool	script_init(t_data *data)
+void	script_init(t_data *data)
 {
 	int	y;
 
@@ -74,7 +74,11 @@ bool	script_init(t_data *data)
 			data->map = &data->script[y];
 			break ;
 		}
+		else if ((ft_strncmp(data->script[y], "\n", 1)))
+		{	
+			printf("Invalid stript\n");
+			close_event(data);
+		}
 		y++;
 	}
-	return (true);
 }
