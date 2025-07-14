@@ -190,5 +190,5 @@ void	free_double_arr(char **map);
 bool	map_valid(t_data	*data);
 
 // SCRIPT
-bool script_init(t_data *data);
+void script_init(t_data *data);
 #endif
