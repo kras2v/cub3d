@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:24:18 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/15 11:37:52 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/15 18:35:27 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ void	draw_map_border(t_data *data)
 	}
 }
 
-//? Change int to size_t, change ' ' to SPACE
 void	draw_map_fill(t_data *data)
 {
 	int	x;

@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/14 18:40:07 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/15 18:34:13 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,9 @@
 #include "libft/libft.h"
 
 #define PI 3.14159265358979323846
-#define PLAYER_SIZE 4
-#define CELL_SIZE 30
-// #define EAST 'E'
-// #define WEST 'W'
-// #define SOUTH 'S'
-// #define NORTH 'N'
 #define FOV PI / 5
+#define PLAYER_SIZE 5
+#define CELL_SIZE 30
 #define MINI_TILE 10
 #define MINIMAP_RADIUS 10
 #define MINIMAP_OFFSET_X 20
@@ -75,11 +71,8 @@ typedef enum e_side
 	HORIZONTAL,
 }	t_side;
 
-#define WIDTH 720
-#define HEIGHT 720
-
-#define MAP_WIDTH 24
-#define MAP_HEIGHT 24
+#define WIDTH 1980
+#define HEIGHT 1220
 
 typedef struct	s_image {
 	void	*ptr;
@@ -176,10 +169,7 @@ void	init_hooks(t_data *data);
 int		close_event(t_data *data);
 
 //GENERAL
-void	display(t_data *data);
-
-//FREE UTILS
-void	free_map(int **map, int i);
+int	display(t_data *data);
 
 //MOVEMENT
 int	move_player(int keycode, t_data *data);

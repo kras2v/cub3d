@@ -6,13 +6,12 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:01:26 by eklymova          #+#    #+#             */
-/*   Updated: 2025/07/15 11:37:26 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/15 18:35:25 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dda.h"
 
-//? Change int to size_t, change ' ' to SPACE
 bool	invalid_char(t_data *data)
 {
 	size_t	x;
@@ -73,6 +72,68 @@ bool	char_counter(t_data *data)
 	return (true);
 }
 
+bool	is_map_closed(t_data *data, size_t x, size_t y)
+{
+	if (y >= data->map_height || x >= data->map_width || y < 0 || x < 0)
+		return (false);
+	if (data->map[y][x] == SPACE)
+		return (false);
+	if (data->map[y][x] == WALL || data->map[y][x] == 'V')
+		return (true);
+	if (data->map[y][x] != EMPTY && data->map[y][x] != SOUTH && data->map[y][x] != NORTH && data->map[y][x] != EAST && data->map[y][x] != WEST)
+		return (true);
+	if (data->map[y][x] == EMPTY)
+		data->map[y][x] = 'V';
+	return (is_map_closed(data, x - 1, y) && is_map_closed(data, x, y - 1)
+		&& is_map_closed(data, x + 1, y) && is_map_closed(data, x, y + 1));
+	return (true);
+}
+
+void	replace_visited_with_empty(t_data *data)
+{
+	size_t x;
+	size_t y;
+
+	y = 0;
+	while (y < data->map_height)
+	{
+		x = 0;
+		while (x < data->map_width)
+		{
+			if (data->map[y][x] == 'V')
+			{
+				data->map[y][x] = EMPTY;
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
+bool check_map_walls(t_data *data)
+{
+	size_t x;
+	size_t y;
+
+	y = 0;
+	while (y < data->map_height)
+	{
+		x = 0;
+		while (x < data->map_width)
+		{
+			if (data->map[y][x] == EMPTY || is_direction(data->map[y][x]))
+			{
+				if (is_map_closed(data, x, y) == false)
+					return (false);
+			}
+			x++;
+		}
+		y++;
+	}
+	replace_visited_with_empty(data);
+	return (true);
+}
+
 bool	map_valid(t_data	*data)
 {
 	if (!data->N_T || !data->S_T || !data->E_T || !data->W_T || !data->C || !data->F)
@@ -81,5 +142,7 @@ bool	map_valid(t_data	*data)
 		return (false);
 	if (!invalid_char(data))
 		return (false);
+	if (!check_map_walls(data))
+		return(printf("Invalid input\n"), close_event(data));
 	return (true);
 }

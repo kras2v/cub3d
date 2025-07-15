@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:24:19 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/26 15:01:35 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/15 18:31:55 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	move_player(int keycode, t_data *data)
 		|| keycode == XK_D || keycode == XK_d
 		|| keycode == XK_Left || keycode == XK_Right)
 	{
-		display(data);
 		move_speed = 0.3;
 		rot_speed = 0.05;
 		shift_x = 0;

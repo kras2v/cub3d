@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:24:32 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/25 20:38:28 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/15 18:17:07 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	clear_display(t_data *data)
 	while (y < HEIGHT)
 	{
 		x = WIDTH;
-		while (x < WIDTH * 2)
+		while (x < WIDTH)
 		{
 			my_mlx_pixel_put(&(data->img), x, y, BLACK);
 			x++;

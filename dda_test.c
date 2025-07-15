@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/15 11:36:53 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/15 18:32:46 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,14 @@ void	compute_dir(t_fvector *dir, t_fvector player_dir, double angle)
 	dir->y = player_dir.x * sin(angle) + player_dir.y * cos(angle);
 }
 
-//?Change int to size_t
 t_fvector	cast_flashlight_ray(t_data *data, t_fvector dir,
 		int map_start_x, int map_start_y)
 {
 	t_fvector	pos;
 	t_fvector	end;
 	double		len;
-	size_t			mx;
-	size_t			my;
+	size_t		mx;
+	size_t		my;
 
 	pos = data->player.position;
 	len = 0;
@@ -83,22 +82,20 @@ void	draw_flashlight(t_data *data)
 	}
 }
 
-void	display(t_data *data)
+int	display(t_data *data)
 {
-	clear_display(data);
-	// draw_map_border(data);
 	dda(data);
 	draw_map_fill(data);
 	draw_player(data);
 	draw_flashlight(data);
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
+	return (1);
 }
 
-//?Change int to size_t
 void	init_player(t_data *data)
 {
-	size_t		y;
-	size_t		x;
+	size_t	y;
+	size_t	x;
 	bool	is_position_set;
 
 	y = 0;
@@ -134,17 +131,19 @@ void	init_player(t_data *data)
 					data->player.direction.y = 0;
 				}
 			}
+			if (is_position_set)
+				break;
 			x++;
 		}
+		if (is_position_set)
+			break;
 		y++;
 	}
-	data->player.position.x = x;
-	data->player.position.y = y;
+	data->player.position.x = x + 0.5;
+	data->player.position.y = y + 0.5;
 	data->player.plane.x = -data->player.direction.y * FOV;
 	data->player.plane.y = data->player.direction.x * FOV;
 }
-
-
 
 int upload_textures(t_data *data)
 {
@@ -169,10 +168,6 @@ int upload_textures(t_data *data)
 			printf("Error occured while converting file to image\n");
 			close_event(data);
 		}
-		else
-		{
-			printf("Image size %dx%d\n", data->texture[i].width, data->texture[i].height);
-		}
 		data->texture[i].image.addr = mlx_get_data_addr(data->texture[i].image.ptr, &data->texture[i].image.bits_per_pixel,
 				&data->texture[i].image.line_length, &data->texture[i].image.endian);
 		i++;
@@ -187,7 +182,7 @@ int	initialize_data(t_data **data)
 		return (1);
 	(*data)->mlx = mlx_init();
 	(*data)->mlx_win = mlx_new_window((*data)->mlx, WIDTH, HEIGHT, "cub3d");
-	(*data)->img.ptr = mlx_new_image((*data)->mlx, WIDTH * 2, HEIGHT);
+	(*data)->img.ptr = mlx_new_image((*data)->mlx, WIDTH, HEIGHT);
 	(*data)->img.addr = mlx_get_data_addr((*data)->img.ptr, &(*data)->img.bits_per_pixel, &(*data)->img.line_length, &(*data)->img.endian);
 	(*data)->map_height = 0;
 	(*data)->map_width = 0;
@@ -198,116 +193,6 @@ int	initialize_data(t_data **data)
 		x++;
 	}
 	return (0);
-}
-
-//? Print map func
-void	print_map(t_data *data)
-{
-	size_t x;
-	size_t y = 0;
-
-	while (y < data->map_height)
-	{
-		x = 0;
-		while (x < data->map_width)
-		{
-			if (data->map[y][x] == END || data->map[y][x] == NEW_LINE)
-			{
-				break;
-			}
-			printf("'%d' ", data->map[y][x]);
-			x++;
-		}
-		printf("\n");
-		y++;
-	}
-}
-
-//? Map validation
-bool	is_map_closed(t_data *data, size_t x, size_t y)
-{
-	if (y >= data->map_height || x >= data->map_width || y < 0 || x < 0)
-		return (false);
-	if (data->map[y][x] == WALL || data->map[y][x] == 'V')
-		return (true);
-	if (data->map[y][x] == SPACE
-		|| data->map[y][x] == '\0'
-		|| data->map[y][x] == '\n')
-		return (false);
-	if ((data->map[y][x] == NORTH
-		|| data->map[y][x] == SOUTH
-		|| data->map[y][x] == WEST
-		|| data->map[y][x] == EAST)
-	&& (((y - 1 >= 0) && (data->map[y - 1][x] == END || data->map[y - 1][x] == NEW_LINE))
-		|| ((x - 1 >= 0) && (data->map[y][x - 1] == END || data->map[y][x - 1] == NEW_LINE))
-		|| ((x + 1 < data->map_width) && (data->map[y][x + 1] == END || data->map[y][x + 1] == NEW_LINE))
-		|| ((y + 1 >= data->map_height) && (data->map[y + 1][x] == END || data->map[y + 1][x] == NEW_LINE))))
-		return (false);
-	if (data->map[y][x] != EMPTY)
-		return (true);
-	data->map[y][x] = 'V';
-	if (is_map_closed(data, x - 1, y) == false)
-		return (false);
-	if (is_map_closed(data, x, y - 1) == false)
-		return (false);
-	if (is_map_closed(data, x + 1, y) == false)
-		return (false);
-	if (is_map_closed(data, x, y + 1) == false)
-		return (false);
-	// printf("\n");
-	// print_map(map);
-	return (true);
-}
-
-void	replace_visited_with_empty(t_data *data)
-{
-	size_t x;
-	size_t y;
-
-	y = 0;
-	while (y < data->map_height)
-	{
-		x = 0;
-		while (x < data->map_width)
-		{
-			if (data->map[y][x] == 'V')
-			{
-				data->map[y][x] = EMPTY;
-			}
-			x++;
-		}
-		y++;
-	}
-}
-
-bool check_map_walls(t_data *data)
-{
-	size_t x;
-	size_t y;
-
-	y = 0;
-	while (y < data->map_height)
-	{
-		x = 0;
-		while (x < data->map_width)
-		{
-			if (data->map[y][x] == END || data->map[y][x] == NEW_LINE)
-			{
-				break;
-			}
-			if (data->map[y][x] == EMPTY)
-			{
-				if (is_map_closed(data, x, y) == false)
-				{
-					return (false);
-				}
-			}
-			x++;
-		}
-		y++;
-	}
-	print_map(data);
-	return (true);
 }
 
 int	main(int argc, char **args)
@@ -326,12 +211,11 @@ int	main(int argc, char **args)
 	if (!map_valid(data))
 		return(printf("Invalid input\n"), close_event(data));
 	if (upload_textures(data))
-		return (1);
-	if (check_map_walls(data) == false)
-		return (1);
+		return(printf("Invalid input\n"), close_event(data));
+	//!init mlx
 	init_player(data);
-	display(data);
 	init_hooks(data);
+	mlx_loop_hook(data->mlx, &display, data);
 	mlx_loop(data->mlx);
 	close_event(data);
 	return (0);
