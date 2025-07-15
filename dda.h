@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/10 16:27:31 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/14 18:40:07 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ typedef enum e_characters
 {
 	EMPTY = '0',
 	WALL = '1',
+	SPACE = ' ',
+	END = '\0',
+	NEW_LINE = '\n',
 	EAST = 'E',
 	WEST = 'W',
 	SOUTH = 'S',
@@ -135,6 +138,8 @@ typedef struct s_data
 	char		*N_T;
 	char		*F;
 	char		*C;
+	size_t		map_width;
+	size_t		map_height;
 	double		normilized_x[WIDTH];
 } t_data;
 

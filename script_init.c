@@ -50,6 +50,82 @@ bool	is_map_line(char *line)
 	return (true);
 }
 
+//? Calculate width and height
+void	assign_map_params(t_data *data)
+{
+	int	y;
+	size_t	width;
+	int	height;
+
+	y = 0;
+	height = 0;
+	while (data->map[y] != NULL)
+	{
+		if (ft_strchr(data->map[y], WALL) || ft_strchr(data->map[y], EMPTY))
+		{
+			width = ft_strlen(data->map[y]);
+			if (data->map_width < width)
+				data->map_width = width;
+			height++;
+		}
+		y++;
+	}
+	data->map_height = height;
+	printf("width: %zu height: %zu\n", data->map_width, data->map_height);
+}
+
+static char	*ft_join(char *res, char const *s)
+{
+	while (*s != '\0')
+		*res++ = *s++;
+	return (res);
+}
+
+char	*ft_strappend(char const *s1, char const *s2)
+{
+	char	*res;
+	char	*p_res;
+
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
+	res = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (!res)
+		return (NULL);
+	p_res = res;
+	p_res = ft_join(p_res, s1);
+	p_res = ft_join(p_res, s2);
+	*p_res = '\0';
+	return (res);
+}
+
+// char	*make_filled_line(char c, size_t lenght)
+// {
+// 	char	*line;
+
+// 	line = malloc((lenght + 1) * sizeof(char));
+// 	if (line == NULL)
+// 	{
+
+// 	}
+// }
+
+// void	replace_null_terminated_strings(t_data *data, char **strings)
+// {
+// 	size_t	x;
+// 	size_t	y;
+
+// 	y = 0;
+// 	while (strings[y] != NULL)
+// 	{
+// 		if ()
+// 	}
+	
+// }
+
 void	script_init(t_data *data)
 {
 	int	y;
@@ -72,6 +148,7 @@ void	script_init(t_data *data)
 		else if (is_map_line(data->script[y]))
 		{
 			data->map = &data->script[y];
+			assign_map_params(data);
 			break ;
 		}
 		else if ((ft_strncmp(data->script[y], "\n", 1)))

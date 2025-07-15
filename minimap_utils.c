@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:24:18 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/06/26 19:04:18 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/15 11:37:52 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,13 @@ void	draw_map_border(t_data *data)
 	}
 }
 
+//? Change int to size_t, change ' ' to SPACE
 void	draw_map_fill(t_data *data)
 {
 	int	x;
 	int	y;
-	int	map_x;
-	int	map_y;
+	size_t	map_x;
+	size_t	map_y;
 
 	y = 0;
 	while (y < MINIMAP_OFFSET_Y)
@@ -109,14 +110,13 @@ void	draw_map_fill(t_data *data)
 		{
 			map_x = (int)data->player.position.x - MINIMAP_RADIUS + x;
 			map_y = (int)data->player.position.y - MINIMAP_RADIUS + y;
-			if (map_x < 0 || map_y < 0 || map_x >= MAP_WIDTH || map_y >= MAP_HEIGHT
-				|| !data->map[map_y] || data->map[map_y][map_x] == ' ')
+			if (map_x < 0 || map_y < 0 || map_x >= data->map_width || map_y >= data->map_height
+				|| !data->map[map_y] || data->map[map_y][map_x] == SPACE)
 				fill_square(data, x * MINI_TILE, y * MINI_TILE, DARK_GRAY);
 			else if (data->map[map_y][map_x] == WALL)
 				fill_square(data, x * MINI_TILE, y * MINI_TILE, YELLOW);
 			else
 				fill_square(data, x * MINI_TILE, y * MINI_TILE, BLACK);
-
 			border_square(data, x * MINI_TILE, y * MINI_TILE);
 			x++;
 		}

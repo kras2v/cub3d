@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda_test.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 16:28:10 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/11 18:25:50 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/15 11:36:53 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,15 @@ void	compute_dir(t_fvector *dir, t_fvector player_dir, double angle)
 	dir->y = player_dir.x * sin(angle) + player_dir.y * cos(angle);
 }
 
+//?Change int to size_t
 t_fvector	cast_flashlight_ray(t_data *data, t_fvector dir,
 		int map_start_x, int map_start_y)
 {
 	t_fvector	pos;
 	t_fvector	end;
 	double		len;
-	int			mx;
-	int			my;
+	size_t			mx;
+	size_t			my;
 
 	pos = data->player.position;
 	len = 0;
@@ -41,8 +42,8 @@ t_fvector	cast_flashlight_ray(t_data *data, t_fvector dir,
 	{
 		mx = (int)pos.x;
 		my = (int)pos.y;
-		if (my >= 0 && my < MAP_HEIGHT && mx >= 0
-			&& mx < MAP_WIDTH && data->map[my][mx] == WALL)
+		if (my >= 0 && my < data->map_height && mx >= 0
+			&& mx < data->map_width && data->map[my][mx] == WALL)
 			break ;
 		pos.x += dir.x * 0.1;
 		pos.y += dir.y * 0.1;
@@ -93,20 +94,21 @@ void	display(t_data *data)
 	mlx_put_image_to_window(data->mlx, data->mlx_win, data->img.ptr, 0, 0);
 }
 
+//?Change int to size_t
 void	init_player(t_data *data)
 {
-	int		y;
-	int		x;
+	size_t		y;
+	size_t		x;
 	bool	is_position_set;
 
 	y = 0;
 	data->player.plane.x = 0;
 	data->player.plane.y = 0;
 	is_position_set = false;
-	while (y < MAP_HEIGHT && is_position_set == false)
+	while (y < data->map_height && is_position_set == false)
 	{
 		x = 0;
-		while (x < MAP_WIDTH && is_position_set == false)
+		while (x < data->map_width && is_position_set == false)
 		{
 			if (data->map[y][x] == 'N' || data->map[y][x] == 'E' || data->map[y][x] == 'S' || data->map[y][x] == 'W')
 			{
@@ -187,8 +189,125 @@ int	initialize_data(t_data **data)
 	(*data)->mlx_win = mlx_new_window((*data)->mlx, WIDTH, HEIGHT, "cub3d");
 	(*data)->img.ptr = mlx_new_image((*data)->mlx, WIDTH * 2, HEIGHT);
 	(*data)->img.addr = mlx_get_data_addr((*data)->img.ptr, &(*data)->img.bits_per_pixel, &(*data)->img.line_length, &(*data)->img.endian);
-	// add_map(data);
+	(*data)->map_height = 0;
+	(*data)->map_width = 0;
+	int x = 0;
+	while (x < WIDTH)
+	{
+		(*data)->normilized_x[x] = (2.0 * (double)x / (double)WIDTH) - 1.0;
+		x++;
+	}
 	return (0);
+}
+
+//? Print map func
+void	print_map(t_data *data)
+{
+	size_t x;
+	size_t y = 0;
+
+	while (y < data->map_height)
+	{
+		x = 0;
+		while (x < data->map_width)
+		{
+			if (data->map[y][x] == END || data->map[y][x] == NEW_LINE)
+			{
+				break;
+			}
+			printf("'%d' ", data->map[y][x]);
+			x++;
+		}
+		printf("\n");
+		y++;
+	}
+}
+
+//? Map validation
+bool	is_map_closed(t_data *data, size_t x, size_t y)
+{
+	if (y >= data->map_height || x >= data->map_width || y < 0 || x < 0)
+		return (false);
+	if (data->map[y][x] == WALL || data->map[y][x] == 'V')
+		return (true);
+	if (data->map[y][x] == SPACE
+		|| data->map[y][x] == '\0'
+		|| data->map[y][x] == '\n')
+		return (false);
+	if ((data->map[y][x] == NORTH
+		|| data->map[y][x] == SOUTH
+		|| data->map[y][x] == WEST
+		|| data->map[y][x] == EAST)
+	&& (((y - 1 >= 0) && (data->map[y - 1][x] == END || data->map[y - 1][x] == NEW_LINE))
+		|| ((x - 1 >= 0) && (data->map[y][x - 1] == END || data->map[y][x - 1] == NEW_LINE))
+		|| ((x + 1 < data->map_width) && (data->map[y][x + 1] == END || data->map[y][x + 1] == NEW_LINE))
+		|| ((y + 1 >= data->map_height) && (data->map[y + 1][x] == END || data->map[y + 1][x] == NEW_LINE))))
+		return (false);
+	if (data->map[y][x] != EMPTY)
+		return (true);
+	data->map[y][x] = 'V';
+	if (is_map_closed(data, x - 1, y) == false)
+		return (false);
+	if (is_map_closed(data, x, y - 1) == false)
+		return (false);
+	if (is_map_closed(data, x + 1, y) == false)
+		return (false);
+	if (is_map_closed(data, x, y + 1) == false)
+		return (false);
+	// printf("\n");
+	// print_map(map);
+	return (true);
+}
+
+void	replace_visited_with_empty(t_data *data)
+{
+	size_t x;
+	size_t y;
+
+	y = 0;
+	while (y < data->map_height)
+	{
+		x = 0;
+		while (x < data->map_width)
+		{
+			if (data->map[y][x] == 'V')
+			{
+				data->map[y][x] = EMPTY;
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
+bool check_map_walls(t_data *data)
+{
+	size_t x;
+	size_t y;
+
+	y = 0;
+	while (y < data->map_height)
+	{
+		x = 0;
+		while (x < data->map_width)
+		{
+			if (data->map[y][x] == END || data->map[y][x] == NEW_LINE)
+			{
+				break;
+			}
+			if (data->map[y][x] == EMPTY)
+			{
+				if (is_map_closed(data, x, y) == false)
+				{
+					return (false);
+				}
+			}
+			x++;
+		}
+		y++;
+	}
+	print_map(data);
+	return (true);
 }
 
 int	main(int argc, char **args)
@@ -208,12 +327,8 @@ int	main(int argc, char **args)
 		return(printf("Invalid input\n"), close_event(data));
 	if (upload_textures(data))
 		return (1);
-	int x = 0;
-	while (x < WIDTH)
-	{
-		data->normilized_x[x] = (2.0 * (double)x / (double)WIDTH) - 1.0;
-		x++;
-	}
+	if (check_map_walls(data) == false)
+		return (1);
 	init_player(data);
 	display(data);
 	init_hooks(data);

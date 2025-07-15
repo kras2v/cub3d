@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   map_valid.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:01:26 by eklymova          #+#    #+#             */
-/*   Updated: 2025/07/11 15:19:35 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/15 11:37:26 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dda.h"
 
+//? Change int to size_t, change ' ' to SPACE
 bool	invalid_char(t_data *data)
 {
-	int	x;
-	int	y;
+	size_t	x;
+	size_t	y;
 
 	y = 0;
 	while (data->map[y])
@@ -26,7 +27,7 @@ bool	invalid_char(t_data *data)
 			if (data->map[y][x] == WALL || data->map[y][x] == WEST
 				|| data->map[y][x] == EAST || data->map[y][x] == EMPTY
 				|| data->map[y][x] == NORTH || data->map[y][x] == SOUTH
-				|| data->map[y][x] == ' ')
+				|| data->map[y][x] == SPACE)
 				x++;
 			else
 				return (0);
