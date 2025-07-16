@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_valid.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:01:26 by eklymova          #+#    #+#             */
-/*   Updated: 2025/07/15 18:35:25 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:12:47 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 bool	invalid_char(t_data *data)
 {
-	size_t	x;
-	size_t	y;
+	int	x;
+	int	y;
 
 	y = 0;
 	while (data->map[y])
@@ -72,7 +72,7 @@ bool	char_counter(t_data *data)
 	return (true);
 }
 
-bool	is_map_closed(t_data *data, size_t x, size_t y)
+bool	is_map_closed(t_data *data, int x, int y)
 {
 	if (y >= data->map_height || x >= data->map_width || y < 0 || x < 0)
 		return (false);
@@ -91,8 +91,8 @@ bool	is_map_closed(t_data *data, size_t x, size_t y)
 
 void	replace_visited_with_empty(t_data *data)
 {
-	size_t x;
-	size_t y;
+	int x;
+	int y;
 
 	y = 0;
 	while (y < data->map_height)
@@ -112,8 +112,8 @@ void	replace_visited_with_empty(t_data *data)
 
 bool check_map_walls(t_data *data)
 {
-	size_t x;
-	size_t y;
+	int x;
+	int y;
 
 	y = 0;
 	while (y < data->map_height)
@@ -136,7 +136,7 @@ bool check_map_walls(t_data *data)
 
 bool	map_valid(t_data	*data)
 {
-	if (!data->N_T || !data->S_T || !data->E_T || !data->W_T || !data->C || !data->F)
+	if (!data->n_t || !data->s_t || !data->e_t || !data->w_t || !data->c || !data->f)
 		return (printf("Error: texture paths are missing\n"), false);
 	if (!char_counter(data))
 		return (false);

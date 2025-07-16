@@ -1,0 +1,114 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   script_init_utils.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 20:58:24 by valeriia          #+#    #+#             */
+/*   Updated: 2025/07/16 21:32:23 by valeriia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "dda.h"
+
+void	textures_init(t_data *data, char *line, char c)
+{
+	while (*line && *line == ' ')
+		line++;
+	line += 2;
+	while (*line && *line != '.')
+	{
+		if (*line != ' ')
+			return ;
+		line++;
+	}
+	if (c == 'N' && !data->n_t)
+		data->n_t = ft_strdup(line);
+	else if (c == 'E' && !data->e_t)
+		data->e_t = ft_strdup(line);
+	else if (c == 'W' && !data->w_t)
+		data->w_t = ft_strdup(line);
+	else if (c == 'S' && !data->s_t)
+		data->s_t = ft_strdup(line);
+}
+
+void	colors_init(t_data *data, char *line, char c)
+{
+	char	*p_line;
+
+	p_line = line;
+	while (*p_line && *p_line == ' ')
+		p_line++;
+	p_line += 1;
+	while (*p_line && *p_line == ' ')
+		p_line++;
+	if (c == 'F' && !data->f)
+	{
+		data->f = find_color(data, p_line);
+	}
+	else if (c == 'C' && !data->c)
+	{
+		data->c = find_color(data, p_line);
+	}
+}
+
+void	assign_map_params(t_data *data)
+{
+	int	y;
+	int	width;
+	int	height;
+
+	y = 0;
+	height = 0;
+	while (data->map[y] != NULL)
+	{
+		if (ft_strchr(data->map[y], WALL) || ft_strchr(data->map[y], EMPTY))
+		{
+			width = ft_strlen(data->map[y]);
+			if (data->map_width < width)
+				data->map_width = width;
+			height++;
+		}
+		y++;
+	}
+	data->map_height = height;
+}
+
+void	map_init(
+	t_data *data,
+	int y
+)
+{
+	data->map = &data->script[y];
+	assign_map_params(data);
+	replace_null_terminated_strings(data, data->map);
+}
+
+bool	is_script_valid(t_data *data)
+{
+	int	y;
+
+	y = 0;
+	while (data->script[y] && !data->map)
+	{
+		if (!ft_strncmp(data->script[y], "NO", 2))
+			textures_init(data, data->script[y], 'N');
+		else if (!ft_strncmp(data->script[y], "EA", 2))
+			textures_init(data, data->script[y], 'E');
+		else if (!ft_strncmp(data->script[y], "WE", 2))
+			textures_init(data, data->script[y], 'W');
+		else if (!ft_strncmp(data->script[y], "SO", 2))
+			textures_init(data, data->script[y], 'S');
+		else if (!ft_strncmp(data->script[y], "F", 1))
+			colors_init(data, data->script[y], 'F');
+		else if (!ft_strncmp(data->script[y], "C", 1))
+			colors_init(data, data->script[y], 'C');
+		else if (is_map_line(data->script[y]))
+			map_init(data, y);
+		else if ((ft_strncmp(data->script[y], "\n", 1)))
+			return (false);
+		y++;
+	}
+	return (true);
+}

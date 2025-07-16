@@ -1,16 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/16 15:28:25 by valeriia          #+#    #+#             */
+/*   Updated: 2025/07/16 15:28:29 by valeriia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
-
-size_t	ft_strlen_gnl(const char *s)
-{
-	size_t	len;
-
-	len = 0;
-	if (!s)
-		return (0);
-	while (s[len] != '\0')
-		len++;
-	return (len);
-}
 
 char	*ft_strjoin_gnl(char *s, char *buff)
 {
@@ -34,22 +34,6 @@ char	*ft_strjoin_gnl(char *s, char *buff)
 		arr[i++] = buff[j++];
 	arr[i] = '\0';
 	return (free(s), arr);
-}
-
-char	*ft_strchr_gnl(char *s, int c)
-{
-	int	i;
-
-	i = 0;
-	if (!s)
-		return (NULL);
-	while (s[i] != '\0')
-	{
-		if (s[i] == (char)c)
-			return ((char *)&s[i]);
-		i++;
-	}
-	return (0);
 }
 
 char	*get_n_line(char *s)
@@ -114,7 +98,7 @@ char	*read_str(int fd, char *s)
 	if (!buff)
 		return (NULL);
 	bytes = BUFFER_SIZE;
-	while ((!ft_strchr_gnl(s, '\n')) && bytes > 0)
+	while ((!ft_strchr(s, '\n')) && bytes > 0)
 	{
 		bytes = read(fd, buff, BUFFER_SIZE);
 		if (bytes == -1 || (!bytes && s[0] == '\0'))
