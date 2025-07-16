@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+         #
+#    By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 16:22:08 by kvalerii          #+#    #+#              #
-#    Updated: 2025/07/10 12:57:48 by eklymova         ###   ########.fr        #
+#    Updated: 2025/07/16 22:33:59 by valeriia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,12 +15,18 @@ MINILIBX_DIR = minilibx_linux
 MINILIBX_LIB = mlx_Linux
 OBJS_DIR  = objs
 CFLAGS := -Wall -Werror -Wextra -g
-CC := cc
-SRC_DIR := .
+CC := clang
+SRC_DIR := ./srcs
 
-SRCS =	dda_test.c \
-		tools.c \
+SRCS =	main.c \
+		dda_color_helpers.c \
+		dda_helpers.c \
+		dda_raycast.c \
+		dda_step.c \
+		dda_traversel.c \
 		minimap_utils.c \
+		minimap_draw_utils.c \
+		bresenham_line_algorithm.c \
 		draw_utils.c \
 		movement.c \
 		events.c \
@@ -28,7 +34,11 @@ SRCS =	dda_test.c \
 		math.c \
 		map_init.c \
 		map_valid.c \
-		script_init.c
+		flashlight_utils.c \
+		player_initialization.c \
+		wall_colision.c \
+		script_init.c \
+		script_init_utils.c
 
 OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
