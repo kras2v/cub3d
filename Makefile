@@ -6,7 +6,7 @@
 #    By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 16:22:08 by kvalerii          #+#    #+#              #
-#    Updated: 2025/07/22 13:27:30 by kvalerii         ###   ########.fr        #
+#    Updated: 2025/07/22 14:01:45 by kvalerii         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,19 +36,18 @@ SRCS =	main.c \
 		draw_utils.c \
 		movement.c \
 		events.c \
-		free_utils.c \
 		math.c \
 		map_init.c \
 		door_managment.c \
 		map_validation.c \
 		map_char_validation.c \
 		map_walls_checker.c \
+		sprites.c \
 		flashlight_utils.c \
 		player_initialization.c \
 		wall_colision.c \
 		script_init.c \
-		script_init_utils.c \
-		sprites.c
+		script_init_utils.c
 
 OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
