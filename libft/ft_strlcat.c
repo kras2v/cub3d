@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:03:50 by eklymova          #+#    #+#             */
-/*   Updated: 2024/10/29 14:26:43 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:55:32 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,3 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	dst[dstlen + i] = '\0';
 	return (dstlen + srclen);
 }
-// int main(void)
-// {
-// 	char src[] = "hello";
-// 	char dst[20] = "helfd";
-// 	printf("%ld\n", ft_strlcat(dst, src, 20));
-// 	return (0);
-// }

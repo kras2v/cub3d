@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flashlight_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 20:44:39 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/15 21:27:10 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/07/17 12:21:55 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static t_fvector	cast_flashlight_ray(t_data *data, t_fvector dir,
 	t_fvector	pos;
 	t_fvector	end;
 	double		len;
-	int		mx;
-	int		my;
+	int			mx;
+	int			my;
 
 	pos = data->player.position;
 	len = 0;
@@ -27,7 +27,8 @@ static t_fvector	cast_flashlight_ray(t_data *data, t_fvector dir,
 	{
 		mx = (int)pos.x;
 		my = (int)pos.y;
-		if (my < data->map_height && mx < data->map_width && data->map[my][mx] == WALL)
+		if (my < data->map_height && mx < data->map_width
+			&& data->map[my][mx] == WALL)
 			break ;
 		pos.x += dir.x * 0.1;
 		pos.y += dir.y * 0.1;
@@ -46,8 +47,8 @@ void	draw_flashlight(t_data *data)
 	int				i;
 	double			a;
 
-	param.map_start_x = (int)data->player.position.x - MINIMAP_RADIUS;
-	param.map_start_y = (int)data->player.position.y - MINIMAP_RADIUS;
+	param.map_start_x = get_minimum_tile(data->player.position.x);
+	param.map_start_y = get_minimum_tile(data->player.position.y);
 	param.player_pos.x = (data->player.position.x
 			- param.map_start_x) * MINI_TILE;
 	param.player_pos.y = (data->player.position.y

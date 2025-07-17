@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:05:26 by eklymova          #+#    #+#             */
-/*   Updated: 2024/10/29 14:59:26 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:55:23 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,3 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char	*))
 		i++;
 	}
 }
-// int main(void)
-// {
-//     char s[] = "helllo";
-//     ft_striteri(s, *ft_toupper);
-//     printf("%s", s);
-// }

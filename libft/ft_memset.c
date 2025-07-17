@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:03:36 by eklymova          #+#    #+#             */
-/*   Updated: 2024/10/29 14:24:58 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:55:12 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,3 @@ void	*ft_memset(void *s, int c, size_t n)
 	}
 	return (s);
 }
-// int main(void)
-// {
-// 	char s[50] = "hellopeple";
-// 	printf("%s", (char*)ft_memset(s, '-', 4));
-// 	return (0);
-// }

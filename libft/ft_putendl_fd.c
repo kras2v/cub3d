@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:05:13 by eklymova          #+#    #+#             */
-/*   Updated: 2024/10/29 14:25:18 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:55:15 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,3 @@ void	ft_putendl_fd(char *s, int fd)
 	}
 	write(fd, "\n", 1);
 }
-// int main(void)
-// {
-// 	char s[] = "hello";
-// 	ft_putendl_fd(s, 1);
-// }

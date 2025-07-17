@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:04:43 by eklymova          #+#    #+#             */
-/*   Updated: 2024/10/29 14:28:07 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:54:53 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,3 @@ int	ft_tolower(int c)
 		c += 32;
 	return (c);
 }
-// int	main(void)
-// {
-// 	printf("%c", ft_tolower('P'));
-// }

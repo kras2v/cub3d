@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   script_init_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:58:24 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/16 21:32:23 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/07/17 12:10:26 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,19 @@ void	colors_init(t_data *data, char *line, char c)
 
 	p_line = line;
 	while (*p_line && *p_line == ' ')
+	{
 		p_line++;
+	}
 	p_line += 1;
 	while (*p_line && *p_line == ' ')
+	{
 		p_line++;
-	if (c == 'F' && !data->f)
+	}
+	if (c == 'F' && data->f == -1)
 	{
 		data->f = find_color(data, p_line);
 	}
-	else if (c == 'C' && !data->c)
+	else if (c == 'C' && data->c == -1)
 	{
 		data->c = find_color(data, p_line);
 	}
@@ -107,7 +111,8 @@ bool	is_script_valid(t_data *data)
 		else if (is_map_line(data->script[y]))
 			map_init(data, y);
 		else if ((ft_strncmp(data->script[y], "\n", 1)))
-			return (false);
+			return (close_on_error(data,
+					"Error with .cub file format\n"), false);
 		y++;
 	}
 	return (true);

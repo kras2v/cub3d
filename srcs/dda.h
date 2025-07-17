@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/16 22:40:43 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/07/17 17:41:17 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,6 @@ typedef struct s_data
 	t_image		img;
 	long		time;
 	t_texture	*texture;
-	char		**lekkereclrs;
 	char		**script;
 	char		**map;
 	char		*e_t;
@@ -175,6 +174,38 @@ typedef struct s_flash_params
 	double		start;
 }	t_flash_params;
 
+typedef struct s_line
+{
+	t_fvector	a;
+	t_fvector	b;
+	t_colors	color;
+}	t_line;
+
+
+# define PLAYER_ERR			"Player must be just 1\n"
+# define MISSING_ATTR		"Texture paths or colors are missing\n"
+# define INVALID_CHAR		"Invalid char in file\n"
+# define MAP_UNCLOSED_ERR	"Map unclosed\n"
+# define WRONG_ARGC			"Wrong number of arguments\n"
+# define FILE_NAME_ERR		"Wrong file provided\n"
+# define COLOR_ERR			"Color range is from 0 to 255\n"
+
+
+//BRESENHAM
+void	increase_stepping(int *p, int dir, t_coordinates *coords, t_coordinates delta);
+void	swap_axis(t_fvector *a);
+void	get_direction(int *dir, int *delta);
+void	assign_delta_coords(t_coordinates *delta, t_fvector *a, t_fvector *b);
+
+int	display(t_data *data);
+void	start_mlx(t_data *data);
+
+int		initialize_data(t_data *data);
+bool	validate_user_input(t_data *data, int argc, char **args);
+
+void	close_on_error(t_data *data, char *err_msg);
+bool	is_file_name_valid(t_data *data, char *name);
+
 void	dda(t_data *data);
 bool	is_direction(int coordinate);
 
@@ -203,11 +234,8 @@ void	draw_flashlight(t_data *data);
 //MOVEMENT
 int		move_player(int keycode, t_data *data);
 
-// VALIDATION OF INPUT
-int		valid_input(char *name);
-
 // READ MAP
-char	**read_map(char *map_script);
+char	**read_map(t_data *data, char *map_script);
 void	free_double_arr(char **map);
 
 //MINIMAP UTILS
@@ -216,7 +244,10 @@ void	fill_square(t_data *data, int px, int py, t_colors color);
 void	border_square(t_data *data, int px, int py);
 
 // VALID MAP
-bool	map_valid(t_data	*data);
+bool	check_map_walls(t_data *data);
+bool	is_map_valid(t_data	*data);
+bool	invalid_char(t_data *data);
+bool	char_counter(t_data *data);
 
 // SCRIPT
 bool	is_map_line(char *line);
@@ -230,6 +261,8 @@ void	free_textures(t_data *data);
 //COLOR
 t_colors find_color(t_data *data, char *input_clr);
 
+//
+int	get_minimum_tile(double position);
 
 //DDA
 double	find_distance_to_wall( t_data *data, t_dda_parameters *dda_parameters, t_coordinates player_cell);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_draw_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:24:18 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/16 22:40:53 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/07/17 09:59:29 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ void	draw_map_border(t_data *data)
 }
 
 int	get_square_color(
-	int map_width,
-	int map_height,
+	t_data *data,
 	char **map,
 	t_coordinates map_coords
 )
@@ -63,12 +62,18 @@ int	get_square_color(
 
 	color = BLACK;
 	if (map_coords.x < 0 || map_coords.y < 0
-		|| map_coords.x >= map_width || map_coords.y >= map_height
+		|| map_coords.x >= data->map_width
+		|| map_coords.y >= data->map_height
 		|| map[map_coords.y][map_coords.x] == SPACE)
 		color = DARK_GRAY;
 	else if (map[map_coords.y][map_coords.x] == WALL)
 		color = YELLOW;
 	return (color);
+}
+
+int	get_minimum_tile(double position)
+{
+	return ((int)position - MINIMAP_RADIUS);
 }
 
 void	draw_map_fill(t_data *data)
@@ -77,19 +82,19 @@ void	draw_map_fill(t_data *data)
 	t_coordinates	map;
 	t_colors		color;
 
+	color = BLACK;
 	coordinates.y = 0;
 	coordinates.x = 0;
-	color = BLACK;
 	while (coordinates.y < MINIMAP_OFFSET_Y)
 	{
 		coordinates.x = 0;
 		while (coordinates.x < MINIMAP_OFFSET_X)
 		{
-			map.x = (int)data->player.position.x - MINIMAP_RADIUS + coordinates.x;
-			map.y = (int)data->player.position.y - MINIMAP_RADIUS + coordinates.y;
-			color = get_square_color(data->map_width, data->map_height, data->map, map);
-			fill_square(data, coordinates.x * MINI_TILE, coordinates.y * MINI_TILE, color);
-			border_square(data, coordinates.x * MINI_TILE, coordinates.y * MINI_TILE);
+			map.x = get_minimum_tile(data->player.position.x) + coordinates.x;
+			map.y = get_minimum_tile(data->player.position.y) + coordinates.y;
+			color = get_square_color(data, data->map, map);
+			fill_square(data, coordinates.x, coordinates.y, color);
+			border_square(data, coordinates.x, coordinates.y);
 			coordinates.x++;
 		}
 		coordinates.y++;
