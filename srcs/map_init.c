@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_init.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/17 10:50:49 by kvalerii          #+#    #+#             */
+/*   Updated: 2025/07/17 12:13:23 by kvalerii         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "dda.h"
 #include <unistd.h>
 #include <fcntl.h>
@@ -14,16 +26,19 @@ void	free_double_arr(char **map)
 	free(map);
 }
 
-int	valid_input(char *name)
+bool	is_file_name_valid(
+	t_data *data,
+	char *name
+)
 {
 	char	*find;
 
 	find = ft_strrchr(name, '.');
 	if (find == name || !find)
-		return (0);
+		return (close_on_error(data, FILE_NAME_ERR), false);
 	if (ft_strncmp(find, ".cub", ft_strlen(name)) != 0)
-		return (0);
-	return (1);
+		return (close_on_error(data, FILE_NAME_ERR), false);
+	return (true);
 }
 
 char	*read_map_str(int fd)
@@ -40,8 +55,6 @@ char	*read_map_str(int fd)
 		temp = get_next_line(fd);
 		if (!temp)
 			break ;
-		// if (temp[0] == '\n')
-		// 	return (free(temp), free(map_str), NULL);
 		new_map_str = ft_strjoin(map_str, temp);
 		free(map_str);
 		free(temp);
@@ -52,7 +65,10 @@ char	*read_map_str(int fd)
 	return (map_str);
 }
 
-char	**read_map(char *map_script)
+char	**read_map(
+	t_data *data,
+	char *map_script
+)
 {
 	int		fd;
 	char	*map_str;
@@ -60,14 +76,14 @@ char	**read_map(char *map_script)
 
 	fd = open(map_script, O_RDONLY);
 	if (fd == -1)
-		return (NULL);
+		return (close_on_error(data, NULL), NULL);
 	map_str = read_map_str(fd);
 	close(fd);
 	if (!map_str)
-		return (NULL);
+		return (close_on_error(data, NULL), NULL);
 	map_array = ft_split(map_str, '\n');
 	free(map_str);
 	if (!map_array)
-		return (NULL);
+		return (close_on_error(data, NULL), NULL);
 	return (map_array);
 }

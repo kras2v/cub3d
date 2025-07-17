@@ -1,6 +1,8 @@
-CC 	=  cc
-CFLAGS = -Wall -Wextra -Werror -g
-OBJS_DIR  = objs
+CC      = cc
+CFLAGS  = -Wall -Wextra -Werror -g
+OBJS_DIR = objs
+DPRINTF  = ./ft_dprintf
+DPRINTF_LIB = $(DPRINTF)/ft_dprintf.a
 
 SRCS =  ft_memset.c		\
 		ft_bzero.c		\
@@ -48,38 +50,36 @@ SRCSB = ft_lstnew_bonus.c		\
 		ft_lstclear_bonus.c		\
 		ft_lstmap_bonus.c
 
-# SRCS_ALL = $(SRCS) $(SRCSB)
-
-OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)
-
-OBJS_B = $(SRCSB:.c=.o)
-
-$(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
-	$(CC) $(CFLAGS) -o $@ -c $< 
+OBJS   = $(SRCS:%.c=$(OBJS_DIR)/%.o)
+OBJS_B = $(SRCSB:%.c=$(OBJS_DIR)/%.o)
 
 NAME = libft.a
 
-$(NAME): $(OBJS)
-	ar rc $(NAME) $(OBJS)	
-# archive, replace, create 
+all: $(NAME)
+
+$(NAME): $(DPRINTF_LIB) $(OBJS)
+	ar rc $(NAME) $(OBJS) $(DPRINTF_LIB)
+
+$(DPRINTF_LIB):
+	$(MAKE) -C $(DPRINTF)
+
+$(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 $(OBJS_DIR):
 	mkdir -p $(OBJS_DIR)
 
-all : $(NAME)
+bonus: $(DPRINTF_LIB) $(OBJS) $(OBJS_B)
+	ar rc $(NAME) $(OBJS) $(OBJS_B) $(DPRINTF_LIB)
 
-
-bonus : $(OBJS) $(OBJS_B)
-	ar rc $(NAME) $(OBJS) $(OBJS_B)
-
-
-clean : 
+clean:
 	rm -rf $(OBJS_DIR)
-	rm -f $(OBJS) $(OBJS_B)
+	make -C $(DPRINTF) clean
 
-fclean : clean
+fclean: clean
 	rm -f $(NAME)
+	make -C $(DPRINTF) fclean
 
-re : fclean all 
+re: fclean all
 
 .PHONY: all clean fclean re bonus

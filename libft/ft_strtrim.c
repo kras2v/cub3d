@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:05:35 by eklymova          #+#    #+#             */
-/*   Updated: 2024/10/29 14:56:42 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:55:38 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,3 @@ char	*ft_strtrim(char const *s1, char const *set)
 	ft_strlcpy(arr, &s1[start], end - start + 1);
 	return (arr);
 }
-
-// int main(void)
-// {
-//     char s[] = "zxtfkldsjftxz";
-//     printf("%s", ft_strtrim(s, "zxt"));
-// }

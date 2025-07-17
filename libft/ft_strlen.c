@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:04:10 by eklymova          #+#    #+#             */
-/*   Updated: 2024/10/29 14:27:06 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:55:34 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,3 @@ size_t	ft_strlen(const char *s)
 	}
 	return (lenth);
 }
-// int main(void)
-// {
-// 	char s[] = "hello";
-// 	printf("%d", ft_strlen(s));
-// }

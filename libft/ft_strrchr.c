@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:04:35 by eklymova          #+#    #+#             */
-/*   Updated: 2024/10/29 14:27:40 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:54:50 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,3 @@ char	*ft_strrchr(const char *s, int c)
 	}
 	return (NULL);
 }
-// int	main(void)
-// {
-// 	char s[] = "hello, my name is kiko";
-// 	int	c = 'k';
-
-// 	printf("%s", ft_strrchr(s, c));
-// }

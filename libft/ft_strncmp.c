@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:04:18 by eklymova          #+#    #+#             */
-/*   Updated: 2025/01/09 13:37:37 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:55:36 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,3 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	}
 	return (0);
 }
-// int main(void)
-// {
-// 	const char s1[] = "tree.";
-// 	const char s2[] = "Tree.";
-// 	printf("%d\n", ft_strncmp(s1, s2, 3));
-// 	printf("%d\n", strncmp(s1, s2, 3));
-
-// }

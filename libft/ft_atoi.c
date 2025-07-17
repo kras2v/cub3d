@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 15:20:14 by eklymova          #+#    #+#             */
-/*   Updated: 2025/07/11 16:04:10 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:55:08 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,3 @@ int	ft_atoi(const char *str)
 		return (-1);
 	return (result);
 }
-// int main(void)
-// {
-// 	printf("%d\n", ft_atoi(83744));
-// }

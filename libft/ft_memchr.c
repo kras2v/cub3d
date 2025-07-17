@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:03:18 by eklymova          #+#    #+#             */
-/*   Updated: 2025/07/16 14:47:05 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:54:36 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,3 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	}
 	return (NULL);
 }
-
-// int	main(void)
-// {
-// 	char s[] = "hello my name is bibo";
-// 	printf("%s", (char *)ft_memchr(s, 'i', 19));
-// }

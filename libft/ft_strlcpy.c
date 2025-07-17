@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:03:58 by eklymova          #+#    #+#             */
-/*   Updated: 2024/10/29 14:26:59 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:55:28 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,3 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	dst[i] = '\0';
 	return (ft_strlen(src));
 }
-// int main(void)
-// {
-// 	char src[] = "hello";
-// 	char dst[10];
-// 	printf("%zu", ft_strlcpy(dst, src, 2));
-// }

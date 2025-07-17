@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:06:37 by eklymova          #+#    #+#             */
-/*   Updated: 2024/10/29 14:26:18 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:55:21 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,3 @@ char	*ft_strdup(const char *s)
 	arr[i] = '\0';
 	return (arr);
 }
-// int main(void)
-// {
-// 	char s[] = "Hello";
-// 	printf("%s", ft_strdup(s));
-// }

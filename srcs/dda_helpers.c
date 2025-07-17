@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda_helpers.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 18:43:36 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/16 21:11:21 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/07/17 12:26:50 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	get_x_ray_coordinates(
 	t_fvector *ray
 )
 {
-	ray->x = data->player.direction.x + data->player.plane.x * data->normalized_x[x];
-	ray->y = data->player.direction.y + data->player.plane.y * data->normalized_x[x];
+	ray->x = data->player.direction.x
+		+ data->player.plane.x * data->normalized_x[x];
+	ray->y = data->player.direction.y
+		+ data->player.plane.y * data->normalized_x[x];
 }

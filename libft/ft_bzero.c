@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 15:20:36 by eklymova          #+#    #+#             */
-/*   Updated: 2024/10/29 14:23:33 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:54:34 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,3 @@ void	ft_bzero(void *s, size_t n)
 		i++;
 	}
 }
-// int	main(void)
-// {
-// 	char s[50] = "helloyftyft";
-// 	ft_bzero(s, 5);
-// 	printf("%s", s);
-// 	return (0);
-// }

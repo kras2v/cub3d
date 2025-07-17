@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:05:38 by eklymova          #+#    #+#             */
-/*   Updated: 2024/10/29 14:27:58 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:55:41 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	arr[i] = '\0';
 	return (arr);
 }
-// int main(void)
-// {
-// 	char s[] = "hello my name is dojo";
-// 	printf("%s", ft_substr(s, 5, 17));
-// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:05:20 by eklymova          #+#    #+#             */
-/*   Updated: 2024/10/29 14:25:48 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:55:19 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,3 @@ void	ft_putstr_fd(char *s, int fd)
 		i++;
 	}
 }
-// int main(void)
-// {
-// 	char s[] = "hello";
-// 	ft_putstr_fd(s, 1);
-// }

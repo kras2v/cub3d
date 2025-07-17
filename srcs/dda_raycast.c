@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda_raycast.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:03:35 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/16 20:55:55 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/07/17 12:26:44 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ static double	get_x_coordinates_on_texture(
 	double	wall_hit_coord;
 
 	if (dda_parameters->side == VERTICAL)
-		wall_hit_coord = dda_parameters->player_position_in_cell.y + dda_parameters->distance_to_wall * dda_parameters->ray.y;
+		wall_hit_coord = dda_parameters->player_position_in_cell.y
+			+ dda_parameters->distance_to_wall * dda_parameters->ray.y;
 	else
-		wall_hit_coord = dda_parameters->player_position_in_cell.x + dda_parameters->distance_to_wall * dda_parameters->ray.x;
+		wall_hit_coord = dda_parameters->player_position_in_cell.x
+			+ dda_parameters->distance_to_wall * dda_parameters->ray.x;
 	wall_hit_coord -= floor(wall_hit_coord);
 	return ((int)(wall_hit_coord * (double)texture_width));
 }
@@ -55,9 +57,14 @@ void	draw_texture_pixel(
 	t_direction		wall_dir;
 
 	get_wall_direction(&wall_dir, dda_parameters);
-	texture.x = get_x_coordinates_on_texture(data->texture[wall_dir].width, dda_parameters);
-	offset = data->texture[wall_dir].image.addr + ((int)start_y_coordinate * data->texture[wall_dir].image.line_length 
-		+ texture.x * data->texture[wall_dir].image.bits_per_pixel / CHAR_BIT);
+	texture.x = get_x_coordinates_on_texture(
+			data->texture[wall_dir].width,
+			dda_parameters
+			);
+	offset = data->texture[wall_dir].image.addr
+		+ ((int)start_y_coordinate
+			* data->texture[wall_dir].image.line_length + texture.x
+			* data->texture[wall_dir].image.bits_per_pixel / CHAR_BIT);
 	color = *(unsigned int *)offset;
 	my_mlx_pixel_put(&data->img, x, dda_parameters->start_pixel, color);
 }
@@ -76,34 +83,43 @@ void	draw_textures(
 	y_increase_step = (double)data->texture->height / (double)wall_height;
 	get_wall_start_and_end(wall_height,
 		&dda_parameters->start_pixel, &dda_parameters->end_pixel);
-	start_y_coordinate_on_texture =
-		(dda_parameters->start_pixel - HEIGHT / 2 + wall_height / 2) * y_increase_step;
+	start_y_coordinate_on_texture = (dda_parameters->start_pixel
+			- HEIGHT / 2 + wall_height / 2) * y_increase_step;
 	draw_celing(data, dda_parameters->start_pixel, data->c, x);
 	draw_floor(data, dda_parameters->end_pixel, data->f, x);
 	while (dda_parameters->start_pixel < dda_parameters->end_pixel)
 	{
 		start_y_coordinate_on_texture += y_increase_step;
-		draw_texture_pixel(dda_parameters, data, x, start_y_coordinate_on_texture);
+		draw_texture_pixel(
+			dda_parameters,
+			data, x,
+			start_y_coordinate_on_texture
+			);
 		dda_parameters->start_pixel++;
 	}
 }
 
 void	dda(t_data *data)
 {
-	int				x;
+	int					x;
 	t_dda_parameters	dda_parameters;
 
 	x = 0;
 	get_player_position_on_map(data, &dda_parameters.player_position_in_cell);
-	get_player_cell(dda_parameters.player_position_in_cell, &dda_parameters.player_cell);
+	get_player_cell(
+		dda_parameters.player_position_in_cell,
+		&dda_parameters.player_cell);
 	while (x < WIDTH)
 	{
 		get_x_ray_coordinates(x, data, &dda_parameters.ray);
-		get_fixed_step_between_lines(dda_parameters.ray, &dda_parameters.fixed_step);
+		get_fixed_step_between_lines(
+			dda_parameters.ray,
+			&dda_parameters.fixed_step);
 		get_direction_step(&dda_parameters);
 		get_initial_step(&dda_parameters);
-		dda_parameters.distance_to_wall
-			= find_distance_to_wall(data, &dda_parameters, dda_parameters.player_cell);
+		dda_parameters.distance_to_wall = find_distance_to_wall(data,
+				&dda_parameters,
+				dda_parameters.player_cell);
 		draw_textures(data, &dda_parameters, x);
 		x++;
 	}

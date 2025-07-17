@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:28:59 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/16 21:27:16 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/07/17 12:22:03 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,12 @@ int	close_event(t_data *data)
 		free_mlx_data(data->mlx, data->img.ptr, data->mlx_win);
 		free_textures(data);
 		mlx_destroy_display(data->mlx);
+		free(data->mlx);
+	}
+	if (data->script)
+	{
 		free_double_arr(data->script);
 		data->script = NULL;
-		free(data->mlx);
-		free_double_arr(data->lekkereclrs);
-		// free(data);
 	}
 	exit(0);
 	return (0);
@@ -67,11 +68,11 @@ int	mouse_move_callback(int x, int y, t_data *data)
 	return (0);
 }
 
+//!STILL REACHABLE
 void	init_hooks(t_data *data)
 {
-	(void)data;
 	mlx_hook(data->mlx_win, ON_KEYDOWN, KEY_PRESS_MASK, key_press_event, data);
-	// mlx_hook(data->mlx_win, ON_DESTROY, NO_EVENT_MASK, close_event, data);
-	// mlx_hook(data->mlx_win, 6, 1L << 6, mouse_move_callback, data);
-	// mlx_mouse_hide(data->mlx, data->mlx_win);
+	mlx_hook(data->mlx_win, ON_DESTROY, NO_EVENT_MASK, close_event, data);
+	mlx_hook(data->mlx_win, 6, 1L << 6, mouse_move_callback, data);
+	mlx_mouse_hide(data->mlx, data->mlx_win);
 }

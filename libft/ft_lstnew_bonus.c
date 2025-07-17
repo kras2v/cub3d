@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 23:20:35 by eklymova          #+#    #+#             */
-/*   Updated: 2024/10/26 20:25:50 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:55:10 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,3 @@ t_list	*ft_lstnew(void *content)
 	return (node);
 }
 
-// int main(void)
-// {
-//     t_list *list = ft_lstnew("Hello, World!");
-//     printf("%s\n", (char *)list->content);
-//     return (0);
-// }

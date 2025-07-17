@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+         #
+#    By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 16:22:08 by kvalerii          #+#    #+#              #
-#    Updated: 2025/07/16 22:33:59 by valeriia         ###   ########.fr        #
+#    Updated: 2025/07/17 17:41:28 by kvalerii         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ MINILIBX_DIR = minilibx_linux
 MINILIBX_LIB = mlx_Linux
 OBJS_DIR  = objs
 CFLAGS := -Wall -Werror -Wextra -g
-CC := clang
+CC := cc
 SRC_DIR := ./srcs
 
 SRCS =	main.c \
@@ -24,16 +24,24 @@ SRCS =	main.c \
 		dda_raycast.c \
 		dda_step.c \
 		dda_traversel.c \
+		display_game.c \
+		error_handler.c \
+		input_validator.c \
+		mlx_handler.c \
+		data_initializer.c \
 		minimap_utils.c \
 		minimap_draw_utils.c \
 		bresenham_line_algorithm.c \
+		bresenham_line_utils.c \
 		draw_utils.c \
 		movement.c \
 		events.c \
 		free_utils.c \
 		math.c \
 		map_init.c \
-		map_valid.c \
+		map_validation.c \
+		map_char_validation.c \
+		map_walls_checker.c \
 		flashlight_utils.c \
 		player_initialization.c \
 		wall_colision.c \
@@ -60,8 +68,7 @@ $(OBJS_DIR):
 	mkdir -p $(OBJS_DIR)
 
 $(NAME): $(OBJS) libft/libft.a
-	$(CC) $(CFLAGS) $(OBJS) -L$(MINILIBX_DIR) -l$(MINILIBX_LIB) -L/usr/lib -I$(MINILIBX_DIR) -fPIE -lXext -lX11 -lm -lz -o $(NAME) libft/libft.a
-
+	$(CC) $(CFLAGS) $(OBJS) -L$(MINILIBX_DIR) -l$(MINILIBX_LIB) -L/usr/lib -I$(MINILIBX_DIR) -fPIE -lXext -lX11 -lm -lz -o $(NAME) libft/ft_dprintf/ft_dprintf.a libft/libft.a
 
 clean :
 	rm -rf $(OBJS_DIR)

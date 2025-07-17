@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 18:04:26 by eklymova          #+#    #+#             */
-/*   Updated: 2024/10/29 14:27:30 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/17 10:54:47 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,3 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	}
 	return (NULL);
 }
-// int	main(void)
-// {
-// 	char big[] = "hello my  name is kikko";
-// 	char little[] = "my";
-// 	printf("%s", ft_strnstr(big, little, 7));
-// }
