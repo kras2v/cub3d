@@ -9,7 +9,6 @@
 		"errno.h": "c",
 		"stdbool.h": "c",
 		"stdlib.h": "c",
-		"initializer_list": "c",
 		"ft_dprintf.h": "c",
 		"fcntl.h": "c",
 		"unistd.h": "c",
@@ -18,7 +17,7 @@
 		"string_view": "c",
 		"ranges": "c",
 		"span": "c",
-		"events.h": "c"
+		"events.h": "c",
 		"initializer_list": "c"
 	},
 	"C_Cpp.default.compilerPath": "/usr/bin/clang"
