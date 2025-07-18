@@ -6,7 +6,7 @@ static char * AnyConv_com__ducky_idle2_xpm[] = {
 "+	c #70581B",
 "@	c #FFF1CD",
 "#	c #FFCC4B",
-"$	c #000000",
+"$	c #00000F",
 "%	c #DF7126",
 "&	c #6C330D",
 "*	c #40310C",

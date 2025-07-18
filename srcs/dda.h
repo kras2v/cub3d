@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/18 18:39:21 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/22 13:44:09 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <stdbool.h>
 # include <unistd.h>
 # include <fcntl.h>
-
+# include <stdint.h>
 # include <sys/time.h>
 
 # include "colors.h"
@@ -41,6 +41,7 @@
 # define MINIMAP_OFFSET_Y 25
 # define WIDTH 1980
 # define HEIGHT 1220
+# define VERTICAL_MOVE 0.5
 
 typedef enum e_characters
 {
@@ -51,7 +52,8 @@ typedef enum e_characters
 	WEST = 'W',
 	SOUTH = 'S',
 	NORTH = 'N',
-	DOOR = 'D'
+	DOOR = 'D',
+	SPRITE = '2'
 }	t_characters;
 
 typedef enum e_move
@@ -127,6 +129,29 @@ typedef struct s_player
 	t_player_side	left_side;
 }	t_player;
 
+typedef struct s_sprite
+{
+	t_texture	**texture;
+	int		current_frame;
+	long int	frame_timer;
+	double	frame_delay;
+	int		sprite_width;
+	int		sprite_height;
+	double	x;
+	double	y;
+	double	VspriteX;
+	double	VspriteY;
+	double	transformX;
+	double	transformY;
+	double	spriteScreenX;
+	double	draw_start_x;
+	double	draw_start_y;
+	double	draw_end_x;
+	double	draw_end_y;
+	int		vMoveScreen;
+	double	invDet;
+}	t_sprite;
+
 typedef struct s_data
 {
 	void		*mlx;
@@ -135,6 +160,7 @@ typedef struct s_data
 	t_image		img;
 	long		time;
 	t_texture	*texture;
+	t_sprite	*sprite;
 	char		**script;
 	char		**map;
 	char		*e_t;
@@ -147,6 +173,7 @@ typedef struct s_data
 	int			map_width;
 	int			map_height;
 	double		normalized_x[WIDTH];
+	double		ZBuffer[WIDTH];
 }	t_data;
 
 typedef struct s_dda_parameters

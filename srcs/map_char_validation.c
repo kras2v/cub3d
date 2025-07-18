@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:01:26 by eklymova          #+#    #+#             */
-/*   Updated: 2025/07/18 18:20:03 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/22 13:45:36 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ bool	invalid_char(t_data *data)
 			if (data->map[y][x] == WALL || data->map[y][x] == WEST
 				|| data->map[y][x] == EAST || data->map[y][x] == EMPTY
 				|| data->map[y][x] == NORTH || data->map[y][x] == SOUTH
-				|| data->map[y][x] == SPACE || data->map[y][x] == DOOR)
+				|| data->map[y][x] == SPACE || data->map[y][x] == DOOR
+				|| data->map[y][x] == SPRITE)
 				x++;
 			else
 				return (0);

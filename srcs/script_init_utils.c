@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:58:24 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/17 12:10:26 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/22 13:35:06 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ void	textures_init(t_data *data, char *line, char c)
 		data->w_t = ft_strdup(line);
 	else if (c == 'S' && !data->s_t)
 		data->s_t = ft_strdup(line);
+	else
+	{
+		printf("Double textures\n");
+		close_event(data);
+	}
 }
 
 void	colors_init(t_data *data, char *line, char c)
@@ -54,6 +59,11 @@ void	colors_init(t_data *data, char *line, char c)
 	else if (c == 'C' && data->c == -1)
 	{
 		data->c = find_color(data, p_line);
+	}
+	else
+	{
+		printf("Double textures\n");
+		close_event(data);
 	}
 }
 

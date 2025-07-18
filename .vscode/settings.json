@@ -17,7 +17,8 @@
 		"string": "c",
 		"string_view": "c",
 		"ranges": "c",
-		"span": "c"
+		"span": "c",
+		"events.h": "c"
 	},
 	"C_Cpp.default.compilerPath": "/usr/bin/clang"
 }
