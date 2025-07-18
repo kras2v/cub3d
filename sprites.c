@@ -1,6 +1,6 @@
 # include "dda.h"
 
-long int		time_now(void)
+long int	time_now(void)
 {
 	struct timeval	now;
 
