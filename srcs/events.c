@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:28:59 by kvalerii          #+#    #+#             */
 /*   Updated: 2025/07/22 14:05:42 by kvalerii         ###   ########.fr       */
@@ -32,6 +32,33 @@ int	key_press_event(int keycode, t_data *data)
 	}
 	return (0);
 }
+void	free_sprite(t_data *data)
+{
+	int	i;
+
+	if (!data || !data->sprite)
+		return;
+	if (data->sprite->texture)
+	{
+		i = 0;
+		while (i < 2)
+		{
+			if (data->sprite->texture[i])
+			{
+				if (data->sprite->texture[i]->image.ptr)
+					mlx_destroy_image(data->mlx, data->sprite->texture[i]->image.ptr);
+				if (data->sprite->texture[i]->name)
+					free(data->sprite->texture[i]->name);
+				free(data->sprite->texture[i]);
+			}
+			i++;
+		}
+		free(data->sprite->texture);
+	}
+	free(data->sprite);
+	data->sprite = NULL;
+}
+
 
 int	close_event(t_data *data)
 {
@@ -46,6 +73,10 @@ int	close_event(t_data *data)
 	{
 		free_double_arr(data->script);
 		data->script = NULL;
+		free(data->mlx);
+		// free_sprite(data);
+		free_double_arr(data->lekkereclrs);
+		free(data);
 	}
 	exit(0);
 	return (0);
