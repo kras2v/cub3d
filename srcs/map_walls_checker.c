@@ -12,7 +12,67 @@
 
 #include "dda.h"
 
-static bool	is_map_closed(t_data *data, int x, int y)
+bool	invalid_char(t_data *data)
+{
+	size_t	x;
+	size_t	y;
+
+	y = 0;
+	while (data->map[y])
+	{
+		x = 0;
+		while (data->map[y][x])
+		{
+			if (data->map[y][x] == WALL || data->map[y][x] == WEST
+				|| data->map[y][x] == EAST || data->map[y][x] == EMPTY
+				|| data->map[y][x] == NORTH || data->map[y][x] == SOUTH
+				|| data->map[y][x] == SPACE || data->map[y][x] == SPRIT)
+				x++;
+			else
+				return (0);
+		}
+		y++;
+	}
+	return (1);
+}
+
+int	counter(char **map, char c)
+{
+	int	y;
+	int	x;
+	int	counter;
+
+	counter = 0;
+	y = 0;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			if (map[y][x] == c)
+				counter++;
+			x++;
+		}
+		y++;
+	}
+	return (counter);
+}
+
+bool	char_counter(t_data *data)
+{
+	int	count;
+
+	count = 0;
+	count += counter(data->map, EAST);
+	count += counter(data->map, WEST);
+	count += counter(data->map, SOUTH);
+	count += counter(data->map, NORTH);
+	if (count != 1)
+		return (false);
+	return (true);
+}
+
+bool	is_map_closed(t_data *data, size_t x, size_t y)
 {
 	if (y >= data->map_height || x >= data->map_width || y < 0 || x < 0)
 		return (false);
