@@ -22,13 +22,14 @@ void	init_sprite(t_data *data)
 	data->sprite->frame_timer = 0.0;
 	data->sprite->frame_delay = 200;
 }
-void find_sprite_pos(t_data *data)
+
+void	find_sprite_pos(t_data *data)
 {
-	int i;
-	int j;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
-	while(i < data->map_height)
+	while (i < data->map_height)
 	{
 		while (j < data->map_width)
 		{
@@ -38,7 +39,7 @@ void find_sprite_pos(t_data *data)
 				data->sprite->x = j + 0.5;
 				data->sprite->y = i + 0.5;
 				data->map[i][j] = '0';
-				return;
+				return ;
 			}
 			j++;
 		}
