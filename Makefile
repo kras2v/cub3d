@@ -6,7 +6,7 @@
 #    By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 16:22:08 by kvalerii          #+#    #+#              #
-#    Updated: 2025/07/22 13:22:52 by kvalerii         ###   ########.fr        #
+#    Updated: 2025/07/22 13:27:30 by kvalerii         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRCS =	main.c \
 		free_utils.c \
 		math.c \
 		map_init.c \
+		door_managment.c \
 		map_validation.c \
 		map_char_validation.c \
 		map_walls_checker.c \

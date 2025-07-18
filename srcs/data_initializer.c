@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 12:16:21 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/17 12:17:12 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/18 18:13:10 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	initialize_data(t_data *data)
 	data->e_t = NULL;
 	data->w_t = NULL;
 	data->s_t = NULL;
+	data->door = "./walls/xpm/door.xpm";
 	while (x < WIDTH)
 	{
 		data->normalized_x[x] = (2.0 * (double)x / (double)WIDTH) - 1.0;

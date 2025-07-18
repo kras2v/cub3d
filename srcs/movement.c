@@ -3,26 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:24:19 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/16 22:17:55 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/07/18 18:43:23 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dda.h"
 
-void	slide(
+static void	slide(
 	t_player *player,
 	char **map,
-	double shift_x,
-	double shift_y
+	t_point shift
 )
 {
-	if (is_colliding_with_wall(*player, map, shift_x * MOVE_SPEED, 0) == false)
-		player->position.x += shift_x * MOVE_SPEED;
-	if (is_colliding_with_wall(*player, map, 0, shift_y * MOVE_SPEED) == false)
-		player->position.y += shift_y * MOVE_SPEED;
+	t_point	shift_with_move;
+
+	shift_with_move = shift;
+	shift_with_move.x *= MOVE_SPEED;
+	shift_with_move.y = 0;
+	if (is_colliding(*player, map, shift_with_move, &is_wall) == false)
+		player->position.x += shift.x * MOVE_SPEED;
+	shift_with_move = shift;
+	shift_with_move.x = 0;
+	shift_with_move.y *= MOVE_SPEED;
+	if (is_colliding(*player, map, shift_with_move, &is_wall) == false)
+		player->position.y += shift.y * MOVE_SPEED;
 }
 
 void	change_player_position(
@@ -60,7 +67,7 @@ int	move_player(int keycode, t_data *data)
 	shift.x = 0;
 	shift.y = 0;
 	change_player_position(&shift, keycode, &data->player);
-	slide(&data->player, data->map, shift.x, shift.y);
+	slide(&data->player, data->map, shift);
 	if (keycode == XK_Left)
 	{
 		rotate(&(data->player.direction), data->player.direction, -ROT_SPEED);

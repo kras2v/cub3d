@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda_traversel.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 18:48:27 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/16 20:15:55 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/07/18 18:23:58 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,11 @@ double	find_distance_to_wall(
 			player_cell.y += dda_parameters->step.y;
 			dda_parameters->side = HORIZONTAL;
 		}
-		if (data->map[player_cell.y][player_cell.x] == WALL
-			&& is_direction(data->map[player_cell.y][player_cell.x]) == false)
+		if ((data->map[player_cell.y][player_cell.x] == WALL || data->map[player_cell.y][player_cell.x] == DOOR)
+			&& !is_direction(data->map[player_cell.y][player_cell.x]))
 			hit = true;
+		if (data->map[player_cell.y][player_cell.x] == DOOR)
+			dda_parameters->door_in_fov = true;
 	}
 	if (dda_parameters->side == VERTICAL)
 		return (dda_parameters->initial_step.x - dda_parameters->fixed_step.x);
