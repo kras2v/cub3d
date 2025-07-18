@@ -6,7 +6,7 @@
 #    By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 16:22:08 by kvalerii          #+#    #+#              #
-#    Updated: 2025/07/22 14:03:47 by kvalerii         ###   ########.fr        #
+#    Updated: 2025/07/22 14:07:52 by kvalerii         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = dda
 MINILIBX_DIR = minilibx_linux
 MINILIBX_LIB = mlx_Linux
 OBJS_DIR  = objs
-CFLAGS := -Wall -Werror -Wextra -g
+# CFLAGS := -Wall -Werror -Wextra -g
 CC := cc
 SRC_DIR := ./srcs
 

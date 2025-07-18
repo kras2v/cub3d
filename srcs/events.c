@@ -38,22 +38,30 @@ void	free_sprite(t_data *data)
 
 	if (!data || !data->sprite)
 		return;
+	i = 0;
 	if (data->sprite->texture)
 	{
-		i = 0;
 		while (i < 2)
 		{
 			if (data->sprite->texture[i])
 			{
 				if (data->sprite->texture[i]->image.ptr)
+				{
 					mlx_destroy_image(data->mlx, data->sprite->texture[i]->image.ptr);
+					data->sprite->texture[i]->image.ptr = NULL;
+				}
 				if (data->sprite->texture[i]->name)
+				{
 					free(data->sprite->texture[i]->name);
+					data->sprite->texture[i]->name = NULL;
+				}
 				free(data->sprite->texture[i]);
+				data->sprite->texture[i] = NULL;
 			}
 			i++;
 		}
 		free(data->sprite->texture);
+		data->sprite->texture = NULL;
 	}
 	free(data->sprite);
 	data->sprite = NULL;
@@ -73,11 +81,9 @@ int	close_event(t_data *data)
 	{
 		free_double_arr(data->script);
 		data->script = NULL;
-		free(data->mlx);
-		// free_sprite(data);
-		free_double_arr(data->lekkereclrs);
-		free(data);
 	}
+	// if (data->sprite)
+	// 	free_sprite(data);
 	exit(0);
 	return (0);
 }

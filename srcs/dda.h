@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/22 14:05:15 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/22 14:08:26 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,4 +311,12 @@ void	get_wall_start_and_end(int line_height, int *start_pixel, int *end_pixel);
 bool	is_wall(int coordinate);
 bool	is_colliding(t_player player,char **map,t_point shift,bool (*checker)(int));
 
+// SPRITES
+int		init_sprite(t_data *data);
+void	update_sprite(t_data *data);
+void	draw_sprite(t_data *data);
+void	find_sprite_pos(t_data *data);
+
+//TIME
+long int	time_now(void);
 #endif

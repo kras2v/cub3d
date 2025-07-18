@@ -123,6 +123,7 @@ void	dda(t_data *data)
 		dda_parameters.distance_to_wall = find_distance_to_wall(data,
 				&dda_parameters,
 				dda_parameters.player_cell);
+		data->ZBuffer[x] = dda_parameters.distance_to_wall;
 		draw_textures(data, &dda_parameters, x);
 		x++;
 	}

@@ -14,20 +14,20 @@ t_texture *load_sprite_texture(t_data *data, const char *path)
 
 	texture = malloc(sizeof(t_texture));
 	if (!texture)
-		return (NULL);
+		return (close_event(data), NULL);
 	texture->image.ptr = mlx_xpm_file_to_image(data->mlx, (char *)path,
 		&texture->width, &texture->height);
 	if (!texture->image.ptr)
-		return (free(texture), NULL);
+		return (close_event(data), NULL);
 	texture->image.addr = mlx_get_data_addr(texture->image.ptr,
 		&texture->image.bits_per_pixel,
 		&texture->image.line_length,
 		&texture->image.endian);
 	if (!texture->image.addr)
-		return (free(texture), NULL);
+		return (close_event(data), NULL);
 	texture->name = ft_strdup(path);
 	if (!texture->name)
-		return (free(texture), NULL);
+		return (close_event(data), NULL);
 	return (texture);
 }
 
@@ -48,6 +48,7 @@ int	init_sprite(t_data *data)
 	data->sprite->current_frame = 0;
 	data->sprite->frame_timer = 0.0;
 	data->sprite->frame_delay = 200.0;
+	find_sprite_pos(data);
 	return (1);
 }
 

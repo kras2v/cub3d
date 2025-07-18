@@ -20,6 +20,7 @@ int	main(int argc, char **args)
 	validate_user_input(&data, argc, args);
 	start_mlx(&data);
 	init_player(&data);
+	init_sprite(&data);
 	mlx_loop_hook(data.mlx, &display, &data);
 	mlx_loop(data.mlx);
 	close_event(&data);
