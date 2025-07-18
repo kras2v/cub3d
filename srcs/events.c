@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:28:59 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/17 12:22:03 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/18 18:54:12 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,17 @@ int	key_press_event(int keycode, t_data *data)
 	{
 		close_event(data);
 	}
-	if ((keycode == XK_W || keycode == XK_w)
-		|| (keycode == XK_S || keycode == XK_s)
-		|| (keycode == XK_D || keycode == XK_d)
-		|| (keycode == XK_A || keycode == XK_a)
-		|| (keycode == XK_Right || keycode == XK_Left))
+	if (keycode == XK_W || keycode == XK_w
+		|| keycode == XK_S || keycode == XK_s
+		|| keycode == XK_D || keycode == XK_d
+		|| keycode == XK_A || keycode == XK_a
+		|| keycode == XK_Right || keycode == XK_Left)
 	{
 		move_player(keycode, data);
+	}
+	else if (keycode == XK_space)
+	{
+		open_door(data);
 	}
 	return (0);
 }

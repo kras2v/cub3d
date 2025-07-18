@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/17 17:41:17 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/18 18:39:21 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,11 @@ typedef enum e_characters
 	EMPTY = '0',
 	WALL = '1',
 	SPACE = ' ',
-	END = '\0',
-	NEW_LINE = '\n',
 	EAST = 'E',
 	WEST = 'W',
 	SOUTH = 'S',
-	NORTH = 'N'
+	NORTH = 'N',
+	DOOR = 'D'
 }	t_characters;
 
 typedef enum e_move
@@ -69,12 +68,13 @@ typedef enum e_direction
 	E,
 	S,
 	W,
+	D
 }	t_direction;
 
 typedef enum e_side
 {
 	VERTICAL,
-	HORIZONTAL,
+	HORIZONTAL
 }	t_side;
 
 typedef struct s_image
@@ -141,6 +141,7 @@ typedef struct s_data
 	char		*w_t;
 	char		*s_t;
 	char		*n_t;
+	char		*door;
 	int			f;
 	int			c;
 	int			map_width;
@@ -151,6 +152,7 @@ typedef struct s_data
 typedef struct s_dda_parameters
 {
 	t_point			player_position_in_cell;
+	bool			door_in_fov;
 	double			distance_to_wall;
 	t_coordinates	player_cell;
 	t_fvector		ray;
@@ -190,6 +192,8 @@ typedef struct s_line
 # define FILE_NAME_ERR		"Wrong file provided\n"
 # define COLOR_ERR			"Color range is from 0 to 255\n"
 
+//DOOR
+int open_door(t_data *data);
 
 //BRESENHAM
 void	increase_stepping(int *p, int dir, t_coordinates *coords, t_coordinates delta);
@@ -277,6 +281,7 @@ void	draw_celing(t_data *data,int start_pixel,t_colors color,int x);
 void	get_wall_start_and_end(int line_height, int *start_pixel, int *end_pixel);
 
 //WALL COLISION
-bool	is_colliding_with_wall(t_player player, char **map, double shift_x, double shift_y);
+bool	is_wall(int coordinate);
+bool	is_colliding(t_player player,char **map,t_point shift,bool (*checker)(int));
 
 #endif

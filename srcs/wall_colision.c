@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_colision.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 22:16:28 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/16 22:17:55 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/07/18 18:37:42 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,21 @@ bool	is_wall(int coordinate)
 	return (coordinate == WALL);
 }
 
-int	shifted_tile(char **map, t_point old, double shift_y, double shift_x)
+int	shifted_tile(char **map, t_point old, t_point shift)
 {
-	return (map[(int)(old.y + shift_y)][(int)(old.x + shift_x)]);
+	return (map[(int)(old.y + shift.y)][(int)(old.x + shift.x)]);
 }
 
-bool	is_colliding_with_wall(
+bool	is_colliding(
 	t_player player,
 	char **map,
-	double shift_x,
-	double shift_y
+	t_point shift,
+	bool (*checker)(int)
 )
 {
 	assign_player_sides(&player);
-	return (is_wall(shifted_tile(map, player.left_side.up, shift_y, shift_x))
-		|| is_wall(shifted_tile(map, player.left_side.down, shift_y, shift_x))
-		|| is_wall(shifted_tile(map, player.right_side.down, shift_y, shift_x))
-		|| is_wall(shifted_tile(map, player.right_side.up, shift_y, shift_x)));
+	return (checker(shifted_tile(map, player.left_side.up, shift))
+		|| checker(shifted_tile(map, player.left_side.down, shift))
+		|| checker(shifted_tile(map, player.right_side.down, shift))
+		|| checker(shifted_tile(map, player.right_side.up, shift)));
 }

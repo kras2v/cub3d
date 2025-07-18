@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 12:17:37 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/17 12:20:54 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/18 18:15:49 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static char	*choose_texture_name(t_data *data, int i)
 		return (data->s_t);
 	else if (i == W)
 		return (data->w_t);
+	else if (i == D)
+		return (data->door);
 	return (NULL);
 }
 
@@ -65,12 +67,12 @@ static int	upload_textures(t_data *data)
 	int		texture_number;
 
 	texture_number = 0;
-	data->texture = ft_calloc(4, sizeof(t_texture));
+	data->texture = ft_calloc(5, sizeof(t_texture));
 	if (data->texture == NULL)
 	{
 		return (close_on_error(data, NULL), 1);
 	}
-	while (texture_number < 4)
+	while (texture_number < 5)
 	{
 		convert_file_to_mlx_image(data, texture_number);
 		get_image_data_address(data, texture_number);

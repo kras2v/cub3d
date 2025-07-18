@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:03:35 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/17 12:26:44 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/18 18:27:26 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ void	get_wall_direction(
 	t_dda_parameters *dda_parameters
 )
 {
-	if (dda_parameters->side == VERTICAL && dda_parameters->ray.x < 0)
+	if (dda_parameters->door_in_fov)
+		(*wall_dir = D);
+	else if (dda_parameters->side == VERTICAL && dda_parameters->ray.x < 0)
 		(*wall_dir) = E;
 	else if (dda_parameters->side == VERTICAL && dda_parameters->ray.x > 0)
 		(*wall_dir) = W;
@@ -111,6 +113,7 @@ void	dda(t_data *data)
 		&dda_parameters.player_cell);
 	while (x < WIDTH)
 	{
+		dda_parameters.door_in_fov = false;
 		get_x_ray_coordinates(x, data, &dda_parameters.ray);
 		get_fixed_step_between_lines(
 			dda_parameters.ray,
