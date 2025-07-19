@@ -38,19 +38,19 @@ void	free_sprite(t_data *data)
 	if (!data || !data->sprite)
 		return;
 	i = 0;
-	if (data->sprite->texture)
+	if (data->sprite->tex)
 	{
 		while (i < 2)
 		{
-			if (data->sprite->texture[i])
+			if (data->sprite->tex[i])
 			{
-				if (data->sprite->texture[i]->image.ptr)
-					mlx_destroy_image(data->mlx, data->sprite->texture[i]->image.ptr);
-				free(data->sprite->texture[i]);
+				if (data->sprite->tex[i]->image.ptr)
+					mlx_destroy_image(data->mlx, data->sprite->tex[i]->image.ptr);
+				free(data->sprite->tex[i]);
 			}
 			i++;
 		}
-		free(data->sprite->texture);
+		free(data->sprite->tex);
 	}
 	free(data->sprite);
 }

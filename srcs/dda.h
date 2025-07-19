@@ -131,25 +131,26 @@ typedef struct s_player
 
 typedef struct s_sprite
 {
-	t_texture	**texture;
-	int		current_frame;
+	t_texture	**tex;
+	int			cur_frame;
 	long int	frame_timer;
-	double	frame_delay;
-	int		sprite_width;
-	int		sprite_height;
-	double	x;
-	double	y;
-	double	VspriteX;
-	double	VspriteY;
-	double	transformX;
-	double	transformY;
-	double	spriteScreenX;
-	double	draw_start_x;
-	double	draw_start_y;
-	double	draw_end_x;
-	double	draw_end_y;
-	int		vMoveScreen;
-	double	invDet;
+	double		frame_delay;
+	int			s_width;
+	int			s_height;
+	double		x;
+	double		y;
+	double		v_s_x;
+	double		v_s_y;
+	double		trnform_x;
+	double		trnform_y;
+	double		s_win_x;
+	double		start_x;
+	double		start_y;
+	double		end_x;
+	double		end_y;
+	int			v_move_win;
+	double		inv_det;
+	uint32_t	color;
 }	t_sprite;
 
 typedef struct s_data

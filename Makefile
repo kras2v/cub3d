@@ -6,7 +6,7 @@
 #    By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 16:22:08 by kvalerii          #+#    #+#              #
-#    Updated: 2025/07/22 14:07:52 by kvalerii         ###   ########.fr        #
+#    Updated: 2025/07/22 14:11:24 by kvalerii         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,6 @@ SRCS =	main.c \
 		wall_colision.c \
 		script_init.c \
 		script_init_utils.c \
-		sprites.c \
 		sprite_utils.c
 
 OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)

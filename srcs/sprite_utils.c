@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sprite_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eklymova <eklymova@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/19 20:58:24 by eklymova          #+#    #+#             */
+/*   Updated: 2025/07/19 21:33:49 by eklymova        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "dda.h"
 
 void	find_sprite_pos(t_data *data)
@@ -34,12 +46,13 @@ long int	time_now(void)
 
 uint32_t	get_pixel_color(t_texture *texture, int x, int y)
 {
-	char *pixel;
-	int offset;
+	char	*pixel;
+	int		offset;
 
 	if (x < 0 || y < 0 || x >= texture->width || y >= texture->height)
 		return (0);
-	offset = y * texture->image.line_length + x * (texture->image.bits_per_pixel / 8);
+	offset = y * texture->image.line_length
+		+ x * (texture->image.bits_per_pixel / 8);
 	pixel = texture->image.addr + offset;
 	return (*(uint32_t *)pixel);
 }
@@ -51,28 +64,28 @@ void	update_sprite(t_data *data)
 	now = time_now();
 	if (now - data->sprite->frame_timer >= data->sprite->frame_delay)
 	{
-		data->sprite->current_frame++;
-		if (data->sprite->current_frame >= 2)
-			data->sprite->current_frame = 0;
+		data->sprite->cur_frame++;
+		if (data->sprite->cur_frame >= 2)
+			data->sprite->cur_frame = 0;
 		data->sprite->frame_timer = now;
 	}
 }
 
-t_texture *load_sprite_texture(t_data *data, const char *path)
+t_texture	*load_sprite_texture(t_data *data, const char *path)
 {
-	t_texture *texture;
+	t_texture	*texture;
 
 	texture = ft_calloc(2, sizeof(t_texture));
 	if (!texture)
 		return (close_event(data), NULL);
 	texture->image.ptr = mlx_xpm_file_to_image(data->mlx, (char *)path,
-		&texture->width, &texture->height);
+			&texture->width, &texture->height);
 	if (!texture->image.ptr)
 		return (close_event(data), NULL);
 	texture->image.addr = mlx_get_data_addr(texture->image.ptr,
-		&texture->image.bits_per_pixel,
-		&texture->image.line_length,
-		&texture->image.endian);
+			&texture->image.bits_per_pixel,
+			&texture->image.line_length,
+			&texture->image.endian);
 	if (!texture->image.addr)
 		return (close_event(data), NULL);
 	return (texture);
