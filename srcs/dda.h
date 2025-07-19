@@ -132,7 +132,7 @@ typedef struct s_player
 
 typedef struct s_sprite
 {
-	t_texture	**texture; //malloc
+	t_texture	**texture;
 	int		current_frame;
 	long int	frame_timer;
 	double	frame_delay;
@@ -161,7 +161,7 @@ typedef struct s_data
 	t_image		img;
 	long		time;
 	t_texture	*texture;
-	t_sprite	*sprite; //malloc
+	t_sprite	*sprite;
 	char		**script;
 	char		**map;
 	char		*e_t;
@@ -285,6 +285,7 @@ bool	is_script_valid(t_data *data);
 //FREE
 void	free_mlx_data(void *mlx, void *img, void *mlx_win);
 void	free_textures(t_data *data);
+void	free_sprite(t_data *data);
 
 //COLOR
 t_colors find_color(t_data *data, char *input_clr);

@@ -44,3 +44,27 @@ void	free_textures(t_data *data)
 	if (data->w_t)
 		free(data->w_t);
 }
+
+void	free_sprite(t_data *data)
+{
+	int	i;
+
+	if (!data || !data->sprite)
+		return;
+	i = 0;
+	if (data->sprite->texture)
+	{
+		while (i < 2)
+		{
+			if (data->sprite->texture[i])
+			{
+				if (data->sprite->texture[i]->image.ptr)
+					mlx_destroy_image(data->mlx, data->sprite->texture[i]->image.ptr);
+				free(data->sprite->texture[i]);
+			}
+			i++;
+		}
+		free(data->sprite->texture);
+	}
+	free(data->sprite);
+}
