@@ -308,11 +308,14 @@ void	get_wall_start_and_end(int line_height, int *start_pixel, int *end_pixel);
 //WALL COLISION
 bool	is_colliding_with_wall(t_player player, char **map, double shift_x, double shift_y);
 
-// SPRITES
-int		init_sprite(t_data *data);
-void	update_sprite(t_data *data);
-void	draw_sprite(t_data *data);
-void	find_sprite_pos(t_data *data);
+// SPRITE
+int			init_sprite(t_data *data);
+void		update_sprite(t_data *data);
+void		draw_sprite(t_data *data);
+void		find_sprite_pos(t_data *data);
+uint32_t	get_pixel_color(t_texture *texture, int x, int y);
+t_texture	*load_sprite_texture(t_data *data, const char *path);
+
 
 //TIME
 long int	time_now(void);
