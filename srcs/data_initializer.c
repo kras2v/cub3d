@@ -29,6 +29,7 @@ int	initialize_data(t_data *data)
 	data->e_t = NULL;
 	data->w_t = NULL;
 	data->s_t = NULL;
+	data->sprite = NULL;
 	while (x < WIDTH)
 	{
 		data->normalized_x[x] = (2.0 * (double)x / (double)WIDTH) - 1.0;
