@@ -312,11 +312,14 @@ void	get_wall_start_and_end(int line_height, int *start_pixel, int *end_pixel);
 bool	is_wall(int coordinate);
 bool	is_colliding(t_player player,char **map,t_point shift,bool (*checker)(int));
 
-// SPRITES
-int		init_sprite(t_data *data);
-void	update_sprite(t_data *data);
-void	draw_sprite(t_data *data);
-void	find_sprite_pos(t_data *data);
+// SPRITE
+int			init_sprite(t_data *data);
+void		update_sprite(t_data *data);
+void		draw_sprite(t_data *data);
+void		find_sprite_pos(t_data *data);
+uint32_t	get_pixel_color(t_texture *texture, int x, int y);
+t_texture	*load_sprite_texture(t_data *data, const char *path);
+
 
 //TIME
 long int	time_now(void);

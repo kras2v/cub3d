@@ -1,32 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sprites.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/22 14:09:40 by kvalerii          #+#    #+#             */
+/*   Updated: 2025/07/22 14:09:43 by kvalerii         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 # include "dda.h"
-
-long int	time_now(void)
-{
-	struct timeval	now;
-
-	gettimeofday(&now, NULL);
-	return ((now.tv_sec * 1000) + (now.tv_usec / 1000));
-}
-
-t_texture *load_sprite_texture(t_data *data, const char *path)
-{
-	t_texture *texture;
-
-	texture = ft_calloc(2, sizeof(t_texture));
-	if (!texture)
-		return (close_event(data), NULL);
-	texture->image.ptr = mlx_xpm_file_to_image(data->mlx, (char *)path,
-		&texture->width, &texture->height);
-	if (!texture->image.ptr)
-		return (close_event(data), NULL);
-	texture->image.addr = mlx_get_data_addr(texture->image.ptr,
-		&texture->image.bits_per_pixel,
-		&texture->image.line_length,
-		&texture->image.endian);
-	if (!texture->image.addr)
-		return (close_event(data), NULL);
-	return (texture);
-}
 
 int	init_sprite(t_data *data)
 {
@@ -47,18 +31,6 @@ int	init_sprite(t_data *data)
 	data->sprite->frame_delay = 200.0;
 	find_sprite_pos(data);
 	return (1);
-}
-
-uint32_t	get_pixel_color(t_texture *texture, int x, int y)
-{
-	char *pixel;
-	int offset;
-
-	if (x < 0 || y < 0 || x >= texture->width || y >= texture->height)
-		return (0);
-	offset = y * texture->image.line_length + x * (texture->image.bits_per_pixel / 8);
-	pixel = texture->image.addr + offset;
-	return (*(uint32_t *)pixel);
 }
 
 void	draw_by_strips(t_data *data)

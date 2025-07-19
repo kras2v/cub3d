@@ -48,7 +48,8 @@ SRCS =	main.c \
 		wall_colision.c \
 		script_init.c \
 		script_init_utils.c \
-		sprites.c
+		sprites.c \
+		sprite_utils.c
 
 OBJS = $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
