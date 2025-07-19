@@ -10,11 +10,11 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = dda
+NAME = cub3d
 MINILIBX_DIR = minilibx_linux
 MINILIBX_LIB = mlx_Linux
 OBJS_DIR  = objs
-# CFLAGS := -Wall -Werror -Wextra -g
+CFLAGS := -Wall -Werror -Wextra -g
 CC := cc
 SRC_DIR := ./srcs
 

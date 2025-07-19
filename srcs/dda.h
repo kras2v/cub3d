@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/22 14:08:26 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/22 14:13:42 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ typedef struct s_data
 	int			map_width;
 	int			map_height;
 	double		normalized_x[WIDTH];
-	double		ZBuffer[WIDTH];
+	double		z_buffer[WIDTH];
 }	t_data;
 
 typedef struct s_dda_parameters
@@ -186,7 +186,7 @@ typedef struct s_dda_parameters
 	t_fvector		ray;
 	t_fvector		initial_step;
 	t_fvector		fixed_step;
-	t_coordinates 	step;
+	t_coordinates	step;
 	t_side			side;
 	int				start_pixel;
 	int				end_pixel;
@@ -224,12 +224,13 @@ typedef struct s_line
 int open_door(t_data *data);
 
 //BRESENHAM
-void	increase_stepping(int *p, int dir, t_coordinates *coords, t_coordinates delta);
+void	increase_stepping(int *p, int dir,
+			t_coordinates *coords, t_coordinates delta);
 void	swap_axis(t_fvector *a);
 void	get_direction(int *dir, int *delta);
 void	assign_delta_coords(t_coordinates *delta, t_fvector *a, t_fvector *b);
 
-int	display(t_data *data);
+int		display(t_data *data);
 void	start_mlx(t_data *data);
 
 int		initialize_data(t_data *data);
@@ -292,32 +293,36 @@ void	free_textures(t_data *data);
 void	free_sprite(t_data *data);
 
 //COLOR
-t_colors find_color(t_data *data, char *input_clr);
+t_colors	find_color(t_data *data, char *input_clr);
 
 //
-int	get_minimum_tile(double position);
+int		get_minimum_tile(double position);
 
 //DDA
-double	find_distance_to_wall( t_data *data, t_dda_parameters *dda_parameters, t_coordinates player_cell);
+double	find_distance_to_wall( t_data *data,
+			t_dda_parameters *dda_parameters, t_coordinates player_cell);
 void	get_initial_step(t_dda_parameters *params);
 void	get_fixed_step_between_lines(t_fvector ray, t_fvector *fixed_step);
 void	get_direction_step(t_dda_parameters *dda_parameters);
 void	get_x_ray_coordinates(int x, t_data *data, t_fvector *ray);
-void	get_player_cell(t_point player_position_in_cell, t_coordinates *player_cell);
-void	get_player_position_on_map(t_data *data,t_point *player_position_in_cell);
+void	get_player_cell(t_point player_position_in_cell,
+			t_coordinates *player_cell);
+void	get_player_position_on_map(t_data *data,
+			t_point *player_position_in_cell);
 void	draw_floor(t_data *data, int end_pixel, t_colors color, int x);
-void	draw_celing(t_data *data,int start_pixel,t_colors color,int x);
-void	get_wall_start_and_end(int line_height, int *start_pixel, int *end_pixel);
+void	draw_celing(t_data *data, int start_pixel, t_colors color, int x);
+void	get_wall_start_and_end(int line_height,
+			int *start_pixel, int *end_pixel);
 
 //WALL COLISION
 bool	is_wall(int coordinate);
 bool	is_colliding(t_player player,char **map,t_point shift,bool (*checker)(int));
 
 // SPRITE
-int			init_sprite(t_data *data);
-void		update_sprite(t_data *data);
-void		draw_sprite(t_data *data);
-void		find_sprite_pos(t_data *data);
+int		init_sprite(t_data *data);
+void	update_sprite(t_data *data);
+void	draw_sprite(t_data *data);
+void	find_sprite_pos(t_data *data);
 uint32_t	get_pixel_color(t_texture *texture, int x, int y);
 t_texture	*load_sprite_texture(t_data *data, const char *path);
 

@@ -66,7 +66,7 @@ void	draw_by_strips(t_data *data)
 			/ data->sprite->s_width / 256;
 		if (data->sprite->trnform_y > 0 && stripe > 0
 			&& stripe < WIDTH
-			&& data->sprite->trnform_y < data->ZBuffer[stripe])
+			&& data->sprite->trnform_y < data->z_buffer[stripe])
 		{
 			y = (int)data->sprite->start_y;
 			while (y < data->sprite->end_y)
