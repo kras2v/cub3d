@@ -12,7 +12,7 @@ t_texture *load_sprite_texture(t_data *data, const char *path)
 {
 	t_texture *texture;
 
-	texture = malloc(sizeof(t_texture));
+	texture = ft_calloc(2, sizeof(t_texture));
 	if (!texture)
 		return (close_event(data), NULL);
 	texture->image.ptr = mlx_xpm_file_to_image(data->mlx, (char *)path,
@@ -24,9 +24,6 @@ t_texture *load_sprite_texture(t_data *data, const char *path)
 		&texture->image.line_length,
 		&texture->image.endian);
 	if (!texture->image.addr)
-		return (close_event(data), NULL);
-	texture->name = ft_strdup(path);
-	if (!texture->name)
 		return (close_event(data), NULL);
 	return (texture);
 }

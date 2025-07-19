@@ -288,6 +288,7 @@ bool	is_script_valid(t_data *data);
 //FREE
 void	free_mlx_data(void *mlx, void *img, void *mlx_win);
 void	free_textures(t_data *data);
+void	free_sprite(t_data *data);
 
 //COLOR
 t_colors find_color(t_data *data, char *input_clr);

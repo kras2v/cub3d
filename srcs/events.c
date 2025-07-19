@@ -32,44 +32,12 @@ int	key_press_event(int keycode, t_data *data)
 	}
 	return (0);
 }
-void	free_sprite(t_data *data)
-{
-	int	i;
-
-	if (!data || !data->sprite)
-		return;
-	i = 0;
-	if (data->sprite->texture)
-	{
-		while (i < 2)
-		{
-			if (data->sprite->texture[i])
-			{
-				if (data->sprite->texture[i]->image.ptr)
-				{
-					mlx_destroy_image(data->mlx, data->sprite->texture[i]->image.ptr);
-					data->sprite->texture[i]->image.ptr = NULL;
-				}
-				if (data->sprite->texture[i]->name)
-				{
-					free(data->sprite->texture[i]->name);
-					data->sprite->texture[i]->name = NULL;
-				}
-				free(data->sprite->texture[i]);
-				data->sprite->texture[i] = NULL;
-			}
-			i++;
-		}
-		free(data->sprite->texture);
-		data->sprite->texture = NULL;
-	}
-	free(data->sprite);
-	data->sprite = NULL;
-}
-
 
 int	close_event(t_data *data)
 {
+	// mlx_mouse_show(data->mlx, data->mlx_win);
+	if (data->sprite)
+		free_sprite(data);
 	if (data->mlx)
 	{
 		free_mlx_data(data->mlx, data->img.ptr, data->mlx_win);
@@ -82,8 +50,6 @@ int	close_event(t_data *data)
 		free_double_arr(data->script);
 		data->script = NULL;
 	}
-	// if (data->sprite)
-	// 	free_sprite(data);
 	exit(0);
 	return (0);
 }
