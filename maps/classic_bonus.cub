@@ -1,10 +1,10 @@
-NO ./walls/xpm/north_wall.xpm
-SO ./walls/xpm/south_wall.xpm
-WE ./walls/xpm/west_wall.xpm
-EA ./walls/xpm/east_wall.xpm
+NO ./walls/xpm/NORTH.xpm
+SO ./walls/xpm/SOUTH.xpm
+WE ./walls/xpm/WEST.xpm
+EA ./walls/xpm/EAST.xpm
 
-F 84,52,23
-C 128,128,128
+F 0,139,139
+C 255,20,147
 
 111111111111111111111111
 100000000000000000000001
