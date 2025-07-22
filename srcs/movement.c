@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:24:19 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/22 13:55:22 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/22 14:17:30 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,14 @@ static void	slide(
 	shift_with_move = shift;
 	shift_with_move.x *= MOVE_SPEED;
 	shift_with_move.y = 0;
-	if (is_colliding(*player, map, shift_with_move, &is_wall) == false)
+	if (!is_colliding(*player, map, shift_with_move, &is_wall)
+		&& !is_colliding(*player, map, shift_with_move, &is_door))
 		player->position.x += shift.x * MOVE_SPEED;
 	shift_with_move = shift;
 	shift_with_move.x = 0;
 	shift_with_move.y *= MOVE_SPEED;
-	if (is_colliding(*player, map, shift_with_move, &is_wall) == false)
+	if (!is_colliding(*player, map, shift_with_move, &is_wall)
+		&& !is_colliding(*player, map, shift_with_move, &is_door))
 		player->position.y += shift.y * MOVE_SPEED;
 }
 

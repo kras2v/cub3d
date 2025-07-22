@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/22 14:13:42 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/22 14:18:36 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,24 +155,26 @@ typedef struct s_sprite
 
 typedef struct s_data
 {
-	void		*mlx;
-	void		*mlx_win;
-	t_player	player;
-	t_image		img;
-	long		time;
-	t_texture	*texture;
-	t_sprite	*sprite;
-	char		**script;
-	char		**map;
-	char		*e_t;
-	char		*w_t;
-	char		*s_t;
-	char		*n_t;
-	char		*door;
-	int			f;
-	int			c;
-	int			map_width;
-	int			map_height;
+	void			*mlx;
+	void			*mlx_win;
+	t_player		player;
+	t_image			img;
+	long			time;
+	t_texture		*texture;
+	t_sprite		*sprite;
+	char			**script;
+	char			**map;
+	char			*e_t;
+	char			*w_t;
+	char			*s_t;
+	char			*n_t;
+	char			*door;
+	int				f;
+	int				c;
+	int				map_width;
+	int				map_height;
+	time_t			door_last_open;
+	t_coordinates	door_coordinates;
 	double		normalized_x[WIDTH];
 	double		z_buffer[WIDTH];
 }	t_data;
@@ -221,7 +223,8 @@ typedef struct s_line
 # define COLOR_ERR			"Color range is from 0 to 255\n"
 
 //DOOR
-int open_door(t_data *data);
+long	ft_get_current_time(void);
+void	open_door(t_data *data);
 
 //BRESENHAM
 void	increase_stepping(int *p, int dir,
@@ -315,6 +318,7 @@ void	get_wall_start_and_end(int line_height,
 			int *start_pixel, int *end_pixel);
 
 //WALL COLISION
+bool	is_door(int coordinate);
 bool	is_wall(int coordinate);
 bool	is_colliding(t_player player,char **map,t_point shift,bool (*checker)(int));
 

@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:24:18 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/22 14:06:10 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/22 14:17:26 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ int	get_square_color(
 		|| map_coords.y >= data->map_height
 		|| map[map_coords.y][map_coords.x] == SPACE)
 		color = DARK_GRAY;
-	else if (map[map_coords.y][map_coords.x] == WALL)
+	else if (is_wall(map[map_coords.y][map_coords.x])
+		|| is_door(map[map_coords.y][map_coords.x]))
 		color = YELLOW;
 	return (color);
 }

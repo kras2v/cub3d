@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 14:05:28 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/22 14:05:39 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/22 14:17:00 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,28 @@ void	free_textures(t_data *data)
 		free(data->e_t);
 	if (data->w_t)
 		free(data->w_t);
+}
+
+void	free_sprite(t_data *data)
+{
+	int	i;
+
+	if (!data || !data->sprite)
+		return;
+	i = 0;
+	if (data->sprite->tex)
+	{
+		while (i < 2)
+		{
+			if (data->sprite->tex[i])
+			{
+				if (data->sprite->tex[i]->image.ptr)
+					mlx_destroy_image(data->mlx, data->sprite->tex[i]->image.ptr);
+				free(data->sprite->tex[i]);
+			}
+			i++;
+		}
+		free(data->sprite->tex);
+	}
+	free(data->sprite);
 }
