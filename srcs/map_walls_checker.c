@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:01:26 by eklymova          #+#    #+#             */
-/*   Updated: 2025/07/22 14:07:24 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/22 14:19:32 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	counter(char **map, char c)
 	return (counter);
 }
 
-bool	is_map_closed(t_data *data, size_t x, size_t y)
+bool	is_map_closed(t_data *data, int x, int y)
 {
 	if (y >= data->map_height || x >= data->map_width || y < 0 || x < 0)
 		return (false);

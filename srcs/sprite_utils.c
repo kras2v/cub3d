@@ -14,8 +14,8 @@
 
 void	find_sprite_pos(t_data *data)
 {
-	size_t	i;
-	size_t	j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < data->map_height)
