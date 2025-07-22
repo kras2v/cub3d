@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 12:16:21 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/18 18:13:10 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/22 12:43:30 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ int	initialize_data(t_data *data)
 	data->e_t = NULL;
 	data->w_t = NULL;
 	data->s_t = NULL;
+	data->door_last_open = 0;
+	data->door_coordinates.x = 0;
+	data->door_coordinates.y = 0;
 	data->door = "./walls/xpm/door.xpm";
 	while (x < WIDTH)
 	{
