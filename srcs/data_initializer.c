@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 12:16:21 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/22 14:14:56 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:39:49 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	initialize_data(t_data *data)
 	data->door_last_open = 0;
 	data->door_coordinates.x = 0;
 	data->door_coordinates.y = 0;
-	data->door = "./walls/xpm/door.xpm";
+	data->door = "./walls/xpm/dooor.xpm";
 	data->sprite = NULL;
 	while (x < WIDTH)
 	{
