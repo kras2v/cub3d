@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bresenham_line_algorithm.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:52:37 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/17 17:42:24 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/22 16:17:54 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

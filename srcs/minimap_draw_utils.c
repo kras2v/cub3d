@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_draw_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:24:18 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/17 09:59:29 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/22 16:27:32 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ int	get_square_color(
 		|| map_coords.y >= data->map_height
 		|| map[map_coords.y][map_coords.x] == SPACE)
 		color = DARK_GRAY;
-	else if (map[map_coords.y][map_coords.x] == WALL)
+	else if (is_wall(map[map_coords.y][map_coords.x])
+		|| is_door(map[map_coords.y][map_coords.x]))
 		color = YELLOW;
 	return (color);
 }

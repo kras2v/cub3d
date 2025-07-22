@@ -1,49 +1,66 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flashlight_utils.c                                 :+:      :+:    :+:   */
+/*   door_managment.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/15 20:44:39 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/22 16:26:10 by eklymova         ###   ########.fr       */
+/*   Created: 2025/07/18 18:29:51 by kvalerii          #+#    #+#             */
+/*   Updated: 2025/07/22 14:17:14 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dda.h"
 
-static t_fvector	cast_flashlight_ray(t_data *data, t_fvector dir,
-		int map_start_x, int map_start_y)
+bool	is_door(int coordinate)
 {
-	t_fvector	pos;
-	t_fvector	end;
-	double		len;
-	int			mx;
-	int			my;
+	return (coordinate == DOOR);
+}
+
+long	ft_get_current_time(void)
+{
+	struct timeval	current_time;
+
+	gettimeofday(&current_time, NULL);
+	return (current_time.tv_sec * 1000);
+}
+
+static bool	cast_flashlight_ray(
+	t_data *data,
+	t_fvector dir
+)
+{
+	t_fvector		pos;
+	double			len;
+	t_coordinates	m;
 
 	pos = data->player.position;
 	len = 0;
 	while (len < 2.0)
 	{
-		mx = (int)pos.x;
-		my = (int)pos.y;
-		if (my < data->map_height && mx < data->map_width
-			&& data->map[my][mx] == WALL)
+		m.x = (int)pos.x;
+		m.y = (int)pos.y;
+		if (m.y < data->map_height && m.x < data->map_width && data->map[m.y][m.x] != EMPTY)
 			break ;
 		pos.x += dir.x * 0.1;
 		pos.y += dir.y * 0.1;
 		len += 0.1;
+		if (is_door(data->map[(int)pos.y][(int)pos.x]))
+		{
+			data->map[(int)pos.y][(int)pos.x] = EMPTY;
+			data->door_coordinates.x = (int)pos.x;
+			data->door_coordinates.y = (int)pos.y;
+			data->door_last_open = ft_get_current_time();
+			return (true);
+		}
 	}
-	end.x = (pos.x - map_start_x) * MINI_TILE;
-	end.y = (pos.y - map_start_y) * MINI_TILE;
-	return (end);
+	return (false);
 }
 
-void	draw_flashlight(t_data *data)
+void	open_door(t_data *data)
 {
 	t_flash_params	param;
 	t_fvector		dir;
-	t_fvector		end;
 	int				i;
 	double			a;
 
@@ -62,8 +79,8 @@ void	draw_flashlight(t_data *data)
 	{
 		a = param.start + i * param.step_angle;
 		rotate(&dir, data->player.direction, a);
-		end = cast_flashlight_ray(data, dir, param.map_start_x,
-				param.map_start_y);
-		draw_line(data, param.player_pos, end, WHITE);
+		if(cast_flashlight_ray(data, dir))
+			return ;
 	}
 }
+

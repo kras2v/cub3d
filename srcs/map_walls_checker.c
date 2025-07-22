@@ -6,7 +6,7 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:01:26 by eklymova          #+#    #+#             */
-/*   Updated: 2025/07/18 18:18:11 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/07/22 16:26:50 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	counter(char **map, char c)
 	return (counter);
 }
 
-bool	is_map_closed(t_data *data, size_t x, size_t y)
+bool	is_map_closed(t_data *data, int x, int y)
 {
 	if (y >= data->map_height || x >= data->map_width || y < 0 || x < 0)
 		return (false);

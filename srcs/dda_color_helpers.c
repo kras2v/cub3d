@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda_color_helpers.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 18:52:15 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/17 12:27:02 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/22 16:21:21 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

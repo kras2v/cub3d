@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/17 17:41:17 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/22 16:20:41 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdint.h>
-
 # include <sys/time.h>
 
 # include "colors.h"
@@ -55,6 +54,7 @@ typedef enum e_characters
 	WEST = 'W',
 	SOUTH = 'S',
 	NORTH = 'N',
+	DOOR = 'D',
 	SPRITE = '2'
 }	t_characters;
 
@@ -72,12 +72,13 @@ typedef enum e_direction
 	E,
 	S,
 	W,
+	D
 }	t_direction;
 
 typedef enum e_side
 {
 	VERTICAL,
-	HORIZONTAL,
+	HORIZONTAL
 }	t_side;
 
 typedef struct s_image
@@ -156,30 +157,34 @@ typedef struct s_sprite
 
 typedef struct s_data
 {
-	void		*mlx;
-	void		*mlx_win;
-	t_player	player;
-	t_image		img;
-	long		time;
-	t_texture	*texture;
-	t_sprite	*sprite;
-	char		**script;
-	char		**map;
-	char		*e_t;
-	char		*w_t;
-	char		*s_t;
-	char		*n_t;
-	int			f;
-	int			c;
-	int			map_width;
-	int			map_height;
-	double		normalized_x[WIDTH];
-	double		z_buffer[WIDTH];
+	void			*mlx;
+	void			*mlx_win;
+	t_player		player;
+	t_image			img;
+	long			time;
+	t_texture		*texture;
+	t_sprite		*sprite;
+	char			**script;
+	char			**map;
+	char			*e_t;
+	char			*w_t;
+	char			*s_t;
+	char			*n_t;
+	char			*door;
+	int				f;
+	int				c;
+	int				map_width;
+	int				map_height;
+	time_t			door_last_open;
+	t_coordinates	door_coordinates;
+	double			normalized_x[WIDTH];
+	double			z_buffer[WIDTH];
 }	t_data;
 
 typedef struct s_dda_parameters
 {
 	t_point			player_position_in_cell;
+	bool			door_in_fov;
 	double			distance_to_wall;
 	t_coordinates	player_cell;
 	t_fvector		ray;
@@ -219,6 +224,9 @@ typedef struct s_line
 # define FILE_NAME_ERR		"Wrong file provided\n"
 # define COLOR_ERR			"Color range is from 0 to 255\n"
 
+//DOOR
+long	ft_get_current_time(void);
+void	open_door(t_data *data);
 
 //BRESENHAM
 void	increase_stepping(int *p, int dir,
@@ -314,6 +322,9 @@ void	get_wall_start_and_end(int line_height,
 //WALL COLISION
 bool	is_colliding_with_wall(t_player player,
 			char **map, double shift_x, double shift_y);
+bool	is_door(int coordinate);
+bool	is_wall(int coordinate);
+bool	is_colliding(t_player player,char **map,t_point shift,bool (*checker)(int));
 
 // SPRITE
 int		init_sprite(t_data *data);
