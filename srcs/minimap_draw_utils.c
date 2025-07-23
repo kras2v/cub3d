@@ -69,6 +69,8 @@ int	get_square_color(
 	else if (is_wall(map[map_coords.y][map_coords.x])
 		|| is_door(map[map_coords.y][map_coords.x]))
 		color = YELLOW;
+	else if (is_sprite(map[map_coords.y][map_coords.x]))
+		color = PINK;
 	return (color);
 }
 

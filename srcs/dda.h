@@ -327,6 +327,7 @@ int		init_sprite(t_data *data);
 void	update_sprite(t_data *data);
 void	draw_sprite(t_data *data);
 void	find_sprite_pos(t_data *data);
+bool	is_sprite(int coordinate);
 uint32_t	get_pixel_color(t_texture *texture, int x, int y);
 t_texture	*load_sprite_texture(t_data *data, const char *path);
 
