@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 16:25:25 by eklymova          #+#    #+#             */
-/*   Updated: 2025/07/23 17:12:48 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:43:38 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	free_textures(t_data *data)
 	i = 0;
 	if (data->texture_params)
 	{
-		while (i < 4)
+		while (i < 5)
 		{
 			if (data->texture_params[i].image.ptr)
 				mlx_destroy_image(data->mlx, data->texture_params[i].image.ptr);
