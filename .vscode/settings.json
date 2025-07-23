@@ -18,7 +18,8 @@
 		"ranges": "c",
 		"span": "c",
 		"events.h": "c",
-		"initializer_list": "c"
+		"initializer_list": "c",
+		"dda_bonus.h": "c"
 	},
 	"C_Cpp.default.compilerPath": "/usr/bin/clang"
 }
