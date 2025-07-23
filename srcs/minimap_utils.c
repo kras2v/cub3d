@@ -20,6 +20,12 @@ bool	is_direction(int coordinate)
 		|| coordinate == WEST);
 }
 
+
+bool	is_sprite(int coordinate)
+{
+	return (coordinate == SPRITE);
+}
+
 double	convert_to_minimap_coordinates(double position)
 {
 	return ((position - ((int)position - MINIMAP_RADIUS)) * MINI_TILE);

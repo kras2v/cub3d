@@ -27,7 +27,7 @@ void	find_sprite_pos(t_data *data)
 			{
 				data->sprite->x = j + 0.5;
 				data->sprite->y = i + 0.5;
-				data->map[i][j] = '0';
+				// data->map[i][j] = '0';
 				return ;
 			}
 			j++;
