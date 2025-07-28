@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data_initializer.c                                 :+:      :+:    :+:   */
+/*   draw_utils.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/17 12:16:21 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/29 12:42:49 by kvalerii         ###   ########.fr       */
+/*   Created: 2025/07/28 12:19:11 by kvalerii          #+#    #+#             */
+/*   Updated: 2025/07/28 12:20:18 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda.h"
+#ifndef DRAW_UTILS_H
+# define DRAW_UTILS_H
 
-int	initialize_data(t_data *data)
-{
-	int	x;
+# include "player.h"
+# include "sprite.h"
+# include "dda.h"
+# include <sys/time.h>
 
-	x = 0;
-	data->map_height = 0;
-	data->map_width = 0;
-	data->c = -1;
-	data->f = -1;
-	data->texture_params = NULL;
-	data->script = NULL;
-	data->mlx = NULL;
-	data->map = NULL;
-	data->texture_names = ft_calloc(5, sizeof(char *));
-	while (x < WIDTH)
-	{
-		data->normalized_x[x] = (2.0 * (double)x / (double)WIDTH) - 1.0;
-		x++;
-	}
-	return (0);
-}
+//BRESENHAM
+void	increase_stepping(int *p, int dir,
+			t_coordinates *coords, t_coordinates delta);
+void	swap_axis(t_fvector *a);
+void	get_direction(int *dir, int *delta);
+void	assign_delta_coords(t_coordinates *delta, t_fvector *a, t_fvector *b);
+
+
+
+#endif

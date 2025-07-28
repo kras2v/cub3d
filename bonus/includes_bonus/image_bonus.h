@@ -1,35 +1,29 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data_initializer.c                                 :+:      :+:    :+:   */
+/*   data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/17 12:16:21 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/29 12:42:49 by kvalerii         ###   ########.fr       */
+/*   Created: 2025/07/28 11:55:52 by kvalerii          #+#    #+#             */
+/*   Updated: 2025/07/28 12:00:12 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda.h"
+#ifndef IMAGE_BONUS_H
+# define IMAGE_BONUS_H
 
-int	initialize_data(t_data *data)
+# define WIDTH 1980
+# define HEIGHT 1220
+
+typedef struct s_image
 {
-	int	x;
+	void	*ptr;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_image;
 
-	x = 0;
-	data->map_height = 0;
-	data->map_width = 0;
-	data->c = -1;
-	data->f = -1;
-	data->texture_params = NULL;
-	data->script = NULL;
-	data->mlx = NULL;
-	data->map = NULL;
-	data->texture_names = ft_calloc(5, sizeof(char *));
-	while (x < WIDTH)
-	{
-		data->normalized_x[x] = (2.0 * (double)x / (double)WIDTH) - 1.0;
-		x++;
-	}
-	return (0);
-}
+#endif

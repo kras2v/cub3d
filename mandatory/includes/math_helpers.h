@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data_initializer.c                                 :+:      :+:    :+:   */
+/*   math_helpers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/17 12:16:21 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/29 12:42:49 by kvalerii         ###   ########.fr       */
+/*   Created: 2025/07/28 11:55:52 by kvalerii          #+#    #+#             */
+/*   Updated: 2025/07/28 12:18:10 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda.h"
+#ifndef MATH_HELPERS_H
+# define MATH_HELPERS_H
 
-int	initialize_data(t_data *data)
+#include "math_helpers.h"
+
+typedef struct s_fvector
+{
+	double	x;
+	double	y;
+}	t_fvector;
+
+typedef struct s_coordinates
 {
 	int	x;
+	int	y;
+}	t_coordinates;
 
-	x = 0;
-	data->map_height = 0;
-	data->map_width = 0;
-	data->c = -1;
-	data->f = -1;
-	data->texture_params = NULL;
-	data->script = NULL;
-	data->mlx = NULL;
-	data->map = NULL;
-	data->texture_names = ft_calloc(5, sizeof(char *));
-	while (x < WIDTH)
-	{
-		data->normalized_x[x] = (2.0 * (double)x / (double)WIDTH) - 1.0;
-		x++;
-	}
-	return (0);
-}
+typedef struct s_fvector t_point;
+
+void	rotate(t_fvector *dir, t_fvector temp, double radian);
+void	swap_points(t_fvector *a, t_fvector *b);
+
+#endif

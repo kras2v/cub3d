@@ -6,11 +6,11 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:24:32 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/23 16:30:50 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/28 12:28:53 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda_bonus.h"
+#include "data.h"
 
 void	my_mlx_pixel_put(t_image *image, int x, int y, int color)
 {

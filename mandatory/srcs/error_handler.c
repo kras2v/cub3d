@@ -6,11 +6,12 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 14:05:28 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/23 16:04:21 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/28 11:45:08 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dda.h"
+
 
 void	close_on_error(t_data *data, char *err_msg)
 {
@@ -34,14 +35,25 @@ void	free_textures(t_data *data)
 	int	i;
 
 	i = 0;
-	if (data->texture)
+	if (data->texture_params)
 	{
 		while (i < 4)
 		{
-			if (data->texture[i].image.ptr)
-				mlx_destroy_image(data->mlx, data->texture[i].image.ptr);
+			if (data->texture_params[i].image.ptr)
+				mlx_destroy_image(data->mlx, data->texture_params[i].image.ptr);
 			i++;
 		}
-		free(data->texture);
+		free(data->texture_params);
+	}
+	i = 0;
+	if (data->texture_names)
+	{
+		while (i < 4)
+		{
+			if (data->texture_names[i])
+				free(data->texture_names[i]);
+			data->texture_names[i] = NULL;
+			i++;
+		}
 	}
 }

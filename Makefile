@@ -6,34 +6,33 @@
 #    By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 16:22:08 by kvalerii          #+#    #+#              #
-#    Updated: 2025/07/23 17:47:52 by kvalerii         ###   ########.fr        #
+#    Updated: 2025/07/28 12:26:53 by kvalerii         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # --- Project Configuration ---
-NAME				= cub3d
+NAME			= cub3d
 
-LIBS_PATH =		libs
-LIBFT_PATH =	$(LIBS_PATH)/libft
-LIBFT =			$(LIBFT_PATH)libft.a
+LIBS_PATH		= libs
+LIBFT_PATH		= $(LIBS_PATH)/libft
+LIBFT			= $(LIBFT_PATH)/libft.a
+DPRINTF			= $(LIBFT_PATH)/ft_dprintf/ft_dprintf.a
 
-CFLAGS				= -Wall -Werror -Wextra -g -I$(LIBFT_PATH)
-CC					= cc
+CFLAGS			= -Wall -Werror -Wextra -g
+CC				= cc
 
-MINILIBX_DIR		= minilibx_linux
-MINILIBX_LIB		= mlx_Linux
+MINILIBX_DIR	= minilibx_linux
+MINILIBX_LIB	= mlx_Linux
 
-BONUS				= bonus
-SRCS_BONUS_DIR		= $(BONUS)/srcs_bonus
-INCLUDES_BONUS		= $(BONUS)/includes_bonus
-OBJS_BONUS_DIR		= $(BONUS)/objs_bonus
+BONUS			= bonus
+SRCS_BONUS_DIR	= $(BONUS)/srcs_bonus
+INCLUDES_BONUS	= $(BONUS)/includes_bonus
+OBJS_BONUS_DIR	= $(BONUS)/objs_bonus
 
-MANDATORY			= mandatory
+MANDATORY		= mandatory
 SRCS_DIR		= $(MANDATORY)/srcs
 INCLUDES		= $(MANDATORY)/includes
 OBJS_DIR		= $(MANDATORY)/objs
-
-SRCS_DIR				= $(MANDATORY)/srcs
 
 # --- Source File Lists ---
 SRCS =	main.c \
@@ -60,7 +59,7 @@ SRCS =	main.c \
 		flashlight/flashlight_utils.c \
 		player/movement.c \
 		player/player_initialization.c \
-		wall_colision/wall_colision.c \
+		wall_collision/wall_collision.c \
 		parser/map_init.c \
 		parser/script_init.c \
 		parser/script_init_utils.c \
@@ -79,6 +78,7 @@ SRCS_BONUS =	main_bonus.c \
 				validation/input_validator_bonus.c \
 				mlx/mlx_handler_bonus.c \
 				door/door_managment_bonus.c \
+				door/door_events.c \
 				minimap/minimap_utils_bonus.c \
 				minimap/minimap_draw_utils_bonus.c \
 				draw_utils/bresenham_line_algorithm_bonus.c \
@@ -91,7 +91,7 @@ SRCS_BONUS =	main_bonus.c \
 				flashlight/flashlight_utils_bonus.c \
 				player/movement_bonus.c \
 				player/player_initialization_bonus.c \
-				wall_colision/wall_colision_bonus.c \
+				wall_collision/wall_collision_bonus.c \
 				parser/map_init_bonus.c \
 				parser/script_init_bonus.c \
 				parser/script_init_utils_bonus.c \
@@ -115,35 +115,39 @@ build_mlx:
 $(MINILIBX_DIR)/.git:
 	@git submodule update --init $(MINILIBX_DIR)
 
+# --- Final Executable Linkage ---
+$(NAME): $(OBJS) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJS) -L$(MINILIBX_DIR) -l$(MINILIBX_LIB) \
+	-L/usr/lib -I$(MINILIBX_DIR) -fPIE -lXext -lX11 -lm -lz -o  $(NAME) \
+	$(DPRINTF) $(LIBFT)
+
 # Bonus build target
 bonus: $(BONUS_OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(BONUS_OBJS) -L$(MINILIBX_DIR) -l$(MINILIBX_LIB) -L/usr/lib -I$(MINILIBX_DIR) -fPIE -lXext -lX11 -lm -lz -o $(NAME) libft/ft_dprintf/ft_dprintf.a $(LIBFT)
+	$(CC) $(CFLAGS) $(BONUS_OBJS) -L$(MINILIBX_DIR) -l$(MINILIBX_LIB) \
+	-L/usr/lib -I$(MINILIBX_DIR) -fPIE -lXext -lX11 -lm -lz -o $(NAME) \
+	$(DPRINTF) $(LIBFT)
 
 # Build libft
 $(LIBFT):
-	$(MAKE) -C libft
+	$(MAKE) -C $(LIBFT_PATH)
 
 # --- Compilation Rules for Object Files ---
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -I$(INCLUDES) -I$(MINILIBX_DIR) -o $@ -c $< $(HEADERS)
+	$(CC) $(CFLAGS) -I$(LIBFT_PATH) -I$(INCLUDES) -I$(MINILIBX_DIR) -o $@ -c $< $(HEADERS)
 
-$(OBJS_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c
+$(OBJS_BONUS_DIR)/%.o: $(SRCS_BONUS_DIR)/%.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -I$(INCLUDES_BONUS) -I$(MINILIBX_DIR) -o $@ -c $< $(HEADERS)
-
-# --- Final Executable Linkage ---
-$(NAME): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) -L$(MINILIBX_DIR) -l$(MINILIBX_LIB) -L/usr/lib -I$(MINILIBX_DIR) -fPIE -lXext -lX11 -lm -lz -o $(NAME) libft/ft_dprintf/ft_dprintf.a $(LIBFT)
+	$(CC) $(CFLAGS) -I$(LIBFT_PATH) -I$(INCLUDES_BONUS) -I$(MINILIBX_DIR) -o $@ -c $< $(HEADERS)
 
 # --- Cleaning Rules ---
 clean :
 	rm -rf $(OBJS_DIR) $(OBJS_BONUS_DIR)
-	make -C libft clean
+	make -C $(LIBFT_PATH) clean
 
 fclean : clean
 	rm -f $(NAME)
-	make -C libft fclean
+	make -C $(LIBFT_PATH) fclean
 
 re : fclean all
 

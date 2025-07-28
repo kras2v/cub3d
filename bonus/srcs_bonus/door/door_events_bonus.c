@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 17:35:13 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/23 17:35:30 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/28 11:54:09 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	close_door(t_data *data)
 {
 	long	check_time;
 
-	check_time = ft_get_current_time();
+	check_time = time_now();
 	if (data->map[data->door_coordinates.y][data->door_coordinates.x] == EMPTY
 		&& !player_in_the_door(data)
 		&& check_time - data->door_last_open >= 5000)

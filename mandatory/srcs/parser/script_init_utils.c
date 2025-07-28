@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:58:24 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/22 14:06:35 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/28 11:50:42 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ void	textures_init(t_data *data, char *line, char c)
 			return ;
 		line++;
 	}
-	if (c == 'N' && !data->n_t)
-		data->n_t = ft_strdup(line);
-	else if (c == 'E' && !data->e_t)
-		data->e_t = ft_strdup(line);
-	else if (c == 'W' && !data->w_t)
-		data->w_t = ft_strdup(line);
-	else if (c == 'S' && !data->s_t)
-		data->s_t = ft_strdup(line);
+	if (c == 'N' && !data->texture_names[N])
+		data->texture_names[N] = ft_strdup(line);
+	else if (c == 'E' && !data->texture_names[E])
+		data->texture_names[E] = ft_strdup(line);
+	else if (c == 'W' && !data->texture_names[W])
+		data->texture_names[W] = ft_strdup(line);
+	else if (c == 'S' && !data->texture_names[S])
+		data->texture_names[S] = ft_strdup(line);
 	else
 	{
 		printf("Double textures\n");

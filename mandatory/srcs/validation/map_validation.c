@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:01:26 by eklymova          #+#    #+#             */
-/*   Updated: 2025/07/17 12:12:18 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/28 11:49:09 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static bool	pathes_loaded(t_data *data)
 {
-	return (data->n_t && data->s_t && data->e_t && data->w_t);
+	return (data->texture_names[N] && data->texture_names[E]
+		&& data->texture_names[S] && data->texture_names[W]);
 }
 
 bool	colors_added(t_data *data)

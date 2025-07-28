@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data_initializer.c                                 :+:      :+:    :+:   */
+/*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/17 12:16:21 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/29 12:42:49 by kvalerii         ###   ########.fr       */
+/*   Created: 2025/07/28 12:08:58 by kvalerii          #+#    #+#             */
+/*   Updated: 2025/07/28 12:09:50 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda.h"
+#ifndef PLAYER_H
+# define PLAYER_H
 
-int	initialize_data(t_data *data)
-{
-	int	x;
+# define PLAYER_ERR			"Player must be just 1\n"
+# define MISSING_ATTR		"Texture paths or colors are missing\n"
+# define INVALID_CHAR		"Invalid char in file\n"
+# define MAP_UNCLOSED_ERR	"Map unclosed\n"
+# define WRONG_ARGC			"Wrong number of arguments\n"
+# define FILE_NAME_ERR		"Wrong file provided\n"
+# define COLOR_ERR			"Color range is from 0 to 255\n"
 
-	x = 0;
-	data->map_height = 0;
-	data->map_width = 0;
-	data->c = -1;
-	data->f = -1;
-	data->texture_params = NULL;
-	data->script = NULL;
-	data->mlx = NULL;
-	data->map = NULL;
-	data->texture_names = ft_calloc(5, sizeof(char *));
-	while (x < WIDTH)
-	{
-		data->normalized_x[x] = (2.0 * (double)x / (double)WIDTH) - 1.0;
-		x++;
-	}
-	return (0);
-}
+#endif

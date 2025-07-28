@@ -6,16 +6,17 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:55:52 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/28 12:14:09 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/28 12:28:11 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DDA_BONUS_H
-# define DDA_BONUS_H
+#ifndef DDA_H
+# define DDA_H
 
 # include <stdbool.h>
+# include <stdlib.h>
 # include "math_helpers.h"
-# include "colors_bonus.h"
+# include "colors.h"
 
 # define PI 3.14159265358979323846
 # define FOV 0.66

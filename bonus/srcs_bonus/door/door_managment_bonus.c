@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 18:29:51 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/23 17:04:46 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/28 11:54:16 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,6 @@
 bool	is_door(int coordinate)
 {
 	return (coordinate == DOOR);
-}
-
-long	ft_get_current_time(void)
-{
-	struct timeval	current_time;
-
-	gettimeofday(&current_time, NULL);
-	return (current_time.tv_sec * 1000);
 }
 
 static bool	cast_flashlight_ray(
@@ -52,7 +44,7 @@ static bool	cast_flashlight_ray(
 			data->map[(int)pos.y][(int)pos.x] = EMPTY;
 			data->door_coordinates.x = (int)pos.x;
 			data->door_coordinates.y = (int)pos.y;
-			data->door_last_open = ft_get_current_time();
+			data->door_last_open = time_now();
 			return (true);
 		}
 	}

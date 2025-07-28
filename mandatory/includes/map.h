@@ -1,35 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data_initializer.c                                 :+:      :+:    :+:   */
+/*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/17 12:16:21 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/29 12:42:49 by kvalerii         ###   ########.fr       */
+/*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
+/*   Updated: 2025/07/28 12:11:26 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda.h"
+#ifndef MAP_H
+# define MAP_H
 
-int	initialize_data(t_data *data)
+# define CELL_SIZE 35
+# define MINI_TILE 15
+# define MINIMAP_RADIUS 15
+# define MINIMAP_OFFSET_X 35
+# define MINIMAP_OFFSET_Y 25
+
+typedef enum e_characters
 {
-	int	x;
+	EMPTY = '0',
+	WALL = '1',
+	SPACE = ' ',
+	END = '\0',
+	NEW_LINE = '\n',
+	EAST = 'E',
+	WEST = 'W',
+	SOUTH = 'S',
+	NORTH = 'N',
+	DOOR = 'D',
+	SPRITE = '2'
+}	t_characters;
 
-	x = 0;
-	data->map_height = 0;
-	data->map_width = 0;
-	data->c = -1;
-	data->f = -1;
-	data->texture_params = NULL;
-	data->script = NULL;
-	data->mlx = NULL;
-	data->map = NULL;
-	data->texture_names = ft_calloc(5, sizeof(char *));
-	while (x < WIDTH)
-	{
-		data->normalized_x[x] = (2.0 * (double)x / (double)WIDTH) - 1.0;
-		x++;
-	}
-	return (0);
-}
+# define DOOR_PATH			"./walls/xpm/door.xpm"
+
+#endif

@@ -19,7 +19,17 @@
 		"span": "c",
 		"events.h": "c",
 		"initializer_list": "c",
-		"dda_bonus.h": "c"
+		"dda_bonus.h": "c",
+		"keysym.h": "c",
+		"math_helpers.h": "c",
+		"libft.h": "c",
+		"data.h": "c",
+		"time.h": "c",
+		"errors.h": "c",
+		"sprite.h": "c",
+		"stdint.h": "c",
+		"texture.h": "c",
+		"image.h": "c"
 	},
 	"C_Cpp.default.compilerPath": "/usr/bin/clang"
 }

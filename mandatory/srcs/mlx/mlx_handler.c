@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 12:17:37 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/23 17:09:25 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/28 11:48:46 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 static char	*choose_texture_name(t_data *data, int i)
 {
 	if (i == N)
-		return (data->n_t);
+		return (data->texture_names[N]);
 	else if (i == E)
-		return (data->e_t);
+		return (data->texture_names[E]);
 	else if (i == S)
-		return (data->s_t);
+		return (data->texture_names[S]);
 	else if (i == W)
-		return (data->w_t);
+		return (data->texture_names[W]);
+	else if (i == D)
+		return (data->texture_names[D]);
 	return (NULL);
 }
 
@@ -31,23 +33,14 @@ static void	convert_file_to_mlx_image(
 )
 {
 	char	*file_name;
-	int		fd;
 
 	file_name = choose_texture_name(data, texture_number);
-	if (file_name == NULL)
-		close_on_error(data, NULL);
-	fd = open(file_name, R_OK);
-	if (fd < 0)
-	{
-		close_on_error(data, NULL);
-	}
-	close(fd);
-	data->texture[texture_number].image.ptr = mlx_xpm_file_to_image(
+	data->texture_params[texture_number].image.ptr = mlx_xpm_file_to_image(
 			data->mlx,
 			file_name,
-			&data->texture[texture_number].width,
-			&data->texture[texture_number].height);
-	if (data->texture[texture_number].image.ptr == NULL)
+			&data->texture_params[texture_number].width,
+			&data->texture_params[texture_number].height);
+	if (data->texture_params[texture_number].image.ptr == NULL)
 	{
 		close_on_error(data, NULL);
 	}
@@ -58,12 +51,12 @@ static void	get_image_data_address(
 	int texture_number
 )
 {
-	data->texture[texture_number].image.addr = mlx_get_data_addr(
-			data->texture[texture_number].image.ptr,
-			&data->texture[texture_number].image.bits_per_pixel,
-			&data->texture[texture_number].image.line_length,
-			&data->texture[texture_number].image.endian);
-	if (data->texture[texture_number].image.addr == NULL)
+	data->texture_params[texture_number].image.addr = mlx_get_data_addr(
+			data->texture_params[texture_number].image.ptr,
+			&data->texture_params[texture_number].image.bits_per_pixel,
+			&data->texture_params[texture_number].image.line_length,
+			&data->texture_params[texture_number].image.endian);
+	if (data->texture_params[texture_number].image.addr == NULL)
 	{
 		close_on_error(data, NULL);
 	}
@@ -74,8 +67,8 @@ static int	upload_textures(t_data *data)
 	int		texture_number;
 
 	texture_number = 0;
-	data->texture = ft_calloc(4, sizeof(t_texture_params));
-	if (data->texture == NULL)
+	data->texture_params = ft_calloc(4, sizeof(t_texture_params));
+	if (data->texture_params == NULL)
 	{
 		return (close_on_error(data, NULL), 1);
 	}

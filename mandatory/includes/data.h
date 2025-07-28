@@ -1,195 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dda.h                                              :+:      :+:    :+:   */
+/*   data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/29 12:42:11 by kvalerii         ###   ########.fr       */
+/*   Created: 2025/07/28 11:55:52 by kvalerii          #+#    #+#             */
+/*   Updated: 2025/07/29 12:42:44 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DDA_H
-# define DDA_H
+#ifndef DATA_H
+# define DATA_H
 
-# include <mlx.h>
-# include <stdio.h>
-# include <stdlib.h>
 # include <X11/keysym.h>
-# include <math.h>
-# include <limits.h>
-# include <stdbool.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <stdint.h>
+# include <mlx.h>
 # include <sys/time.h>
 
-# include "colors.h"
+# include "player.h"
+# include "sprite.h"
+# include "dda.h"
+# include "errors.h"
 # include "events.h"
-# include "libft.h"
-
-# define PI 3.14159265358979323846
-# define FOV 0.66
-# define MOVE_SPEED 0.3
-# define ROT_SPEED 0.3
-# define PLAYER_SIZE 8
-# define CELL_SIZE 35
-# define MINI_TILE 15
-# define MINIMAP_RADIUS 15
-# define MINIMAP_OFFSET_X 35
-# define MINIMAP_OFFSET_Y 25
-# define WIDTH 1980
-# define HEIGHT 1220
-# define VERTICAL_MOVE 0.5
-
-typedef enum e_characters
-{
-	EMPTY = '0',
-	WALL = '1',
-	SPACE = ' ',
-	EAST = 'E',
-	WEST = 'W',
-	SOUTH = 'S',
-	NORTH = 'N',
-}	t_characters;
-
-typedef enum e_move
-{
-	UP,
-	LEFT,
-	DOWN,
-	RIGHT,
-}	t_move;
-
-typedef enum e_direction
-{
-	N,
-	E,
-	S,
-	W,
-	D
-}	t_direction;
-
-typedef enum e_side
-{
-	VERTICAL,
-	HORIZONTAL
-}	t_side;
-
-typedef struct s_image
-{
-	void	*ptr;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}	t_image;
-
-typedef struct s_fvector
-{
-	double	x;
-	double	y;
-}	t_fvector;
-
-typedef struct s_point
-{
-	double	x;
-	double	y;
-}	t_point;
-
-typedef struct s_coordinates
-{
-	int	x;
-	int	y;
-}	t_coordinates;
-
-typedef struct s_player_side
-{
-	t_point	up;
-	t_point	down;
-}	t_player_side;
-
-typedef struct s_texture_params
-{
-	t_image	image;
-	char	*name;
-	int		width;
-	int		height;
-}	t_texture_params;
-
-typedef struct s_player
-{
-	t_fvector		position;
-	t_fvector		direction;
-	t_fvector		plane;
-	t_player_side	right_side;
-	t_player_side	left_side;
-}	t_player;
 
 typedef struct s_data
 {
-	void			*mlx;
-	void			*mlx_win;
-	t_player		player;
-	t_image			img;
-	long			time;
-	t_texture_params		*texture;
-	char			**script;
-	char			**map;
-	char			*e_t;
-	char			*w_t;
-	char			*s_t;
-	char			*n_t;
-	int				f;
-	int				c;
-	int				map_width;
-	int				map_height;
-	double		normalized_x[WIDTH];
-	double		z_buffer[WIDTH];
+	void				*mlx;
+	void				*mlx_win;
+	t_player			player;
+	t_image				img;
+	long				time;
+	t_texture_params	*texture_params;
+	t_sprite			*sprite;
+	char				**script;
+	char				**map;
+	char				**texture_names;
+	char				*door;
+	int					f;
+	int					c;
+	int					map_width;
+	int					map_height;
+	time_t				door_last_open;
+	t_coordinates		door_coordinates;
+	double				normalized_x[WIDTH];
+	double				z_buffer[WIDTH];
 }	t_data;
 
-typedef struct s_dda_parameters
-{
-	t_point			player_position_in_cell;
-	double			distance_to_wall;
-	t_coordinates	player_cell;
-	t_fvector		ray;
-	t_fvector		initial_step;
-	t_fvector		fixed_step;
-	t_coordinates	step;
-	t_side			side;
-	int				start_pixel;
-	int				end_pixel;
-	int				x;
-}	t_dda_parameters;
-
-typedef struct s_flash_params
-{
-	t_fvector	player_pos;
-	int			map_start_x;
-	int			map_start_y;
-	double		fov;
-	int			rays;
-	double		step_angle;
-	double		start;
-}	t_flash_params;
-
-typedef struct s_line
-{
-	t_fvector	a;
-	t_fvector	b;
-	t_colors	color;
-}	t_line;
-
-
-# define PLAYER_ERR			"Player must be just 1\n"
-# define MISSING_ATTR		"Texture paths or colors are missing\n"
-# define INVALID_CHAR		"Invalid char in file\n"
-# define MAP_UNCLOSED_ERR	"Map unclosed\n"
-# define WRONG_ARGC			"Wrong number of arguments\n"
-# define FILE_NAME_ERR		"Wrong file provided\n"
-# define COLOR_ERR			"Color range is from 0 to 255\n"
+//DOOR
+void	open_door(t_data *data);
+void	close_door(t_data *data);
 
 //BRESENHAM
 void	increase_stepping(int *p, int dir,
@@ -213,10 +72,6 @@ bool	is_direction(int coordinate);
 //DRAW UTILS
 void	draw_line(t_data *data, t_fvector a, t_fvector b, t_colors color);
 void	my_mlx_pixel_put(t_image *data, int x, int y, int color);
-
-//MATH
-void	rotate(t_fvector *dir, t_fvector temp, double radian);
-void	swap_points(t_fvector *a, t_fvector *b);
 
 //MINIMAP
 void	draw_player(t_data *data);
@@ -258,6 +113,7 @@ bool	is_script_valid(t_data *data);
 //FREE
 void	free_mlx_data(void *mlx, void *img, void *mlx_win);
 void	free_textures(t_data *data);
+void	free_sprite(t_data *data);
 
 //COLOR
 t_colors	find_color(t_data *data, char *input_clr);
@@ -282,9 +138,11 @@ void	get_wall_start_and_end(int line_height,
 			int *start_pixel, int *end_pixel);
 
 //WALL COLISION
+bool	is_door(int coordinate);
 bool	is_wall(int coordinate);
 bool	is_colliding(t_player player,char **map,t_point shift,bool (*checker)(int));
 
 //TIME
 long int	time_now(void);
+
 #endif
