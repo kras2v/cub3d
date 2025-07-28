@@ -6,11 +6,11 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:28:59 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/23 16:02:45 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/28 12:29:06 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda.h"
+#include "data.h"
 
 int	key_press_event(int keycode, t_data *data)
 {
@@ -33,19 +33,11 @@ int	close_event(t_data *data)
 {
 	if (data->mlx)
 	{
-		free_textures(data);
 		free_mlx_data(data->mlx, data->img.ptr, data->mlx_win);
+		free_textures(data);
 		mlx_destroy_display(data->mlx);
 		free(data->mlx);
 	}
-	if (data->n_t)
-		free(data->n_t);
-	if (data->s_t)
-		free(data->s_t);
-	if (data->e_t)
-		free(data->e_t);
-	if (data->w_t)
-		free(data->w_t);
 	if (data->script)
 	{
 		free_double_arr(data->script);

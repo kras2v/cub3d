@@ -6,7 +6,7 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 12:16:21 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/23 16:01:02 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/28 11:45:02 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,11 @@ int	initialize_data(t_data *data)
 	data->map_width = 0;
 	data->c = -1;
 	data->f = -1;
-	data->texture = NULL;
+	data->texture_params = NULL;
 	data->script = NULL;
 	data->mlx = NULL;
 	data->map = NULL;
-	data->n_t = NULL;
-	data->e_t = NULL;
-	data->w_t = NULL;
-	data->s_t = NULL;
+	data->texture_names = ft_calloc(5, sizeof(char *));
 	while (x < WIDTH)
 	{
 		data->normalized_x[x] = (2.0 * (double)x / (double)WIDTH) - 1.0;
