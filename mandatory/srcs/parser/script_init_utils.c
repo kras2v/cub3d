@@ -6,11 +6,11 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:58:24 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/28 11:50:42 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:26:32 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda.h"
+#include "data.h"
 
 void	textures_init(t_data *data, char *line, char c)
 {

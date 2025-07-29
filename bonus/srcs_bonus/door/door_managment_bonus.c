@@ -6,11 +6,11 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 18:29:51 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/28 11:54:16 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:31:19 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda_bonus.h"
+#include "data_bonus.h"
 
 bool	is_door(int coordinate)
 {

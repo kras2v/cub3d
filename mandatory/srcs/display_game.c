@@ -6,11 +6,11 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 12:19:21 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/23 16:00:45 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:21:32 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda.h"
+#include "data.h"
 
 int	display(t_data *data)
 {

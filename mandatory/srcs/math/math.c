@@ -6,11 +6,11 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:25:18 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/22 14:06:05 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:26:32 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda.h"
+#include "data.h"
 
 void	rotate(t_fvector *dir, t_fvector temp, double radian)
 {

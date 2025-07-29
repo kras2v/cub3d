@@ -29,7 +29,9 @@
 		"sprite.h": "c",
 		"stdint.h": "c",
 		"texture.h": "c",
-		"image.h": "c"
+		"image.h": "c",
+		"limits.h": "c",
+		"data_bonus.h": "c"
 	},
 	"C_Cpp.default.compilerPath": "/usr/bin/clang"
 }

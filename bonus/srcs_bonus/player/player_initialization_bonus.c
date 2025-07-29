@@ -6,11 +6,11 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 20:46:22 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/23 16:30:50 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:31:22 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda_bonus.h"
+#include "data_bonus.h"
 
 static void	assign_direction(t_data *data, int x, int y)
 {

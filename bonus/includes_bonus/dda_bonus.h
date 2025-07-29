@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dda.h                                              :+:      :+:    :+:   */
+/*   dda_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:55:52 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/28 12:14:09 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:29:45 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define DDA_BONUS_H
 
 # include <stdbool.h>
-# include "math_helpers.h"
+# include "math_helpers_bonus.h"
 # include "colors_bonus.h"
 
 # define PI 3.14159265358979323846

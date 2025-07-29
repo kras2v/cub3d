@@ -6,11 +6,11 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 13:37:22 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/22 13:55:22 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:26:33 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda.h"
+#include "data.h"
 
 bool	is_map_line(char *line)
 {

@@ -6,7 +6,8 @@
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/minilibx_linux",
                 "${workspaceFolder}/bonus/includes_bonus",
-                "${workspaceFolder}/libs/minilibx_linux"
+                "${workspaceFolder}/libs/minilibx_linux",
+                "${workspaceFolder}/libs/libft"
             ],
             "defines": [],
             "cStandard": "c17",

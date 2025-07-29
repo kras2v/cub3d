@@ -6,11 +6,11 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 16:25:25 by eklymova          #+#    #+#             */
-/*   Updated: 2025/07/29 12:43:38 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:46:07 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda_bonus.h"
+#include "data_bonus.h"
 
 void	close_on_error(t_data *data, char *err_msg)
 {

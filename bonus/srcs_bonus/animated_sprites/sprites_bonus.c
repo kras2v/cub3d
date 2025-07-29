@@ -6,11 +6,11 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 14:09:40 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/23 17:09:25 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:31:16 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda_bonus.h"
+#include "data_bonus.h"
 
 int	init_sprite(t_data *data)
 {

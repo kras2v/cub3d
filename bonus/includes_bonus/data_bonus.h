@@ -6,19 +6,26 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:55:52 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/28 12:27:28 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:35:16 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DATA_BONUS_H
 # define DATA_BONUS_H
 
+# include <X11/keysym.h>
 # include <mlx.h>
-
-# include "player.h"
-# include "sprite.h"
-# include "dda.h"
 # include <sys/time.h>
+# include <limits.h>
+# include <math.h>
+
+# include "player_bonus.h"
+# include "libft.h"
+# include "sprite_bonus.h"
+# include "dda_bonus.h"
+# include "errors_bonus.h"
+# include "events_bonus.h"
+# include "map_bonus.h"
 
 typedef struct s_data
 {
@@ -47,6 +54,13 @@ typedef struct s_data
 void	open_door(t_data *data);
 void	close_door(t_data *data);
 
+//BRESENHAM
+void	increase_stepping(int *p, int dir,
+			t_coordinates *coords, t_coordinates delta);
+void	swap_axis(t_fvector *a);
+void	get_direction(int *dir, int *delta);
+void	assign_delta_coords(t_coordinates *delta, t_fvector *a, t_fvector *b);
+
 int		display(t_data *data);
 void	start_mlx(t_data *data);
 
@@ -61,10 +75,7 @@ bool	is_direction(int coordinate);
 
 //DRAW UTILS
 void	draw_line(t_data *data, t_fvector a, t_fvector b, t_colors color);
-
-//MATH
-void	rotate(t_fvector *dir, t_fvector temp, double radian);
-void	swap_points(t_fvector *a, t_fvector *b);
+void	my_mlx_pixel_put(t_image *data, int x, int y, int color);
 
 //MINIMAP
 void	draw_player(t_data *data);
@@ -129,6 +140,16 @@ void	draw_floor(t_data *data, int end_pixel, t_colors color, int x);
 void	draw_celing(t_data *data, int start_pixel, t_colors color, int x);
 void	get_wall_start_and_end(int line_height,
 			int *start_pixel, int *end_pixel);
+
+// SPRITE
+int		init_sprite(t_data *data);
+void	update_sprite(t_data *data);
+void	draw_sprite(t_data *data);
+void	find_sprite_pos(t_data *data);
+bool	is_sprite(int coordinate);
+uint32_t	get_pixel_color(t_texture_params *texture, int x, int y);
+t_texture_params	*load_sprite_texture(t_data *data, const char *path);
+
 
 //WALL COLISION
 bool	is_door(int coordinate);

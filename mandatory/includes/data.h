@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:55:52 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/29 12:42:44 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:46:00 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,16 @@
 # include <X11/keysym.h>
 # include <mlx.h>
 # include <sys/time.h>
+# include <limits.h>
+# include <math.h>
 
 # include "player.h"
+# include "libft.h"
 # include "sprite.h"
 # include "dda.h"
 # include "errors.h"
 # include "events.h"
+# include "map.h"
 
 typedef struct s_data
 {
@@ -45,10 +49,6 @@ typedef struct s_data
 	double				normalized_x[WIDTH];
 	double				z_buffer[WIDTH];
 }	t_data;
-
-//DOOR
-void	open_door(t_data *data);
-void	close_door(t_data *data);
 
 //BRESENHAM
 void	increase_stepping(int *p, int dir,
@@ -138,11 +138,7 @@ void	get_wall_start_and_end(int line_height,
 			int *start_pixel, int *end_pixel);
 
 //WALL COLISION
-bool	is_door(int coordinate);
 bool	is_wall(int coordinate);
 bool	is_colliding(t_player player,char **map,t_point shift,bool (*checker)(int));
-
-//TIME
-long int	time_now(void);
 
 #endif

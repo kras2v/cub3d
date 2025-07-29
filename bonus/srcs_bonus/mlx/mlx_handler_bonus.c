@@ -6,11 +6,11 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 12:17:37 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/23 17:15:45 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:34:25 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda_bonus.h"
+#include "data_bonus.h"
 
 static char	*choose_texture_name(t_data *data, int i)
 {

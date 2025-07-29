@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   door_events.c                                      :+:      :+:    :+:   */
+/*   door_events_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 17:35:13 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/28 11:54:09 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:31:18 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda_bonus.h"
+#include "data_bonus.h"
 
 static bool	player_in_the_door(t_data *data)
 {

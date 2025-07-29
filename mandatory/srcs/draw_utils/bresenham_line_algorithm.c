@@ -6,11 +6,11 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:52:37 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/22 14:04:36 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:25:58 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda.h"
+#include "data.h"
 
 void	put_pixel_on_axis(
 	t_data *data,

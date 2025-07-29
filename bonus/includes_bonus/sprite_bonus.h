@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprite.h                                           :+:      :+:    :+:   */
+/*   sprite_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 12:04:26 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/28 12:15:10 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:31:40 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SPRITE_BONUS_H
 # define SPRITE_BONUS_H
 
-# include "texture.h"
+# include "texture_bonus.h"
 # include <stdint.h>
 
 # define VERTICAL_MOVE 0.5

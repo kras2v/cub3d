@@ -6,12 +6,12 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 12:08:58 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/28 12:09:50 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:25:33 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PLAYER_H
-# define PLAYER_H
+#ifndef ERRORS_H
+# define ERRORS_H
 
 # define PLAYER_ERR			"Player must be just 1\n"
 # define MISSING_ATTR		"Texture paths or colors are missing\n"

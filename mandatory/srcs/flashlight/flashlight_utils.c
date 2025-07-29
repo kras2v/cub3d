@@ -6,11 +6,11 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 20:44:39 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/22 14:05:46 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:26:31 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda.h"
+#include "data.h"
 
 static t_fvector	cast_flashlight_ray(t_data *data, t_fvector dir,
 		int map_start_x, int map_start_y)

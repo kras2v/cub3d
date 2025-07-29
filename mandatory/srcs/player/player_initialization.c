@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   player_initialization.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 20:46:22 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/16 21:59:28 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:26:27 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda.h"
+#include "data.h"
 
 static void	assign_direction(t_data *data, int x, int y)
 {

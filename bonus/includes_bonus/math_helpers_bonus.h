@@ -6,14 +6,12 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:55:52 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/28 12:18:27 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:29:53 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MATH_HELPERS_BONUS_H
 # define MATH_HELPERS_BONUS_H
-
-#include "math_helpers.h"
 
 typedef struct s_fvector
 {

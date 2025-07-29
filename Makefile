@@ -6,7 +6,7 @@
 #    By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 16:22:08 by kvalerii          #+#    #+#              #
-#    Updated: 2025/07/28 12:26:53 by kvalerii         ###   ########.fr        #
+#    Updated: 2025/07/29 12:34:56 by kvalerii         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,7 +78,7 @@ SRCS_BONUS =	main_bonus.c \
 				validation/input_validator_bonus.c \
 				mlx/mlx_handler_bonus.c \
 				door/door_managment_bonus.c \
-				door/door_events.c \
+				door/door_events_bonus.c \
 				minimap/minimap_utils_bonus.c \
 				minimap/minimap_draw_utils_bonus.c \
 				draw_utils/bresenham_line_algorithm_bonus.c \
