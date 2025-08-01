@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:03:35 by valeriia          #+#    #+#             */
-/*   Updated: 2025/08/01 12:46:16 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/01 16:12:31 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,11 @@ void	draw_textures(
 	int		wall_height;
 	double	y_increase_step;
 	double	start_y_coordinate_on_texture;
+	t_direction		wall_dir;
 
+	get_wall_direction(&wall_dir, dda_parameters);
 	wall_height = (int)(HEIGHT / dda_parameters->distance_to_wall);
-	y_increase_step = (double)data->texture_params->height
+	y_increase_step = (double)data->texture_params[wall_dir].height
 		/ (double)wall_height;
 	get_wall_start_and_end(wall_height,
 		&dda_parameters->start_pixel, &dda_parameters->end_pixel);
