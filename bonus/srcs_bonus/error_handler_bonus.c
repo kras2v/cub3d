@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 16:25:25 by eklymova          #+#    #+#             */
-/*   Updated: 2025/07/29 12:46:07 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/01 12:39:39 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	free_textures(t_data *data)
 			data->texture_names[i] = NULL;
 			i++;
 		}
+		free(data->texture_names);
 	}
 }
 

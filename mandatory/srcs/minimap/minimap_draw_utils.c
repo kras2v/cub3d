@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:24:18 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/29 12:25:52 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:47:21 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ int	get_square_color(
 		color = DARK_GRAY;
 	else if (is_wall(map[map_coords.y][map_coords.x]))
 		color = YELLOW;
-	else if (is_sprite(map[map_coords.y][map_coords.x]))
-		color = PINK;
 	return (color);
 }
 

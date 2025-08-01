@@ -1,7 +1,7 @@
-NO ./walls/xpm/north_wall.xpm
-SO ./walls/xpm/south_wall.xpm
-WE ./walls/xpm/west_wall.xpm
-EA ./walls/xpm/east_wall.xpm
+NO ./textures/walls/NORTH.xpm
+SO ./textures/walls/SOUTH_1.xpm
+WE ./textures/walls/WEST_1.xpm
+EA ./textures/walls/EAST_1.xpm
 
 F 220,105,180
 C 128,128,128

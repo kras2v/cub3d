@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:28:59 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/29 12:43:34 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/01 12:37:39 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,11 @@ int	close_event(t_data *data)
 {
 	if (data->mlx)
 	{
-		if (data->sprite)
-			free_sprite(data);
-		free_textures(data);
 		free_mlx_data(data->mlx, data->img.ptr, data->mlx_win);
+		free_textures(data);
 		mlx_destroy_display(data->mlx);
 		free(data->mlx);
 	}
-	if (data->n_t)
-		free(data->n_t);
-	if (data->s_t)
-		free(data->s_t);
-	if (data->e_t)
-		free(data->e_t);
-	if (data->w_t)
-		free(data->w_t);
 	if (data->script)
 	{
 		free_double_arr(data->script);
@@ -84,5 +74,5 @@ void	init_hooks(t_data *data)
 	mlx_hook(data->mlx_win, ON_KEYDOWN, KEY_PRESS_MASK, key_press_event, data);
 	mlx_hook(data->mlx_win, ON_DESTROY, NO_EVENT_MASK, close_event, data);
 	mlx_hook(data->mlx_win, 6, 1L << 6, mouse_move_callback, data);
-	mlx_mouse_hide(data->mlx, data->mlx_win);
+	// mlx_mouse_hide(data->mlx, data->mlx_win);
 }

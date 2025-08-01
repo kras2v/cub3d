@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 17:35:13 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/29 12:31:18 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 15:21:47 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 static bool	player_in_the_door(t_data *data)
 {
-	return (fabs(data->player.position.x - (double)data->door_coordinates.x) <= 1.5
-	&& fabs(data->player.position.y - (double)data->door_coordinates.y) <= 1.5);
+	return (fabs(data->player.position.x
+			- (double)data->door_coordinates.x) <= 1.5
+		&& fabs(data->player.position.y
+			- (double)data->door_coordinates.y) <= 1.5);
 }
 
 void	close_door(t_data *data)

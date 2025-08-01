@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 12:16:21 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/29 12:45:55 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/01 12:38:58 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	initialize_data(t_data *data)
 	data->script = NULL;
 	data->mlx = NULL;
 	data->map = NULL;
-	data->texture_names = ft_calloc(5, sizeof(char *));
+	data->texture_names = ft_calloc(4, sizeof(char *));
 	while (x < WIDTH)
 	{
 		data->normalized_x[x] = (2.0 * (double)x / (double)WIDTH) - 1.0;
