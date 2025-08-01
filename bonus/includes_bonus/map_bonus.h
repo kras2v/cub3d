@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.h                                              :+:      :+:    :+:   */
+/*   map_bonus.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 12:33:54 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/28 12:14:46 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/01 15:52:48 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ typedef enum e_characters
 	SPRITE = '2'
 }	t_characters;
 
-# define DOOR_PATH			"./walls/xpm/door.xpm"
+# define DOOR_PATH	"./textures/door/door_rainbow.xpm"
 
 #endif

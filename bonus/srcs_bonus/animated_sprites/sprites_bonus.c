@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 14:09:40 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/29 12:31:16 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/01 15:54:58 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	init_sprite(t_data *data)
 	if (!data->sprite->tex)
 		return (printf("Failed to allocate texture array\n"),
 			close_event(data));
-	data->sprite->tex[0] = load_sprite_texture(data, "./walls/xpm/ducky1.xpm");
-	data->sprite->tex[1] = load_sprite_texture(data, "./walls/xpm/ducky2.xpm");
+	data->sprite->tex[0] = load_sprite_texture(data, "./textures/ducky1.xpm");
+	data->sprite->tex[1] = load_sprite_texture(data, "./textures/ducky2.xpm");
 	if (!data->sprite->tex[0] || !data->sprite->tex[1])
 		return (printf("Failed to load sprite textures\n"), close_event(data));
 	data->sprite->s_width = 48;

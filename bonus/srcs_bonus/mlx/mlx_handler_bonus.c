@@ -6,7 +6,7 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 12:17:37 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/29 12:34:25 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/01 15:53:17 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	convert_file_to_mlx_image(
 			&data->texture_params[texture_number].height);
 	if (data->texture_params[texture_number].image.ptr == NULL)
 	{
+		printf("%s\n", file_name);
 		close_on_error(data, NULL);
 	}
 }
