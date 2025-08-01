@@ -6,7 +6,7 @@
 #    By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 16:22:08 by kvalerii          #+#    #+#              #
-#    Updated: 2025/07/29 12:34:56 by kvalerii         ###   ########.fr        #
+#    Updated: 2025/08/01 18:04:59 by kvalerii         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIBFT_PATH		= $(LIBS_PATH)/libft
 LIBFT			= $(LIBFT_PATH)/libft.a
 DPRINTF			= $(LIBFT_PATH)/ft_dprintf/ft_dprintf.a
 
-CFLAGS			= -Wall -Werror -Wextra -g
+CFLAGS			= -Wall -Werror -Wextra -g -Ofast
 CC				= cc
 
 MINILIBX_DIR	= minilibx_linux
