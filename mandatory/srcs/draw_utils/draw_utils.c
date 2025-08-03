@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:24:32 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/29 12:26:30 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/03 12:09:27 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	clear_display(t_data *data)
 	}
 }
 
-//!ADD ERROR
 t_colors	find_color(t_data *data, char *input_clr)
 {
 	char		**lekkereclrs;
@@ -49,19 +48,21 @@ t_colors	find_color(t_data *data, char *input_clr)
 	int			b;
 
 	lekkereclrs = ft_split(input_clr, ',');
-	if (!lekkereclrs)
-		return (close_event(data), 0);
-	if (!lekkereclrs[0] || !lekkereclrs[1] || !lekkereclrs[2])
-		return (free_double_arr(lekkereclrs), 0);
+	if (!lekkereclrs || !lekkereclrs[0] || !lekkereclrs[1] || !lekkereclrs[2])
+	{
+		free_double_arr(lekkereclrs);
+		return (close_on_error(data, COLOR_ERR), 0);
+	}
 	r = ft_atoi(lekkereclrs[0]);
 	g = ft_atoi(lekkereclrs[1]);
 	b = ft_atoi(lekkereclrs[2]);
 	if (r == -1 || b == -1 || g == -1)
 	{
 		free_double_arr(lekkereclrs);
-		close_on_error(data, COLOR_ERR);
+		return (close_on_error(data, COLOR_ERR), 0);
 	}
-	free_double_arr(lekkereclrs);
+	if (lekkereclrs)
+		free_double_arr(lekkereclrs);
 	lekkereclrs = NULL;
 	color = (r << 16) | (g << 8) | b;
 	return (color);

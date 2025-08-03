@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 12:19:11 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/28 12:20:18 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/03 09:42:36 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,5 @@ void	increase_stepping(int *p, int dir,
 void	swap_axis(t_fvector *a);
 void	get_direction(int *dir, int *delta);
 void	assign_delta_coords(t_coordinates *delta, t_fvector *a, t_fvector *b);
-
-
 
 #endif

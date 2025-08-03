@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 14:05:28 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/08/01 18:13:26 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/03 09:43:05 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "data.h"
-
 
 void	close_on_error(t_data *data, char *err_msg)
 {

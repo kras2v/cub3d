@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda_raycast_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:03:35 by valeriia          #+#    #+#             */
-/*   Updated: 2025/08/01 16:12:31 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/03 09:43:43 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	draw_texture_pixel(
 	t_coordinates	texture;
 	t_direction		wall_dir;
 
+	wall_dir = 0;
 	get_wall_direction(&wall_dir, dda_parameters);
 	texture.x = get_x_coordinates_on_texture(
 			data->texture_params[wall_dir].width,
@@ -77,11 +78,12 @@ void	draw_textures(
 	int x
 )
 {
-	int		wall_height;
-	double	y_increase_step;
-	double	start_y_coordinate_on_texture;
-	t_direction		wall_dir;
+	int			wall_height;
+	double		y_increase_step;
+	double		start_y_coordinate_on_texture;
+	t_direction	wall_dir;
 
+	wall_dir = 0;
 	get_wall_direction(&wall_dir, dda_parameters);
 	wall_height = (int)(HEIGHT / dda_parameters->distance_to_wall);
 	y_increase_step = (double)data->texture_params[wall_dir].height
@@ -96,8 +98,7 @@ void	draw_textures(
 	{
 		start_y_coordinate_on_texture += y_increase_step;
 		draw_texture_pixel(
-			dda_parameters,
-			data, x,
+			dda_parameters, data, x,
 			start_y_coordinate_on_texture
 			);
 		dda_parameters->start_pixel++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 10:50:49 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/29 12:26:32 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/03 12:12:37 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_double_arr(char **map)
 	int	i;
 
 	i = 0;
-	if (!map || !*map)
+	if (!map)
 		return ;
 	while (map[i])
 		free(map[i++]);

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   math_helpers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:55:52 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/28 12:18:10 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/03 09:42:30 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MATH_HELPERS_H
 # define MATH_HELPERS_H
 
-#include "math_helpers.h"
+# include "math_helpers.h"
 
 typedef struct s_fvector
 {
@@ -27,7 +27,7 @@ typedef struct s_coordinates
 	int	y;
 }	t_coordinates;
 
-typedef struct s_fvector t_point;
+typedef struct s_fvector	t_point;
 
 void	rotate(t_fvector *dir, t_fvector temp, double radian);
 void	swap_points(t_fvector *a, t_fvector *b);

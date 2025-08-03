@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math_helpers_bonus.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:55:52 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/29 12:29:53 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/03 09:18:05 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_coordinates
 	int	y;
 }	t_coordinates;
 
-typedef struct s_fvector t_point;
+typedef struct s_fvector	t_point;
 
 void	rotate(t_fvector *dir, t_fvector temp, double radian);
 void	swap_points(t_fvector *a, t_fvector *b);

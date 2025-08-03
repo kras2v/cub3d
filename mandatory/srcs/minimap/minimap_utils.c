@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:24:18 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/29 12:25:46 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/03 09:42:51 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ bool	is_direction(int coordinate)
 		|| coordinate == SOUTH
 		|| coordinate == WEST);
 }
-
 
 bool	is_sprite(int coordinate)
 {
@@ -55,15 +54,10 @@ void	border_square(t_data *data, int px, int py)
 {
 	int	x;
 	int	y;
-	int	margin;
 
 	y = 0;
-	margin = 0;
 	px *= MINI_TILE;
 	py *= MINI_TILE;
-	if (py / MINI_TILE == MINIMAP_OFFSET_Y - 1
-		|| px / MINI_TILE == MINIMAP_OFFSET_X - 1)
-		margin = -1;
 	while (y < MINI_TILE)
 	{
 		x = 0;

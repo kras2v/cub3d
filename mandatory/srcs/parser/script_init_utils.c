@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   script_init_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:58:24 by valeriia          #+#    #+#             */
-/*   Updated: 2025/08/01 18:08:45 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/03 12:10:20 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	textures_init(t_data *data, char *line, char c)
 		data->texture_names[S] = ft_strdup(line);
 	else
 	{
-		printf("Double textures\n");
+		close_on_error(data, "Double textures\n");
 		close_event(data);
 	}
 }
@@ -62,8 +62,7 @@ void	colors_init(t_data *data, char *line, char c)
 	}
 	else
 	{
-		printf("Double textures\n");
-		close_event(data);
+		close_on_error(data, "Double textures\n");
 	}
 }
 

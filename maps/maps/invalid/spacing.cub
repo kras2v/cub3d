@@ -1,0 +1,18 @@
+NO ./textures/walls/NORTH.xpm
+SO ./textures/walls/SOUTH.xpm
+WE ./textures/walls/WEST.xpm
+EA ./textures/walls/EAST.xpm
+
+F 220,100,0
+C 225,30,0
+
+   1 1 1 1 1 1
+   1 0 0 0 0 1
+   1 0 0 0 0 1
+   1 0 0 0 0 1
+   1 0 0 0 0 1
+   1 0 0 0 0 1 1 1 1 1 1
+   1 0 0 N 0 0 0 0 0 0 1
+   1 0 0 0 0 0 0 0 0 0 1
+   1 0 0 0 0 0 0 0 0 0 1
+   1 1 1 1 1 1 1 1 1 1 1

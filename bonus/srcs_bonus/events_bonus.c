@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:28:59 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/08/01 18:24:20 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/03 09:35:39 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,25 +56,18 @@ int	close_event(t_data *data)
 	if (data)
 	{
 		free_texture_name(data);
-		if (data->sprite)
-		{
-			free_sprite(data);
-		}
 		if (data->mlx)
 		{
+			if (data->sprite)
+				free_sprite(data);
+			free_textures(data);
 			free_mlx_data(data->mlx, data->img.ptr, data->mlx_win);
 			mlx_destroy_display(data->mlx);
-			free_textures(data);
 			free(data->mlx);
 		}
 		if (data->script)
 		{
 			free_double_arr(data->script);
-			if (data->script)
-			{
-							free(data->script);
-			data->script = NULL;
-			}
 		}
 	}
 	exit(0);
