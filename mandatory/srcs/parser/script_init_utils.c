@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   script_init_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:58:24 by valeriia          #+#    #+#             */
-/*   Updated: 2025/08/03 12:10:20 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/08/04 17:10:23 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 
 void	textures_init(t_data *data, char *line, char c)
 {
+	char	*dline;
+
+	line += 2;
 	while (*line && *line == ' ')
 		line++;
-	line += 2;
-	while (*line && *line != '.')
-	{
-		if (*line != ' ')
-			return ;
-		line++;
-	}
+	dline = ft_strdup(line);
+	if (!dline)
+		close_on_error(data, "Malloc fail\n");
 	if (c == 'N' && !data->texture_names[N])
-		data->texture_names[N] = ft_strdup(line);
+		data->texture_names[N] = dline;
 	else if (c == 'E' && !data->texture_names[E])
-		data->texture_names[E] = ft_strdup(line);
+		data->texture_names[E] = dline;
 	else if (c == 'W' && !data->texture_names[W])
-		data->texture_names[W] = ft_strdup(line);
+		data->texture_names[W] = dline;
 	else if (c == 'S' && !data->texture_names[S])
-		data->texture_names[S] = ft_strdup(line);
+		data->texture_names[S] = dline;
 	else
 	{
+		free(dline);
 		close_on_error(data, "Double textures\n");
 		close_event(data);
 	}
@@ -43,15 +43,13 @@ void	colors_init(t_data *data, char *line, char c)
 	char	*p_line;
 
 	p_line = line;
-	while (*p_line && *p_line == ' ')
-	{
-		p_line++;
-	}
 	p_line += 1;
 	while (*p_line && *p_line == ' ')
 	{
 		p_line++;
 	}
+	if (!(*p_line >= '0' && *p_line <= '9'))
+		close_on_error(data, "Wrong input\n");
 	if (c == 'F' && data->f == -1)
 	{
 		data->f = find_color(data, p_line);
@@ -62,7 +60,7 @@ void	colors_init(t_data *data, char *line, char c)
 	}
 	else
 	{
-		close_on_error(data, "Double textures\n");
+		close_on_error(data, "Double colors\n");
 	}
 }
 
