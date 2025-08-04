@@ -6,7 +6,7 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:58:24 by valeriia          #+#    #+#             */
-/*   Updated: 2025/08/04 17:16:12 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:03:07 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,27 @@ void	textures_init(t_data *data, char *line, char c)
 void	colors_init(t_data *data, char *line, char c)
 {
 	char	*p_line;
+	int		comma;
 
+	comma = 0;
 	p_line = line;
 	p_line += 1;
 	while (*p_line && *p_line == ' ')
-	{
 		p_line++;
+	while (*line)
+	{
+		if (*line == ',')
+			comma++;
+		line++;
 	}
-	if (!(*p_line >= '0' && *p_line <= '9'))
-		close_on_error(data, "Wrong input\n");
+	if (comma != 2)
+		close_on_error(data, "Wrong commas\n");
 	if (c == 'F' && data->f == -1)
-	{
 		data->f = find_color(data, p_line);
-	}
 	else if (c == 'C' && data->c == -1)
-	{
 		data->c = find_color(data, p_line);
-	}
 	else
-	{
 		close_on_error(data, "Double colors\n");
-	}
 }
 
 void	assign_map_params(t_data *data)
