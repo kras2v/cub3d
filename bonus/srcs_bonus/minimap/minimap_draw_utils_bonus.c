@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_draw_utils_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:24:18 by kvalerii          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/07/23 16:30:50 by kvalerii         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "dda_bonus.h"
-=======
-/*   Updated: 2025/07/29 12:34:25 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:32:43 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "data_bonus.h"
->>>>>>> main
 
 void	draw_player(t_data *data)
 {

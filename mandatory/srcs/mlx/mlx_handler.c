@@ -1,37 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-<<<<<<< HEAD
 /*   mlx_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/17 12:17:37 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/28 11:48:46 by kvalerii         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "dda.h"
-=======
-/*   mlx_handler_bonus.c                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/17 12:17:37 by kvalerii          #+#    #+#             */
-<<<<<<<< HEAD:bonus/srcs_bonus/mlx/mlx_handler_bonus.c
-/*   Updated: 2025/07/23 17:15:45 by kvalerii         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "dda_bonus.h"
-========
-/*   Updated: 2025/07/29 12:25:40 by kvalerii         ###   ########.fr       */
+/*   Created: 2025/08/04 16:22:36 by eklymova          #+#    #+#             */
+/*   Updated: 2025/08/04 16:22:49 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "data.h"
->>>>>>>> main:mandatory/srcs/mlx/mlx_handler.c
->>>>>>> main
 
 static char	*choose_texture_name(t_data *data, int i)
 {
@@ -88,15 +67,9 @@ static int	upload_textures(t_data *data)
 	int		texture_number;
 
 	texture_number = 0;
-<<<<<<< HEAD
 	data->texture_params = ft_calloc(4, sizeof(t_texture_params));
-=======
-<<<<<<<< HEAD:bonus/srcs_bonus/mlx/mlx_handler_bonus.c
 	data->texture_params = ft_calloc(5, sizeof(t_texture_params));
-========
 	data->texture_params = ft_calloc(4, sizeof(t_texture_params));
->>>>>>>> main:mandatory/srcs/mlx/mlx_handler.c
->>>>>>> main
 	if (data->texture_params == NULL)
 	{
 		return (close_on_error(data, NULL), 1);

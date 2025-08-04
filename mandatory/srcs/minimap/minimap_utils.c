@@ -3,17 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-<<<<<<< HEAD
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:24:18 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/22 16:26:55 by eklymova         ###   ########.fr       */
-=======
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/25 20:24:18 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/08/03 09:42:51 by valeriia         ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2025/08/04 16:23:06 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +20,6 @@ bool	is_direction(int coordinate)
 		|| coordinate == WEST);
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> main
 bool	is_sprite(int coordinate)
 {
 	return (coordinate == SPRITE);

@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-NO ./walls/xpm/NORTH.xpm
-SO ./walls/xpm/SOUTH.xpm
-WE ./walls/xpm/WEST.xpm
-EA ./walls/xpm/EAST.xpm
-
-F 0,139,139
-C 255,20,147
-=======
 NO       ./textures/walls/NORTH_1.xpm
 
 
@@ -21,7 +12,6 @@ EA         ./textures/walls/EAST_1.xpm
 
 F                   220,105,180
 C 128,128,128
->>>>>>> main
 
 111111111111111111111111
 100000000000000000000001

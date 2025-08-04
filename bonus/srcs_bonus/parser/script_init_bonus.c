@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   script_init_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 13:37:22 by kvalerii          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/07/23 16:30:50 by kvalerii         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "dda_bonus.h"
-=======
-/*   Updated: 2025/07/29 12:31:21 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:33:28 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "data_bonus.h"
->>>>>>> main
 
 bool	is_map_line(char *line)
 {

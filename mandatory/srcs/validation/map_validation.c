@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:01:26 by eklymova          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/07/28 11:49:09 by kvalerii         ###   ########.fr       */
-=======
-/*   Updated: 2025/07/29 12:26:24 by kvalerii         ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2025/08/04 16:24:36 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

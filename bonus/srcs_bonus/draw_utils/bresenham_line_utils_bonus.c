@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   bresenham_line_utils_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:52:37 by valeriia          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/07/23 16:30:50 by kvalerii         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "dda_bonus.h"
-=======
-/*   Updated: 2025/07/29 12:31:19 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:33:20 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "data_bonus.h"
->>>>>>> main
 
 void	get_direction(int *dir, int *delta)
 {

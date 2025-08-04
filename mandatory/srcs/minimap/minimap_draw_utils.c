@@ -6,11 +6,7 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:24:18 by kvalerii          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/07/23 16:01:08 by kvalerii         ###   ########.fr       */
-=======
-/*   Updated: 2025/07/29 12:47:21 by kvalerii         ###   ########.fr       */
->>>>>>> main
+/*   Updated: 2025/08/04 16:23:51 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +68,6 @@ int	get_square_color(
 		color = DARK_GRAY;
 	else if (is_wall(map[map_coords.y][map_coords.x]))
 		color = YELLOW;
-	else if (is_sprite(map[map_coords.y][map_coords.x]))
-		color = PINK;
 	return (color);
 }
 

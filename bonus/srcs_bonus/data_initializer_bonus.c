@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   data_initializer_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/17 12:16:21 by kvalerii          #+#    #+#             */
-<<<<<<< HEAD
-<<<<<<<< HEAD:bonus/srcs_bonus/data_initializer_bonus.c
-/*   Updated: 2025/07/23 17:17:06 by kvalerii         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "dda_bonus.h"
-========
-/*   Updated: 2025/08/01 12:38:58 by kvalerii         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "data.h"
->>>>>>>> main:mandatory/srcs/data_initializer.c
-=======
-/*   Updated: 2025/07/29 12:31:26 by kvalerii         ###   ########.fr       */
+/*   Created: 2025/08/04 16:29:48 by eklymova          #+#    #+#             */
+/*   Updated: 2025/08/04 16:30:30 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "data_bonus.h"
->>>>>>> main
 
 int	initialize_data(t_data *data)
 {
@@ -41,21 +25,12 @@ int	initialize_data(t_data *data)
 	data->script = NULL;
 	data->mlx = NULL;
 	data->map = NULL;
-<<<<<<< HEAD
-<<<<<<<< HEAD:bonus/srcs_bonus/data_initializer_bonus.c
-=======
->>>>>>> main
 	data->texture_names = ft_calloc(5, sizeof(char *));
 	data->door_last_open = 0;
 	data->door_coordinates.x = 0;
 	data->door_coordinates.y = 0;
 	data->sprite = NULL;
-<<<<<<< HEAD
-========
 	data->texture_names = ft_calloc(4, sizeof(char *));
->>>>>>>> main:mandatory/srcs/data_initializer.c
-=======
->>>>>>> main
 	while (x < WIDTH)
 	{
 		data->normalized_x[x] = (2.0 * (double)x / (double)WIDTH) - 1.0;

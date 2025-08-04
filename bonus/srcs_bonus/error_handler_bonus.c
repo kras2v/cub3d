@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   error_handler_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 16:25:25 by eklymova          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/07/23 17:12:48 by kvalerii         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "dda_bonus.h"
-=======
-/*   Updated: 2025/08/03 09:31:01 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:30:59 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "data_bonus.h"
->>>>>>> main
 
 void	close_on_error(t_data *data, char *err_msg)
 {
@@ -48,26 +40,9 @@ void	free_textures(t_data *data)
 		{
 			if (data->texture_params[i].image.ptr)
 				mlx_destroy_image(data->mlx, data->texture_params[i].image.ptr);
-<<<<<<< HEAD
 			i++;
 		}
 		free(data->texture_params);
-	}
-	i = 0;
-	if (data->texture_names)
-	{
-		while (i < 4)
-		{
-			if (data->texture_names[i])
-				free(data->texture_names[i]);
-			data->texture_names[i] = NULL;
-			i++;
-		}
-=======
-			i++;
-		}
-		free(data->texture_params);
->>>>>>> main
 	}
 }
 

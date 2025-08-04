@@ -6,12 +6,11 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 16:19:23 by eklymova          #+#    #+#             */
-/*   Updated: 2025/08/04 16:20:00 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:22:20 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "data.h"
-#include "dda_bonus.h"
 
 int	initialize_data(t_data *data)
 {
