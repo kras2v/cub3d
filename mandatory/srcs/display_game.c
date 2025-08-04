@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   display_game.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 12:19:21 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/23 16:00:45 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:18:46 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda.h"
+#include "data.h"
 
 int	display(t_data *data)
 {

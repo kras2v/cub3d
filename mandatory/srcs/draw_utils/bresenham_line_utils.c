@@ -6,11 +6,11 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 19:52:37 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/17 17:41:42 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:26:30 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda.h"
+#include "data.h"
 
 void	get_direction(int *dir, int *delta)
 {

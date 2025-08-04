@@ -3,6 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   input_validator_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 12:18:49 by kvalerii          #+#    #+#             */
@@ -11,6 +12,16 @@
 /* ************************************************************************** */
 
 #include "dda_bonus.h"
+=======
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/17 12:18:49 by kvalerii          #+#    #+#             */
+/*   Updated: 2025/08/03 12:02:12 by valeriia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "data_bonus.h"
+>>>>>>> main
 
 bool	validate_user_input(t_data *data, int argc, char **args)
 {

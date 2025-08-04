@@ -6,11 +6,15 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:01:26 by eklymova          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/07/23 16:03:06 by kvalerii         ###   ########.fr       */
+=======
+/*   Updated: 2025/07/29 12:26:26 by kvalerii         ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda.h"
+#include "data.h"
 
 bool	invalid_char(t_data *data)
 {

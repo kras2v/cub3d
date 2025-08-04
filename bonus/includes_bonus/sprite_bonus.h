@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprite.h                                           :+:      :+:    :+:   */
+/*   sprite_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 12:04:26 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/28 12:15:10 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:17:45 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SPRITE_BONUS_H
 # define SPRITE_BONUS_H
 
-# include "texture.h"
+# include "texture_bonus.h"
+# include <stdbool.h>
 # include <stdint.h>
 
 # define VERTICAL_MOVE 0.5
@@ -41,5 +42,8 @@ typedef struct s_sprite
 	double				inv_det;
 	uint32_t			color;
 }	t_sprite;
+
+bool		is_sprite(int coordinate);
+uint32_t	get_pixel_color(t_texture_params *texture, int x, int y);
 
 #endif

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_utils_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:24:18 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/23 16:55:43 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:18:13 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda_bonus.h"
+#include "data_bonus.h"
 
 bool	is_direction(int coordinate)
 {
@@ -54,15 +54,10 @@ void	border_square(t_data *data, int px, int py)
 {
 	int	x;
 	int	y;
-	int	margin;
 
 	y = 0;
-	margin = 0;
 	px *= MINI_TILE;
 	py *= MINI_TILE;
-	if (py / MINI_TILE == MINIMAP_OFFSET_Y - 1
-		|| px / MINI_TILE == MINIMAP_OFFSET_X - 1)
-		margin = -1;
 	while (y < MINI_TILE)
 	{
 		x = 0;

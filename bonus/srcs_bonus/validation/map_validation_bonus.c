@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:01:26 by eklymova          #+#    #+#             */
-/*   Updated: 2025/07/23 17:18:51 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:18:25 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda_bonus.h"
+#include "data_bonus.h"
 
 static bool	pathes_loaded(t_data *data)
 {

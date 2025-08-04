@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:24:32 by kvalerii          #+#    #+#             */
 /*   Updated: 2025/07/23 15:26:37 by kvalerii         ###   ########.fr       */
+=======
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/25 20:24:32 by kvalerii          #+#    #+#             */
+/*   Updated: 2025/08/03 12:09:27 by valeriia         ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda.h"
+#include "data.h"
 
 void	my_mlx_pixel_put(t_image *image, int x, int y, int color)
 {
@@ -39,7 +46,6 @@ void	clear_display(t_data *data)
 	}
 }
 
-//!ADD ERROR
 t_colors	find_color(t_data *data, char *input_clr)
 {
 	char		**lekkereclrs;
@@ -49,17 +55,29 @@ t_colors	find_color(t_data *data, char *input_clr)
 	int			b;
 
 	lekkereclrs = ft_split(input_clr, ',');
+<<<<<<< HEAD
 	if (!lekkereclrs)
 		return (close_event(data), 0);
 	if (!lekkereclrs[0] || !lekkereclrs[1] || !lekkereclrs[2])
 		return (free_double_arr(lekkereclrs), 0);
+=======
+	if (!lekkereclrs || !lekkereclrs[0] || !lekkereclrs[1] || !lekkereclrs[2])
+	{
+		free_double_arr(lekkereclrs);
+		return (close_on_error(data, COLOR_ERR), 0);
+	}
+>>>>>>> main
 	r = ft_atoi(lekkereclrs[0]);
 	g = ft_atoi(lekkereclrs[1]);
 	b = ft_atoi(lekkereclrs[2]);
 	if (r == -1 || b == -1 || g == -1)
 	{
 		free_double_arr(lekkereclrs);
+<<<<<<< HEAD
 		close_on_error(data, COLOR_ERR);
+=======
+		return (close_on_error(data, COLOR_ERR), 0);
+>>>>>>> main
 	}
 	free_double_arr(lekkereclrs);
 	lekkereclrs = NULL;

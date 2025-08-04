@@ -6,11 +6,11 @@
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 12:18:49 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/17 12:18:59 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:25:15 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda.h"
+#include "data.h"
 
 bool	validate_user_input(t_data *data, int argc, char **args)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_init_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 10:50:49 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/23 16:30:50 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:18:15 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda_bonus.h"
+#include "data_bonus.h"
 #include <unistd.h>
 #include <fcntl.h>
 
@@ -19,7 +19,7 @@ void	free_double_arr(char **map)
 	int	i;
 
 	i = 0;
-	if (!map || !*map)
+	if (!map)
 		return ;
 	while (map[i])
 		free(map[i++]);

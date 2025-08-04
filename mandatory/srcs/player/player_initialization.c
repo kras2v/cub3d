@@ -6,11 +6,11 @@
 /*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 20:46:22 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/16 21:59:28 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/08/03 09:14:57 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda.h"
+#include "data.h"
 
 static void	assign_direction(t_data *data, int x, int y)
 {
@@ -43,6 +43,7 @@ void	init_player(t_data *data)
 	bool	is_position_set;
 
 	y = 0;
+	x = 0;
 	is_position_set = false;
 	while (y < data->map_height && is_position_set == false)
 	{

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   door_managment_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 18:29:51 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/28 11:54:16 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:17:59 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda_bonus.h"
+#include "data_bonus.h"
 
 bool	is_door(int coordinate)
 {

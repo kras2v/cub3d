@@ -6,11 +6,19 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 14:09:40 by kvalerii          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/07/23 17:09:25 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dda_bonus.h"
+=======
+/*   Updated: 2025/08/01 15:59:15 by kvalerii         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "data_bonus.h"
+>>>>>>> main
 
 int	init_sprite(t_data *data)
 {
@@ -21,8 +29,8 @@ int	init_sprite(t_data *data)
 	if (!data->sprite->tex)
 		return (printf("Failed to allocate texture array\n"),
 			close_event(data));
-	data->sprite->tex[0] = load_sprite_texture(data, "./walls/xpm/ducky1.xpm");
-	data->sprite->tex[1] = load_sprite_texture(data, "./walls/xpm/ducky2.xpm");
+	data->sprite->tex[0] = load_sprite_texture(data, "./textures/ducky1.xpm");
+	data->sprite->tex[1] = load_sprite_texture(data, "./textures/ducky2.xpm");
 	if (!data->sprite->tex[0] || !data->sprite->tex[1])
 		return (printf("Failed to load sprite textures\n"), close_event(data));
 	data->sprite->s_width = 48;

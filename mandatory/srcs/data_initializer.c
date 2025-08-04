@@ -5,12 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/17 12:16:21 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/28 11:45:02 by kvalerii         ###   ########.fr       */
+/*   Created: 2025/08/04 16:19:23 by eklymova          #+#    #+#             */
+/*   Updated: 2025/08/04 16:20:00 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda.h"
+#include "data.h"
+#include "dda_bonus.h"
 
 int	initialize_data(t_data *data)
 {
@@ -26,6 +27,12 @@ int	initialize_data(t_data *data)
 	data->mlx = NULL;
 	data->map = NULL;
 	data->texture_names = ft_calloc(5, sizeof(char *));
+	data->texture_names = ft_calloc(5, sizeof(char *));
+	data->door_last_open = 0;
+	data->door_coordinates.x = 0;
+	data->door_coordinates.y = 0;
+	data->sprite = NULL;
+	data->texture_names = ft_calloc(4, sizeof(char *));
 	while (x < WIDTH)
 	{
 		data->normalized_x[x] = (2.0 * (double)x / (double)WIDTH) - 1.0;

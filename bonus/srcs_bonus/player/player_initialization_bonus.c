@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   player_initialization_bonus.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 20:46:22 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/23 16:30:50 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:18:20 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda_bonus.h"
+#include "data_bonus.h"
 
 static void	assign_direction(t_data *data, int x, int y)
 {
@@ -43,6 +43,7 @@ void	init_player(t_data *data)
 	bool	is_position_set;
 
 	y = 0;
+	x = 0;
 	is_position_set = false;
 	while (y < data->map_height && is_position_set == false)
 	{

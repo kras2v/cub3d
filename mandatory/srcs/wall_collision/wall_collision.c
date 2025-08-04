@@ -1,16 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wall_colision.c                                    :+:      :+:    :+:   */
+/*   wall_collision.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 22:16:28 by valeriia          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/07/22 16:27:05 by eklymova         ###   ########.fr       */
+=======
+/*   Updated: 2025/07/29 12:26:20 by kvalerii         ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda.h"
+#include "data.h"
 
 void	assign_player_sides(t_player *player)
 {

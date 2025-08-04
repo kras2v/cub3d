@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   door_events.c                                      :+:      :+:    :+:   */
+/*   door_events_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 17:35:13 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/28 11:54:09 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:17:57 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda_bonus.h"
+#include "data_bonus.h"
 
 static bool	player_in_the_door(t_data *data)
 {
-	return (fabs(data->player.position.x - (double)data->door_coordinates.x) <= 1.5
-	&& fabs(data->player.position.y - (double)data->door_coordinates.y) <= 1.5);
+	return (fabs(data->player.position.x
+			- (double)data->door_coordinates.x) <= 1.5
+		&& fabs(data->player.position.y
+			- (double)data->door_coordinates.y) <= 1.5);
 }
 
 void	close_door(t_data *data)

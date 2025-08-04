@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   map_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 10:50:49 by kvalerii          #+#    #+#             */
 /*   Updated: 2025/07/22 16:26:24 by eklymova         ###   ########.fr       */
+=======
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/17 10:50:49 by kvalerii          #+#    #+#             */
+/*   Updated: 2025/08/03 12:12:37 by valeriia         ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda.h"
+#include "data.h"
 #include <unistd.h>
 #include <fcntl.h>
 
@@ -19,7 +26,7 @@ void	free_double_arr(char **map)
 	int	i;
 
 	i = 0;
-	if (!map || !*map)
+	if (!map)
 		return ;
 	while (map[i])
 		free(map[i++]);

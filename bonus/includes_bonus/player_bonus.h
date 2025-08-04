@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.h                                           :+:      :+:    :+:   */
+/*   player_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:55:52 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/28 12:15:04 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:17:42 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PLAYER_BONUS_H
 # define PLAYER_BONUS_H
 
-# include "math_helpers.h"
+# include "math_helpers_bonus.h"
 
 # define PLAYER_SIZE 8
 

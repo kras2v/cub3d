@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   texture_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 12:04:32 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/28 12:15:24 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:17:47 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TEXTURE_BONUS_H
 # define TEXTURE_BONUS_H
 
-# include "image.h"
+# include "image_bonus.h"
 
 typedef enum e_direction
 {

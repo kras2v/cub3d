@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_handler_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 12:17:37 by kvalerii          #+#    #+#             */
+<<<<<<<< HEAD:bonus/srcs_bonus/mlx/mlx_handler_bonus.c
 /*   Updated: 2025/07/23 17:15:45 by kvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "dda_bonus.h"
+========
+/*   Updated: 2025/07/29 12:25:40 by kvalerii         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "data.h"
+>>>>>>>> main:mandatory/srcs/mlx/mlx_handler.c
+=======
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/17 12:17:37 by kvalerii          #+#    #+#             */
+/*   Updated: 2025/08/03 12:13:23 by valeriia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "data_bonus.h"
+>>>>>>> main
 
 static char	*choose_texture_name(t_data *data, int i)
 {
@@ -67,12 +86,24 @@ static int	upload_textures(t_data *data)
 	int		texture_number;
 
 	texture_number = 0;
+<<<<<<< HEAD
+<<<<<<<< HEAD:bonus/srcs_bonus/mlx/mlx_handler_bonus.c
 	data->texture_params = ft_calloc(5, sizeof(t_texture_params));
+========
+	data->texture_params = ft_calloc(4, sizeof(t_texture_params));
+>>>>>>>> main:mandatory/srcs/mlx/mlx_handler.c
+=======
+	data->texture_params = ft_calloc(5, sizeof(t_texture_params));
+>>>>>>> main
 	if (data->texture_params == NULL)
 	{
 		return (close_on_error(data, NULL), 1);
 	}
+<<<<<<< HEAD
+	while (texture_number < 4)
+=======
 	while (texture_number < 5)
+>>>>>>> main
 	{
 		convert_file_to_mlx_image(data, texture_number);
 		get_image_data_address(data, texture_number);

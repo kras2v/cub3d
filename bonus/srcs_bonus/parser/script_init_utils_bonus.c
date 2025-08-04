@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   script_init_utils_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:58:24 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/23 17:13:57 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:18:18 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda_bonus.h"
+#include "data_bonus.h"
 
 void	textures_init(t_data *data, char *line, char c)
 {
@@ -33,8 +33,7 @@ void	textures_init(t_data *data, char *line, char c)
 		data->texture_names[S] = ft_strdup(line);
 	else
 	{
-		printf("Double textures\n");
-		close_event(data);
+		close_on_error(data, "Double textures\n");
 	}
 }
 
@@ -62,8 +61,7 @@ void	colors_init(t_data *data, char *line, char c)
 	}
 	else
 	{
-		printf("Double textures\n");
-		close_event(data);
+		close_on_error(data, "Double textures\n");
 	}
 }
 

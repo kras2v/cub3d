@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   display_game_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 12:19:21 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/23 17:35:07 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:17:49 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda_bonus.h"
+#include "data_bonus.h"
 
 int	display(t_data *data)
 {

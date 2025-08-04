@@ -6,11 +6,15 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/26 16:01:26 by eklymova          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/07/22 16:26:50 by eklymova         ###   ########.fr       */
+=======
+/*   Updated: 2025/07/29 12:26:23 by kvalerii         ###   ########.fr       */
+>>>>>>> main
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda.h"
+#include "data.h"
 
 int	counter(char **map, char c)
 {

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wall_colision_bonus.c                              :+:      :+:    :+:   */
+/*   wall_collision_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 22:16:28 by valeriia          #+#    #+#             */
-/*   Updated: 2025/07/23 16:30:50 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/04 16:18:31 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dda_bonus.h"
+#include "data_bonus.h"
 
 void	assign_player_sides(t_player *player)
 {
