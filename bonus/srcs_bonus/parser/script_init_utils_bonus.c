@@ -6,7 +6,7 @@
 /*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:58:24 by valeriia          #+#    #+#             */
-/*   Updated: 2025/08/04 20:03:07 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/08/04 20:51:45 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ void	colors_init(t_data *data, char *line, char c)
 	comma = 0;
 	p_line = line;
 	p_line += 1;
-	while (*p_line && *p_line == ' ')
-		p_line++;
-	while (*line)
+	while (*++line)
 	{
 		if (*line == ',')
 			comma++;
-		line++;
+		if (!(ft_isdigit(*line) || *line == ',' || *line == ' '
+				|| (*line >= 9 && *line <= 13)))
+			close_on_error(data, "Wrong color\n");
 	}
 	if (comma != 2)
 		close_on_error(data, "Wrong commas\n");
