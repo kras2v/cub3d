@@ -38,6 +38,7 @@ typedef struct s_data
 	t_sprite			*sprite;
 	char				**script;
 	char				**map;
+	int					map_start_line;
 	char				**texture_names;
 	char				*door;
 	int					f;
@@ -100,6 +101,8 @@ int					move_player(int keycode, t_data *data);
 char				**read_map(t_data *data, char *map_script);
 void				free_double_arr(char **map);
 void				free_until_end(char **strings, int y);
+void				count_lines(t_data *data, int fd);
+void				read_actual_map(t_data *data, char *map_script);
 
 //MINIMAP UTILS
 double				convert_to_minimap_coordinates(double position);
