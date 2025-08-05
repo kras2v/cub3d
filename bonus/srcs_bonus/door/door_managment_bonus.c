@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door_managment_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 18:29:51 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/29 12:31:19 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/05 11:17:52 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	is_door(int coordinate)
 	return (coordinate == DOOR);
 }
 
-static bool	cast_flashlight_ray(
+static bool	is_door_nearby(
 	t_data *data,
 	t_fvector dir,
 	int map_width,
@@ -73,7 +73,7 @@ void	open_door(t_data *data)
 	{
 		a = param.start + i * param.step_angle;
 		rotate(&dir, data->player.direction, a);
-		if (cast_flashlight_ray(data, dir,
+		if (is_door_nearby(data, dir,
 				data->map_width, data->map_height))
 			return ;
 	}
