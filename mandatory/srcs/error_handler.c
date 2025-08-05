@@ -6,7 +6,7 @@
 /*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 14:05:28 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/08/03 09:43:05 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/08/05 13:21:39 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,20 @@ void	free_mlx_data(void *mlx, void *img, void *mlx_win)
 		mlx_destroy_image(mlx, img);
 	if (mlx_win)
 		mlx_destroy_window(mlx, mlx_win);
+}
+
+void	free_until_end(char **strings, int y)
+{
+	y++;
+	while (strings[y])
+	{
+		if (strings[y])
+		{
+			free(strings[y]);
+			strings[y] = NULL;
+		}
+		y++;
+	}
 }
 
 void	free_textures(t_data *data)

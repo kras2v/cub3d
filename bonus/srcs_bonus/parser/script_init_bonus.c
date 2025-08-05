@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   script_init_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 13:37:22 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/29 12:31:21 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/05 13:28:09 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,25 @@ static char	*ft_strappend(char *s1, char *s2)
 	if (!s1 && !s2)
 		return (NULL);
 	if (!s1)
-		return (ft_strdup(s2));
+	{
+		res = ft_strdup(s2);
+		free(s2);
+		return (res);
+	}
 	if (!s2)
-		return (ft_strdup(s1));
+	{
+		res = ft_strdup(s1);
+		free(s1);
+		return (res);
+	}
 	res = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
 	if (!res)
-		return (NULL);
+		return (free(s1), free(s2), NULL);
 	p_res = res;
 	p_res = ft_join(p_res, s1);
 	p_res = ft_join(p_res, s2);
 	*p_res = '\0';
-	free(s1);
-	free(s2);
-	return (res);
+	return (free(s1), free(s2), res);
 }
 
 static char	*make_filled_line(char c, int lenght)
@@ -76,10 +82,11 @@ static char	*make_filled_line(char c, int lenght)
 	return (line);
 }
 
-void	replace_null_terminated_strings(t_data *data, char **strings)
+int	replace_null_terminated_strings(t_data *data, char **strings)
 {
-	int	y;
-	int	line_len;
+	int		y;
+	int		line_len;
+	char	*filled_line;
 
 	y = 0;
 	while (strings[y] != NULL)
@@ -87,9 +94,14 @@ void	replace_null_terminated_strings(t_data *data, char **strings)
 		line_len = ft_strlen(strings[y]);
 		if (line_len < data->map_width)
 		{
-			strings[y] = ft_strappend(strings[y],
-					make_filled_line(SPACE, data->map_width - line_len));
+			filled_line = make_filled_line(SPACE, data->map_width - line_len);
+			if (filled_line == NULL)
+				return (-1);
+			strings[y] = ft_strappend(strings[y], filled_line);
+			if (strings[y] == NULL)
+				return (free_until_end(strings, y), -1);
 		}
 		y++;
 	}
+	return (0);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   errors_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kvalerii <kvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 12:08:58 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/07/28 12:14:23 by kvalerii         ###   ########.fr       */
+/*   Updated: 2025/08/05 12:43:46 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define ERRORS_BONUS_H
 
 # define PLAYER_ERR			"Player must be just 1\n"
+# define MEM_ERR			"Malloc fail\n"
 # define MISSING_ATTR		"Texture paths or colors are missing\n"
 # define INVALID_CHAR		"Invalid char in file\n"
 # define MAP_UNCLOSED_ERR	"Map unclosed\n"

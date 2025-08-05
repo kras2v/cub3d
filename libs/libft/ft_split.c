@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:05:23 by eklymova          #+#    #+#             */
-/*   Updated: 2024/10/29 15:31:11 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/08/05 13:24:15 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,21 +81,3 @@ char	**ft_split(char const *s, char c)
 	arr[i] = NULL;
 	return (arr);
 }
-// int main()
-// {
-//     const char *str = "Hello, this is a test string.";
-//     char delimiter = ' ';
-//     // Split the string
-//     char **result = ft_split(str, delimiter);
-//     if (!result) {
-//         printf("Memory allocation failed!\n");
-//         return 1;
-//     }
-//     // Print the result
-//     for (size_t i = 0; result[i] != NULL; i++) {
-//         printf("Substring %zu: \"%s\"\n", i, result[i]);
-//         free(result[i]);  // Free each substring after use
-//     }
-//     free(result);  // Free the array of substrings
-//     return 0;
-// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 20:24:32 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/08/04 20:02:36 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/08/05 13:29:46 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ t_colors	find_color(t_data *data, char *input_clr)
 		free_double_arr(lekkereclrs);
 		return (close_on_error(data, COLOR_ERR), 0);
 	}
-	if (lekkereclrs)
-		free_double_arr(lekkereclrs);
+	free_double_arr(lekkereclrs);
 	lekkereclrs = NULL;
 	color = (r << 16) | (g << 8) | b;
 	return (color);

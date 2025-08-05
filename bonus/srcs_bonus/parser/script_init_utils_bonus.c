@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   script_init_utils_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 20:58:24 by valeriia          #+#    #+#             */
-/*   Updated: 2025/08/04 20:51:45 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/08/05 12:50:54 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	textures_init(t_data *data, char *line, char c)
 		line++;
 	dline = ft_strdup(line);
 	if (!dline)
-		close_on_error(data, "Malloc fail\n");
+		close_on_error(data, MEM_ERR);
 	if (c == 'N' && !data->texture_names[N])
 		data->texture_names[N] = dline;
 	else if (c == 'E' && !data->texture_names[E])
@@ -93,7 +93,8 @@ void	map_init(
 {
 	data->map = &data->script[y];
 	assign_map_params(data);
-	replace_null_terminated_strings(data, data->map);
+	if (replace_null_terminated_strings(data, data->map) == -1)
+		close_on_error(data, MEM_ERR);
 }
 
 bool	is_script_valid(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 16:25:25 by eklymova          #+#    #+#             */
-/*   Updated: 2025/08/03 09:31:01 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/08/05 13:21:31 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,20 @@ void	free_textures(t_data *data)
 			i++;
 		}
 		free(data->texture_params);
+	}
+}
+
+void	free_until_end(char **strings, int y)
+{
+	y++;
+	while (strings[y])
+	{
+		if (strings[y])
+		{
+			free(strings[y]);
+			strings[y] = NULL;
+		}
+		y++;
 	}
 }
 

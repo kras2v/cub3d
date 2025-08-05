@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:05:08 by eklymova          #+#    #+#             */
-/*   Updated: 2024/10/29 14:44:25 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/08/05 12:44:03 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,3 @@ char	*ft_itoa(int n)
 	}
 	return (arr);
 }
-// int main() 
-// {
-//     int numbers[] = {0, 42, -42, 123456, -123456, -2147483648, 2147483647};
-//     size_t count = sizeof(numbers) / sizeof(numbers[0]);
-
-//     for (size_t i = 0; i < count; i++) {
-//         char *str = ft_itoa(numbers[i]);
-//         if (str) {
-//             printf("ft_itoa(%d) = \"%s\"\n", numbers[i], str);
-//         } else {
-//             printf("ft_itoa(%d) failed to allocate memory.\n", numbers[i]);
-//         }
-//     }
-//     return 0;
-// }

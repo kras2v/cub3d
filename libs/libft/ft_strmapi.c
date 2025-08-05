@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
+/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 17:05:32 by eklymova          #+#    #+#             */
-/*   Updated: 2024/10/29 15:06:53 by eklymova         ###   ########.fr       */
+/*   Updated: 2025/08/05 12:44:33 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,3 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	str[i] = '\0';
 	return (str);
 }
-// char to_upp(char c) 
-// {
-//     if (c >= 'a' && c <= 'z') 
-// 	{
-//         return c - 32;
-//     }
-//     return c;
-// }
-
-// int main() 
-// {
-//     const char *str = "hello, world!";
-//     printf("Original string: %s\n", str);
-//     char *transformed_str = ft_strmapi(str, to_upp);
-//     if (transformed_str)
-// 	{
-//         printf("Transformed string: %s\n", transformed_str);
-//     }
-// }

@@ -6,7 +6,7 @@
 /*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 11:55:52 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/08/03 09:39:49 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/08/05 13:20:51 by valeriia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int					move_player(int keycode, t_data *data);
 // READ MAP
 char				**read_map(t_data *data, char *map_script);
 void				free_double_arr(char **map);
+void				free_until_end(char **strings, int y);
 
 //MINIMAP UTILS
 double				convert_to_minimap_coordinates(double position);
@@ -113,7 +114,7 @@ bool				char_counter(t_data *data);
 
 // SCRIPT
 bool				is_map_line(char *line);
-void				replace_null_terminated_strings(t_data *data,
+int					replace_null_terminated_strings(t_data *data,
 						char **strings);
 bool				is_script_valid(t_data *data);
 
