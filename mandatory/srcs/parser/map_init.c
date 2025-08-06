@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 10:50:49 by kvalerii          #+#    #+#             */
-/*   Updated: 2025/08/03 12:12:37 by valeriia         ###   ########.fr       */
+/*   Updated: 2025/08/06 16:37:21 by eklymova         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,94 +86,4 @@ char	**read_map(
 	if (!map_array)
 		return (close_on_error(data, NULL), NULL);
 	return (map_array);
-}
-
-bool	is_map_line_valid(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] != ' ' && line[i] != '0' && line[i] != '1')
-			return (line[i] == '\n' && !line[i + 1] && i > 0);
-		i++;
-	}
-	return (true);
-}
-
-void	count_lines(t_data *data, int fd)
-{
-	int		count;
-	char	*line;
-	bool	start_count;
-	int		total_counter;
-
-	total_counter = 0;
-	start_count = 0;
-	count = 0;
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		if (!start_count && is_map_line_valid(line))
-		{
-			data->map_start_line = total_counter;
-			start_count = 1;
-		}
-		if (start_count)
-			count++;
-		total_counter++;
-		free(line);
-	}
-	close (fd);
-}
-
-
-void	read_actual_map(
-	t_data *data,
-	char *map_script
-)
-{
-	int		fd;
-	char	*line;
-	int		total_counter;
-
-	total_counter = 0;
-	fd = open(map_script, O_RDONLY);
-	if (fd == -1)
-		close_on_error(data, NULL);
-	count_lines(data, fd);
-	fd = open(map_script, O_RDONLY);
-	if (fd == -1)
-		close_on_error(data, NULL);
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		if (total_counter < data->map_start_line)
-		{
-			total_counter++;
-			free(line);
-			continue ;
-		}
-		if (*line == '\n')
-		{
-			free(line);
-			close(fd);
-			while (1)
-			{
-				line = get_next_line(fd);
-				if (!line)
-					break ;
-				free(line);
-			}
-			close_on_error(data, "New line in map\n");
-		}
-		free(line);
-		total_counter++;
-	}
-	close(fd);
 }

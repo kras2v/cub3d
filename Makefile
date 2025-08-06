@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: valeriia <valeriia@student.42.fr>          +#+  +:+       +#+         #
+#    By: eklymova <eklymova@student.codam.nl>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/19 16:22:08 by kvalerii          #+#    #+#              #
-#    Updated: 2025/08/03 09:25:45 by valeriia         ###   ########.fr        #
+#    Updated: 2025/08/06 16:40:26 by eklymova         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ SRCS =	main.c \
 		validation/map_validation.c \
 		validation/map_char_validation.c \
 		validation/map_walls_checker.c \
+		validation/map_n_valid.c \
 		flashlight/flashlight_utils.c \
 		player/movement.c \
 		player/player_initialization.c \
@@ -88,6 +89,7 @@ SRCS_BONUS =	main_bonus.c \
 				validation/map_validation_bonus.c \
 				validation/map_char_validation_bonus.c \
 				validation/map_walls_checker_bonus.c \
+				validation/map_n_valid_bonus.c \
 				flashlight/flashlight_utils_bonus.c \
 				player/movement_bonus.c \
 				player/player_initialization_bonus.c \
